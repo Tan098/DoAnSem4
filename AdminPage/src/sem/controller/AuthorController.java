@@ -22,7 +22,7 @@ public class AuthorController {
 		List<sem_author> list = authorDao.getAuthors(offset == null ?0:offset,maxResult==null?15:maxResult);
 		model.addAttribute("list", list);
 
-		return "listBook";
+		return "listAuthors";
 	}
 
 	@RequestMapping("/initInsertAuthor")
@@ -34,7 +34,7 @@ public class AuthorController {
 	}
 
 	@RequestMapping("/insertAuthor")
-	public String insertBook(@ModelAttribute("a") sem_author a, Model model) {
+	public String insertAuthor(@ModelAttribute("a") sem_author a, Model model) {
 		boolean bl = authorDao.insertAuthor(a);
 		if (bl) {
 			return "redirect:/listAuthors";
@@ -86,6 +86,6 @@ public class AuthorController {
 		}
 		List<sem_author> list = authorDao.getAuthors(offset == null ?0:offset,maxResult==null?15:maxResult);
 		model.addAttribute("list", list);
-		return "listAuthor";
+		return "listAuthors";
 	}
 }

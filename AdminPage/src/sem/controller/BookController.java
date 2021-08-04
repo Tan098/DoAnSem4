@@ -27,7 +27,7 @@ public class BookController {
 		model.addAttribute("list", list);
 		
 		
-		return "listBook";
+		return "listBooks";
 	}
 
 	@RequestMapping("/initInsertBook")
@@ -100,6 +100,6 @@ public class BookController {
 		}
 		List<sem_book> list = bookDao.getBooks(offset == null ?0:offset,maxResult==null?15:maxResult);
 		model.addAttribute("list", list);
-		return "listBook";
+		return "listBooks";
 	}
 }
