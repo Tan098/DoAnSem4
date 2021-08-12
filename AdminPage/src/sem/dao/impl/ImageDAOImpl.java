@@ -14,9 +14,14 @@ import sem.entities.sem_image;
 public class ImageDAOImpl implements ImageDAO{
 	@Autowired
 	private SessionFactory sessionFactory;
+	
+	/** Nhớ copy cái đoạn ở dưới này rồi pase vô tất cả cái DAOImpl nào có sessionFactory **/
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
 
 	@Override
-	public List<sem_image> Image(Integer pageIndex, Integer pageSize) {
+	public List<sem_image> getImages(Integer pageIndex, Integer pageSize) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		try {
@@ -95,6 +100,27 @@ public class ImageDAOImpl implements ImageDAO{
 			session.close();
 		}
 		return false;
+	}
+
+	@Override
+	public sem_image getImageById(Integer id) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.openSession();
+		try {
+			session.beginTransaction();
+			sem_image b = (sem_image) session.createQuery("from sem_image where id = :id")
+			.setParameter("id", id)
+			.uniqueResult();
+			session.getTransaction().commit();
+			session.close();
+			return b;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			session.getTransaction().rollback();
+			session.close();
+		}
+		return null;
 	}
 
 }

@@ -17,7 +17,7 @@ public class CartController {
 	@Autowired
 	private CartDAO cartDao;
 
-	@RequestMapping(value = { "/listCarts", "/" })
+	@RequestMapping(value = "/listCarts")
 	public String listCarts(Integer offset, Integer maxResult,Model model) {
 		List<sem_cart> list = cartDao.getCarts(offset == null ?0:offset,maxResult==null?15:maxResult);
 		model.addAttribute("list", list);
@@ -47,7 +47,7 @@ public class CartController {
 		}
 	}
 
-	@RequestMapping("/initUpdate")
+	@RequestMapping("/initUpdateCart")
 	public String initUpdate(@RequestParam("id") Integer id, Model model) {
 		sem_cart cartById = cartDao.getCartById(id);
 		model.addAttribute("c", cartById);

@@ -1,5 +1,6 @@
 package sem.entities;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -11,7 +12,12 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "sem_order")
-public class sem_order {
+public class sem_order implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@Column(name = "id")
 	private int id;
@@ -28,8 +34,8 @@ public class sem_order {
 	@Column(name = "phonenumbers")
 	private String phonenumbers;
 
-	@JoinColumn(name = "customer", referencedColumnName = "id")
 	@ManyToOne
+	@JoinColumn(name = "customer", referencedColumnName = "id")
 	private sem_customer customer;
 	
 	@Column(name = "totalprice")
@@ -165,5 +171,12 @@ public class sem_order {
 	 */
 	public void setStatus(Boolean status) {
 		this.status = status;
+	}
+
+	/**
+	 * @return the serialversionuid
+	 */
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}	
 }

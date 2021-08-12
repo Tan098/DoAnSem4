@@ -1,30 +1,39 @@
 package sem.entities;
 
+import java.io.Serializable;
+
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "sem_category_book")
-public class sem_category_book {
-	@Id
-	@JoinColumn(name = "book", referencedColumnName = "id")
-	@ManyToOne
-	private sem_book book;
+public class sem_category_book implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
-	@Id
-	@JoinColumn(name = "category", referencedColumnName = "id")
-	@ManyToOne
-	private sem_category category;
+	@EmbeddedId
+	private sem_category_book_pk category_book_pk;
 
+	@ManyToOne
+	@JoinColumn(name = "book", referencedColumnName = "id", insertable = false, updatable = false)	
+	private sem_book book;
+
+	@ManyToOne
+	@JoinColumn(name = "category", referencedColumnName = "id", insertable = false, updatable = false)
+	private sem_category category;
+	
 	public sem_category_book() {
 		super();
 	}
 
-	public sem_category_book(sem_book book, sem_category category) {
+	public sem_category_book(sem_category_book_pk category_book_pk, sem_book book, sem_category category) {
 		super();
+		this.category_book_pk = category_book_pk;
 		this.book = book;
 		this.category = category;
 	}
@@ -55,5 +64,26 @@ public class sem_category_book {
 	 */
 	public void setCategory(sem_category category) {
 		this.category = category;
+	}
+
+	/**
+	 * @return the category_book_pk
+	 */
+	public sem_category_book_pk getCategory_book_pk() {
+		return category_book_pk;
+	}
+
+	/**
+	 * @param category_book_pk the category_book_pk to set
+	 */
+	public void setCategory_book_pk(sem_category_book_pk category_book_pk) {
+		this.category_book_pk = category_book_pk;
+	}
+
+	/**
+	 * @return the serialversionuid
+	 */
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 }

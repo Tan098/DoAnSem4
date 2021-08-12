@@ -14,6 +14,12 @@ import sem.entities.sem_author;
 public class AuthorDAOImpl implements AuthorDAO{
 	@Autowired
 	private SessionFactory sessionFactory;
+	
+	/** Nhớ copy cái đoạn ở dưới này rồi pase vô tất cả cái DAOImpl nào có sessionFactory **/
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+	
 	@Override
 	public List<sem_author> getAuthors(Integer offset, Integer maxResult) {
 		// TODO Auto-generated method stub

@@ -17,7 +17,7 @@ public class AccountController {
 	@Autowired
 	private AccountDAO accountDao;
 
-	@RequestMapping(value = { "/listAccounts", "/" })
+	@RequestMapping(value = "/listAccounts")
 	public String listAccounts(Model model) {
 		List<sem_account> list = accountDao.getAccounts();
 		model.addAttribute("list", list);

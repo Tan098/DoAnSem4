@@ -16,6 +16,11 @@ public class CategoryDAOImpl implements CategoryDAO{
 	@Autowired
 	private SessionFactory sessionFactory;
 	
+	/** Nhớ copy cái đoạn ở dưới này rồi pase vô tất cả cái DAOImpl nào có sessionFactory **/
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+	
 	@Override
 	public List<sem_category> getCategories(Integer pageIndex, Integer pageSize) {
 		// TODO Auto-generated method stub

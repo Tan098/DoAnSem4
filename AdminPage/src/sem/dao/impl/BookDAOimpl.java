@@ -9,20 +9,24 @@ import org.springframework.stereotype.Repository;
 
 import sem.dao.BookDAO;
 import sem.entities.sem_book;
+
 @Repository
-public class BookDAOimpl implements BookDAO{
+public class BookDAOimpl implements BookDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
+
+	/** Nhớ copy cái đoạn ở dưới này rồi pase vô tất cả cái DAOImpl nào có sessionFactory **/
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+
 	@Override
 	public List<sem_book> getBooks(Integer offset, Integer maxResult) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			List list = session.createQuery("from sem_book")
-					.setFirstResult(offset)
-					.setMaxResults(maxResult)
-					.list();
+			List list = session.createQuery("from sem_book").setFirstResult(offset).setMaxResults(maxResult).list();
 			session.getTransaction().commit();
 			session.close();
 			return list;
@@ -34,6 +38,7 @@ public class BookDAOimpl implements BookDAO{
 		}
 		return null;
 	}
+
 	@Override
 	public boolean insertBook(sem_book b) {
 		Session session = sessionFactory.openSession();
@@ -51,15 +56,15 @@ public class BookDAOimpl implements BookDAO{
 		}
 		return false;
 	}
+
 	@Override
 	public sem_book getBookById(Integer id) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			sem_book b = (sem_book) session.createQuery("from sem_book where id = :id")
-			.setParameter("id", id)
-			.uniqueResult();
+			sem_book b = (sem_book) session.createQuery("from sem_book where id = :id").setParameter("id", id)
+					.uniqueResult();
 			session.getTransaction().commit();
 			session.close();
 			return b;
@@ -71,6 +76,7 @@ public class BookDAOimpl implements BookDAO{
 		}
 		return null;
 	}
+
 	@Override
 	public boolean updateBook(sem_book b) {
 		Session session = sessionFactory.openSession();
@@ -88,18 +94,17 @@ public class BookDAOimpl implements BookDAO{
 		}
 		return false;
 	}
+
 	@Override
 	public boolean deleteBook(Integer id) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			int i = session.createQuery("delete from sem_book where id = :id")
-			.setParameter("id",id)
-			.executeUpdate();
+			int i = session.createQuery("delete from sem_book where id = :id").setParameter("id", id).executeUpdate();
 			session.getTransaction().commit();
 			session.close();
-			if (i>0) 
+			if (i > 0)
 				return true;
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -109,6 +114,4 @@ public class BookDAOimpl implements BookDAO{
 		}
 		return false;
 	}
-
-
 }
