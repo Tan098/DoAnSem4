@@ -2,7 +2,6 @@ package sem.dao;
 
 import java.util.List;
 
-import sem.entities.sem_author;
 import sem.entities.sem_cart;
 
 public interface CartDAO {

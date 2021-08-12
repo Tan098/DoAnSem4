@@ -1,5 +1,6 @@
 package sem.entities;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -11,7 +12,12 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "sem_customer")
-public class sem_customer {
+public class sem_customer implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@Column(name = "id")
 	private int id;
@@ -182,5 +188,12 @@ public class sem_customer {
 	 */
 	public void setSem_orders(List<sem_order> sem_orders) {
 		this.sem_orders = sem_orders;
+	}
+
+	/**
+	 * @return the serialversionuid
+	 */
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 }

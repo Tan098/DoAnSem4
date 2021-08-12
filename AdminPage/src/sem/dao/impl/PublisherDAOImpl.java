@@ -5,12 +5,11 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
-import sem.dao.CartDAO;
-import sem.entities.sem_cart;
-@Repository
-public class CartDAOImpl implements CartDAO{
+import sem.dao.PublisherDAO;
+import sem.entities.sem_publisher;
+
+public class PublisherDAOImpl implements PublisherDAO{
 	@Autowired
 	private SessionFactory sessionFactory;
 	
@@ -20,14 +19,12 @@ public class CartDAOImpl implements CartDAO{
 	}
 	
 	@Override
-	public List<sem_cart> getCarts(Integer offset, Integer maxResult) {
+	public List<sem_publisher> getPublishers() {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			List list = session.createQuery("from sem_cart")
-					.setFirstResult(offset)
-					.setMaxResults(maxResult)
+			List list = session.createQuery("from sem_publisher")
 					.list();
 			session.getTransaction().commit();
 			session.close();
@@ -40,73 +37,17 @@ public class CartDAOImpl implements CartDAO{
 		}
 		return null;
 	}
+
 	@Override
-	public boolean insertCart(sem_cart c) {
-		Session session = sessionFactory.openSession();
-		try {
-			session.beginTransaction();
-			session.save(c);
-			session.getTransaction().commit();
-			session.close();
-			return true;
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-			session.getTransaction().rollback();
-			session.close();
-		}
-		return false;
-	}
-	@Override
-	public sem_cart getCartById(Integer id) {
+	public boolean insertPublisher(sem_publisher p) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			sem_cart c = (sem_cart) session.createQuery("from sem_cart where id = :id")
-			.setParameter("id", id)
-			.uniqueResult();
-			session.getTransaction().commit();
-			session.close();
-			return c;
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-			session.getTransaction().rollback();
-			session.close();
-		}
-		return null;
-	}
-	@Override
-	public boolean updateCart(sem_cart c) {
-		Session session = sessionFactory.openSession();
-		try {
-			session.beginTransaction();
-			session.update(c);
+			session.save(p);
 			session.getTransaction().commit();
 			session.close();
 			return true;
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-			session.getTransaction().rollback();
-			session.close();
-		}
-		return false;
-	}
-	@Override
-	public boolean deleteCart(Integer id) {
-		// TODO Auto-generated method stub
-		Session session = sessionFactory.openSession();
-		try {
-			session.beginTransaction();
-			int i = session.createQuery("delete from sem_cart where id = :id")
-			.setParameter("id",id)
-			.executeUpdate();
-			session.getTransaction().commit();
-			session.close();
-			if (i>0) 
-				return true;
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -116,5 +57,23 @@ public class CartDAOImpl implements CartDAO{
 		return false;
 	}
 
+	@Override
+	public boolean updatePublisher(sem_publisher p) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.openSession();
+		try {
+			session.beginTransaction();
+			session.update(p);
+			session.getTransaction().commit();
+			session.close();
+			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			session.getTransaction().rollback();
+			session.close();
+		}
+		return false;
+	}
 
 }
