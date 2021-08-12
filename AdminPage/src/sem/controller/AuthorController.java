@@ -17,12 +17,12 @@ public class AuthorController {
 	@Autowired
 	private AuthorDAO authorDao;
 
-	@RequestMapping(value = { "/listAuthors", "/" })
+	@RequestMapping(value = "/listAuthors")
 	public String listAuthors(Model model,Integer offset, Integer maxResult) {
 		List<sem_author> list = authorDao.getAuthors(offset == null ?0:offset,maxResult==null?15:maxResult);
 		model.addAttribute("list", list);
 
-		return "listBook";
+		return "listAuthors";
 	}
 
 	@RequestMapping("/initInsertAuthor")
@@ -34,7 +34,7 @@ public class AuthorController {
 	}
 
 	@RequestMapping("/insertAuthor")
-	public String insertBook(@ModelAttribute("a") sem_author a, Model model) {
+	public String insertAuthor(@ModelAttribute("a") sem_author a, Model model) {
 		boolean bl = authorDao.insertAuthor(a);
 		if (bl) {
 			return "redirect:/listAuthors";
@@ -46,7 +46,7 @@ public class AuthorController {
 		}
 	}
 
-	@RequestMapping("/initUpdate")
+	@RequestMapping("/initUpdateAuthor")
 	public String initUpdate(@RequestParam("id") Integer id, Model model) {
 		sem_author authorById = authorDao.getAuthorById(id);
 		model.addAttribute("a", authorById);
@@ -86,6 +86,6 @@ public class AuthorController {
 		}
 		List<sem_author> list = authorDao.getAuthors(offset == null ?0:offset,maxResult==null?15:maxResult);
 		model.addAttribute("list", list);
-		return "listAuthor";
+		return "listAuthors";
 	}
 }

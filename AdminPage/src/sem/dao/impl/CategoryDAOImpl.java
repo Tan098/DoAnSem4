@@ -7,11 +7,12 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import sem.dao.AuthorDAO;
-import sem.entities.sem_author;
+import sem.dao.CategoryDAO;
+import sem.entities.sem_account;
+import sem.entities.sem_category;
 
 @Repository
-public class AuthorDAOImpl implements AuthorDAO{
+public class CategoryDAOImpl implements CategoryDAO{
 	@Autowired
 	private SessionFactory sessionFactory;
 	
@@ -21,14 +22,14 @@ public class AuthorDAOImpl implements AuthorDAO{
 	}
 	
 	@Override
-	public List<sem_author> getAuthors(Integer offset, Integer maxResult) {
+	public List<sem_category> getCategories(Integer pageIndex, Integer pageSize) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			List list = session.createQuery("from sem_author")
-					.setFirstResult(offset)
-					.setMaxResults(maxResult)
+			List list = session.createQuery("from sem_category")
+					.setFirstResult(pageIndex)
+					.setMaxResults(pageSize)
 					.list();
 			session.getTransaction().commit();
 			session.close();
@@ -41,12 +42,14 @@ public class AuthorDAOImpl implements AuthorDAO{
 		}
 		return null;
 	}
+
 	@Override
-	public boolean insertAuthor(sem_author a) {
+	public boolean insertCategory(sem_category c) {
+		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			session.save(a);
+			session.save(c);
 			session.getTransaction().commit();
 			session.close();
 			return true;
@@ -58,13 +61,33 @@ public class AuthorDAOImpl implements AuthorDAO{
 		}
 		return false;
 	}
+
 	@Override
-	public sem_author getAuthorById(Integer id) {
+	public boolean updateCategory(sem_category c) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			sem_author b = (sem_author) session.createQuery("from sem_author where id = :id")
+			session.update(c);
+			session.getTransaction().commit();
+			session.close();
+			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			session.getTransaction().rollback();
+			session.close();
+		}
+		return false;
+	}
+
+	@Override
+	public sem_category getCategoryById(Integer id) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.openSession();
+		try {
+			session.beginTransaction();
+			sem_category b = (sem_category) session.createQuery("from sem_category where id = :id")
 			.setParameter("id", id)
 			.uniqueResult();
 			session.getTransaction().commit();
@@ -78,44 +101,5 @@ public class AuthorDAOImpl implements AuthorDAO{
 		}
 		return null;
 	}
-	@Override
-	public boolean updateAuthor(sem_author a) {
-		Session session = sessionFactory.openSession();
-		try {
-			session.beginTransaction();
-			session.update(a);
-			session.getTransaction().commit();
-			session.close();
-			return true;
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-			session.getTransaction().rollback();
-			session.close();
-		}
-		return false;
-	}
-	@Override
-	public boolean deleteAuthor(Integer id) {
-		// TODO Auto-generated method stub
-		Session session = sessionFactory.openSession();
-		try {
-			session.beginTransaction();
-			int i = session.createQuery("delete from sem_author where id = :id")
-			.setParameter("id",id)
-			.executeUpdate();
-			session.getTransaction().commit();
-			session.close();
-			if (i>0) 
-				return true;
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-			session.getTransaction().rollback();
-			session.close();
-		}
-		return false;
-	}
-
 
 }

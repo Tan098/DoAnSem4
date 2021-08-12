@@ -7,11 +7,12 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import sem.dao.AuthorDAO;
-import sem.entities.sem_author;
+import sem.dao.OrderDAO;
+import sem.entities.sem_category;
+import sem.entities.sem_order;
 
 @Repository
-public class AuthorDAOImpl implements AuthorDAO{
+public class OrderDAOImpl implements OrderDAO{
 	@Autowired
 	private SessionFactory sessionFactory;
 	
@@ -19,16 +20,16 @@ public class AuthorDAOImpl implements AuthorDAO{
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-	
+
 	@Override
-	public List<sem_author> getAuthors(Integer offset, Integer maxResult) {
+	public List<sem_order> getOrders(Integer pageIndex, Integer pageSize) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			List list = session.createQuery("from sem_author")
-					.setFirstResult(offset)
-					.setMaxResults(maxResult)
+			List list = session.createQuery("from sem_order")
+					.setFirstResult(pageIndex)
+					.setMaxResults(pageSize)
 					.list();
 			session.getTransaction().commit();
 			session.close();
@@ -41,73 +42,17 @@ public class AuthorDAOImpl implements AuthorDAO{
 		}
 		return null;
 	}
+
 	@Override
-	public boolean insertAuthor(sem_author a) {
-		Session session = sessionFactory.openSession();
-		try {
-			session.beginTransaction();
-			session.save(a);
-			session.getTransaction().commit();
-			session.close();
-			return true;
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-			session.getTransaction().rollback();
-			session.close();
-		}
-		return false;
-	}
-	@Override
-	public sem_author getAuthorById(Integer id) {
+	public boolean insertOrder(sem_order c) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			sem_author b = (sem_author) session.createQuery("from sem_author where id = :id")
-			.setParameter("id", id)
-			.uniqueResult();
-			session.getTransaction().commit();
-			session.close();
-			return b;
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-			session.getTransaction().rollback();
-			session.close();
-		}
-		return null;
-	}
-	@Override
-	public boolean updateAuthor(sem_author a) {
-		Session session = sessionFactory.openSession();
-		try {
-			session.beginTransaction();
-			session.update(a);
+			session.save(c);
 			session.getTransaction().commit();
 			session.close();
 			return true;
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-			session.getTransaction().rollback();
-			session.close();
-		}
-		return false;
-	}
-	@Override
-	public boolean deleteAuthor(Integer id) {
-		// TODO Auto-generated method stub
-		Session session = sessionFactory.openSession();
-		try {
-			session.beginTransaction();
-			int i = session.createQuery("delete from sem_author where id = :id")
-			.setParameter("id",id)
-			.executeUpdate();
-			session.getTransaction().commit();
-			session.close();
-			if (i>0) 
-				return true;
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -117,5 +62,44 @@ public class AuthorDAOImpl implements AuthorDAO{
 		return false;
 	}
 
+	@Override
+	public boolean updateOrder(sem_order c) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.openSession();
+		try {
+			session.beginTransaction();
+			session.update(c);
+			session.getTransaction().commit();
+			session.close();
+			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			session.getTransaction().rollback();
+			session.close();
+		}
+		return false;
+	}
+
+	@Override
+	public sem_order getOrderById(Integer id) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.openSession();
+		try {
+			session.beginTransaction();
+			sem_order o = (sem_order) session.createQuery("from sem_order where id = :id")
+			.setParameter("id", id)
+			.uniqueResult();
+			session.getTransaction().commit();
+			session.close();
+			return o;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			session.getTransaction().rollback();
+			session.close();
+		}
+		return null;
+	}
 
 }

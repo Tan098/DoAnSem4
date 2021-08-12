@@ -1,5 +1,6 @@
 package sem.entities;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -13,7 +14,12 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "sem_book")
-public class sem_book {
+public class sem_book  implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@Column(name = "id")
 	private int id;
@@ -39,9 +45,9 @@ public class sem_book {
 	@Column(name = "status")
 	private Boolean status;
 	
-	@JoinColumn(name = "publicsher", referencedColumnName = "id")
+	@JoinColumn(name = "publisher", referencedColumnName = "id")
 	@ManyToOne
-	private sem_publisher publicsher;
+	private sem_publisher publisher;
 
 	@OneToMany(mappedBy = "book")
 	private List<sem_image> sem_images;
@@ -60,7 +66,7 @@ public class sem_book {
 	}
 
 	public sem_book(int id, String alias, String name, String descriptions, int quantity, float price,
-			Date yearofpublic, Boolean status, sem_publisher publicsher, List<sem_image> sem_images,
+			Date yearofpublic, Boolean status, sem_publisher publisher, List<sem_image> sem_images,
 			List<sem_cart_book> sem_cart_books, List<sem_author_book> sem_author_books,
 			List<sem_category_book> sem_category_books) {
 		super();
@@ -72,7 +78,7 @@ public class sem_book {
 		this.price = price;
 		this.yearofpublic = yearofpublic;
 		this.status = status;
-		this.publicsher = publicsher;
+		this.publisher = publisher;
 		this.sem_images = sem_images;
 		this.sem_cart_books = sem_cart_books;
 		this.sem_author_books = sem_author_books;
@@ -194,15 +200,8 @@ public class sem_book {
 	/**
 	 * @return the publicsher
 	 */
-	public sem_publisher getPublicsher() {
-		return publicsher;
-	}
-
-	/**
-	 * @param publicsher the publicsher to set
-	 */
-	public void setPublicsher(sem_publisher publicsher) {
-		this.publicsher = publicsher;
+	public sem_publisher getPublisher() {
+		return publisher;
 	}
 
 	/**
@@ -259,5 +258,19 @@ public class sem_book {
 	 */
 	public void setSem_category_books(List<sem_category_book> sem_category_books) {
 		this.sem_category_books = sem_category_books;
+	}
+
+	/**
+	 * @return the serialversionuid
+	 */
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	/**
+	 * @param publisher the publisher to set
+	 */
+	public void setPublisher(sem_publisher publisher) {
+		this.publisher = publisher;
 	}
 }

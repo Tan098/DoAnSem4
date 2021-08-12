@@ -7,11 +7,11 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import sem.dao.AuthorDAO;
-import sem.entities.sem_author;
+import sem.dao.ImageDAO;
+import sem.entities.sem_image;
 
 @Repository
-public class AuthorDAOImpl implements AuthorDAO{
+public class ImageDAOImpl implements ImageDAO{
 	@Autowired
 	private SessionFactory sessionFactory;
 	
@@ -19,16 +19,16 @@ public class AuthorDAOImpl implements AuthorDAO{
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-	
+
 	@Override
-	public List<sem_author> getAuthors(Integer offset, Integer maxResult) {
+	public List<sem_image> getImages(Integer pageIndex, Integer pageSize) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			List list = session.createQuery("from sem_author")
-					.setFirstResult(offset)
-					.setMaxResults(maxResult)
+			List list = session.createQuery("from sem_image")
+					.setFirstResult(pageIndex)
+					.setMaxResults(pageSize)
 					.list();
 			session.getTransaction().commit();
 			session.close();
@@ -41,12 +41,14 @@ public class AuthorDAOImpl implements AuthorDAO{
 		}
 		return null;
 	}
+
 	@Override
-	public boolean insertAuthor(sem_author a) {
+	public boolean insertImage(sem_image i) {
+		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			session.save(a);
+			session.save(i);
 			session.getTransaction().commit();
 			session.close();
 			return true;
@@ -58,32 +60,14 @@ public class AuthorDAOImpl implements AuthorDAO{
 		}
 		return false;
 	}
+
 	@Override
-	public sem_author getAuthorById(Integer id) {
+	public boolean updateImage(sem_image i) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			sem_author b = (sem_author) session.createQuery("from sem_author where id = :id")
-			.setParameter("id", id)
-			.uniqueResult();
-			session.getTransaction().commit();
-			session.close();
-			return b;
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-			session.getTransaction().rollback();
-			session.close();
-		}
-		return null;
-	}
-	@Override
-	public boolean updateAuthor(sem_author a) {
-		Session session = sessionFactory.openSession();
-		try {
-			session.beginTransaction();
-			session.update(a);
+			session.update(i);
 			session.getTransaction().commit();
 			session.close();
 			return true;
@@ -95,13 +79,14 @@ public class AuthorDAOImpl implements AuthorDAO{
 		}
 		return false;
 	}
+
 	@Override
-	public boolean deleteAuthor(Integer id) {
+	public boolean deleteImage(Integer id) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			int i = session.createQuery("delete from sem_author where id = :id")
+			int i = session.createQuery("delete from sem_image where id = :id")
 			.setParameter("id",id)
 			.executeUpdate();
 			session.getTransaction().commit();
@@ -117,5 +102,25 @@ public class AuthorDAOImpl implements AuthorDAO{
 		return false;
 	}
 
+	@Override
+	public sem_image getImageById(Integer id) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.openSession();
+		try {
+			session.beginTransaction();
+			sem_image b = (sem_image) session.createQuery("from sem_image where id = :id")
+			.setParameter("id", id)
+			.uniqueResult();
+			session.getTransaction().commit();
+			session.close();
+			return b;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			session.getTransaction().rollback();
+			session.close();
+		}
+		return null;
+	}
 
 }

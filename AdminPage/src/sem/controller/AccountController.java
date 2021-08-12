@@ -17,12 +17,12 @@ public class AccountController {
 	@Autowired
 	private AccountDAO accountDao;
 
-	@RequestMapping(value = { "/listAccounts", "/" })
+	@RequestMapping(value = "/listAccounts")
 	public String listAccounts(Model model) {
 		List<sem_account> list = accountDao.getAccounts();
 		model.addAttribute("list", list);
 
-		return "listBook";
+		return "listAccounts";
 	}
 
 	@RequestMapping("/initInsertAccount")
@@ -34,7 +34,7 @@ public class AccountController {
 	}
 
 	@RequestMapping("/insertAccount")
-	public String insertBook(@ModelAttribute("a") sem_account a, Model model) {
+	public String insertAccount(@ModelAttribute("a") sem_account a, Model model) {
 		boolean bl = accountDao.insertAccount(a);
 		if (bl) {
 			return "redirect:/listAccounts";
@@ -55,7 +55,7 @@ public class AccountController {
 	}
 
 	@RequestMapping("/updateAccount")
-	public String updateBook(@ModelAttribute("a") sem_account a, Model model) {
+	public String updateAccount(@ModelAttribute("a") sem_account a, Model model) {
 		boolean bl = accountDao.updateAccount(a);
 		if (bl) {
 			return "redirect:/listAccounts";
@@ -86,6 +86,6 @@ public class AccountController {
 		}
 		List<sem_account> list = accountDao.getAccounts();
 		model.addAttribute("list", list);
-		return "listAccount";
+		return "listAccounts";
 	}
 }

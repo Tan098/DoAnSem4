@@ -2,6 +2,8 @@ package sem.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,14 +22,16 @@ public class BookController {
 	private BookDAO bookDao;
 	@Autowired
 	private PublisherDAO pubDao;
-
-	@RequestMapping(value = { "/listBooks", "/" })
+	
+	/** Nhớ Declarce bean của nó ở file spring-config.xml **/
+	
+	@RequestMapping(value = "/listBooks")
 	public String listBooks(Integer offset, Integer maxResult,Model model) {
 		List<sem_book> list = bookDao.getBooks(offset == null ?0:offset,maxResult==null?15:maxResult);
 		model.addAttribute("list", list);
 		
 		
-		return "listBook";
+		return "listBooks";
 	}
 
 	@RequestMapping("/initInsertBook")
@@ -56,7 +60,7 @@ public class BookController {
 		}
 	}
 
-	@RequestMapping("/initUpdate")
+	@RequestMapping("/initUpdateBook")
 	public String initUpdate(@RequestParam("id") Integer id, Model model) {
 		sem_book bookById = bookDao.getBookById(id);
 		model.addAttribute("b", bookById);
@@ -100,6 +104,6 @@ public class BookController {
 		}
 		List<sem_book> list = bookDao.getBooks(offset == null ?0:offset,maxResult==null?15:maxResult);
 		model.addAttribute("list", list);
-		return "listBook";
+		return "listBooks";
 	}
 }
