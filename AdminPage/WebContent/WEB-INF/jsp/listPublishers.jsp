@@ -21,7 +21,7 @@
 <!-- Theme style -->
 <link rel="stylesheet"
 	href="<c:url value="/resources/dist/css/adminlte.min.css" />">
-<title>AdminLTE 3 | Danh mục</title>
+<title>AdminLTE 3 | Nhà xuất bản</title>
 </head>
 <body>
 	<div class="wrapper">
@@ -35,12 +35,12 @@
 				<div class="container-fluid">
 					<div class="row mb-2">
 						<div class="col-sm-6">
-							<h1>Danh mục</h1>
+							<h1>Nhà xuất bản</h1>
 						</div>
 						<div class="col-sm-6">
 							<ol class="breadcrumb float-sm-right">
 								<li class="breadcrumb-item"><a href="home">Quản lý</a></li>
-								<li class="breadcrumb-item active">Danh mục</li>
+								<li class="breadcrumb-item active">Nhà xuất bản</li>
 							</ol>
 						</div>
 					</div>
@@ -52,28 +52,27 @@
 			<section class="content">
 				<div class="card">
 					<div class="card-header">
-						<h3 class="card-title">Danh sách danh mục</h3>
+						<h3 class="card-title">Danh sách nhà xuất bản</h3>
 					</div>
 					<!-- /.card-header -->
 					<div class="card-body">
 						<table id="example1" class="table table-bordered table-striped">
 							<thead>
 								<tr>
-									<th>Tên danh mục</th>
-									<th>Bí danh</th>
-									<th>Mô tả</th>
+									<th>Mã nhà xuất bản</th>
+									<th>Tên nhà xuất bản</th>
 									<th>Hành động</th>
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach items="${list}" var="c">
+								<c:forEach items="${list}" var="p">
 									<tr>
-										<td>${c.name}</td>
-										<td>${c.alias}</td>
-										<td>${c.descriptions}</td>
+										<td>${p.id}</td>
+										<td>${p.name}</td>
 										<td>
 											<div class="tools">
-												<a href="initUpdateCategory?id=${c.id}"><i class="fas fa-edit"></i></a>
+												<a href="initUpdatePublisher?id=${p.id}"><i
+													class="fas fa-edit"></i></a>
 											</div>
 										</td>
 									</tr>
@@ -81,9 +80,8 @@
 							</tbody>
 							<tfoot>
 								<tr>
-									<th>Tên danh mục</th>
-									<th>Bí danh</th>
-									<th>Mô tả</th>
+									<th>Mã nhà xuất bản</th>
+									<th>Tên nhà xuất bản</th>
 									<th>Hành động</th>
 								</tr>
 							</tfoot>
@@ -91,8 +89,8 @@
 					</div>
 					<!-- /.card-body -->
 					<div class="card-footer clearfix">
-						<a href="insertCategory">
-							<p>Thêm danh mục</p>
+						<a href="insertPublisher">
+							<p>Thêm nhà xuất bản</p>
 						</a>
 					</div>
 				</div>

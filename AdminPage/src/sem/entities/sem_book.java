@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -21,6 +23,7 @@ public class sem_book  implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private int id;
 	
@@ -45,9 +48,9 @@ public class sem_book  implements Serializable{
 	@Column(name = "status")
 	private Boolean status;
 	
-	@JoinColumn(name = "publisher", referencedColumnName = "id")
+	@JoinColumn(name = "publicsher", referencedColumnName = "id")
 	@ManyToOne
-	private sem_publisher publisher;
+	private sem_publisher publicsher;
 
 	@OneToMany(mappedBy = "book")
 	private List<sem_image> sem_images;
@@ -64,9 +67,20 @@ public class sem_book  implements Serializable{
 	public sem_book() {
 		super();
 	}
+	
+	public sem_book(int id) {
+		super();
+		this.id = id;
+	}
+
+	public sem_book(int id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
 
 	public sem_book(int id, String alias, String name, String descriptions, int quantity, float price,
-			Date yearofpublic, Boolean status, sem_publisher publisher, List<sem_image> sem_images,
+			Date yearofpublic, Boolean status, sem_publisher publicsher, List<sem_image> sem_images,
 			List<sem_cart_book> sem_cart_books, List<sem_author_book> sem_author_books,
 			List<sem_category_book> sem_category_books) {
 		super();
@@ -78,7 +92,7 @@ public class sem_book  implements Serializable{
 		this.price = price;
 		this.yearofpublic = yearofpublic;
 		this.status = status;
-		this.publisher = publisher;
+		this.publicsher = publicsher;
 		this.sem_images = sem_images;
 		this.sem_cart_books = sem_cart_books;
 		this.sem_author_books = sem_author_books;
@@ -196,12 +210,19 @@ public class sem_book  implements Serializable{
 	public void setStatus(Boolean status) {
 		this.status = status;
 	}
+	
+	/**
+	 * @param publicsher the publicsher to set
+	 */
+	public void setPublicsher(sem_publisher publicsher) {
+		this.publicsher = publicsher;
+	}
 
 	/**
 	 * @return the publicsher
 	 */
-	public sem_publisher getPublisher() {
-		return publisher;
+	public sem_publisher getPublicsher() {
+		return publicsher;
 	}
 
 	/**
@@ -265,12 +286,5 @@ public class sem_book  implements Serializable{
 	 */
 	public static long getSerialversionuid() {
 		return serialVersionUID;
-	}
-
-	/**
-	 * @param publisher the publisher to set
-	 */
-	public void setPublisher(sem_publisher publisher) {
-		this.publisher = publisher;
 	}
 }

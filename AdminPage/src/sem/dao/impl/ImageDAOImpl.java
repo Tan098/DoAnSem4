@@ -21,14 +21,13 @@ public class ImageDAOImpl implements ImageDAO{
 	}
 
 	@Override
-	public List<sem_image> getImages(Integer pageIndex, Integer pageSize) {
+	public List<sem_image> getImages(Integer book) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			List list = session.createQuery("from sem_image")
-					.setFirstResult(pageIndex)
-					.setMaxResults(pageSize)
+			List list = (List) session.createQuery("from sem_image where book = :book")
+					.setParameter("book", book)
 					.list();
 			session.getTransaction().commit();
 			session.close();
@@ -49,25 +48,6 @@ public class ImageDAOImpl implements ImageDAO{
 		try {
 			session.beginTransaction();
 			session.save(i);
-			session.getTransaction().commit();
-			session.close();
-			return true;
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-			session.getTransaction().rollback();
-			session.close();
-		}
-		return false;
-	}
-
-	@Override
-	public boolean updateImage(sem_image i) {
-		// TODO Auto-generated method stub
-		Session session = sessionFactory.openSession();
-		try {
-			session.beginTransaction();
-			session.update(i);
 			session.getTransaction().commit();
 			session.close();
 			return true;
