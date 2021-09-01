@@ -15,40 +15,45 @@ import sem.entities.sem_account;
 @Controller
 public class AccountController {
 	@Autowired
-	private AccountDAO accountDao;
+	private AccountDAO accountDAO;
+
+	@RequestMapping(value = { "/loginAdmin", "/" })
+	public String loginAdmin(Model model) {
+		return "loginAdmin";
+	}
 
 	@RequestMapping(value = "/listAccounts")
 	public String listAccounts(Model model) {
-		List<sem_account> list = accountDao.getAccounts();
+		List<sem_account> list = accountDAO.getAccounts();
 		model.addAttribute("list", list);
 
 		return "listAccounts";
 	}
 
-	@RequestMapping("/initInsertAccount")
-	public String initInsertAccount(Model model) {
+	@RequestMapping("/initRegisterAccount")
+	public String initRegisterAccount(Model model) {
 		sem_account a = new sem_account();
 		model.addAttribute("a", a);
 
 		return "insertAccount";
 	}
 
-	@RequestMapping("/insertAccount")
-	public String insertAccount(@ModelAttribute("a") sem_account a, Model model) {
-		boolean bl = accountDao.insertAccount(a);
+	@RequestMapping("/registerAccount")
+	public String registerAccount(@ModelAttribute("a") sem_account a, Model model) {
+		boolean bl = accountDAO.registerAccount(a);
 		if (bl) {
-			return "redirect:/listAccounts";
+			return "redirect:/loginAdmin";
 		} else {
-			model.addAttribute("err", "Insert Failed !");
+			model.addAttribute("err", "Register Failed !");
 			model.addAttribute("a", a);
 
-			return "insertAccount";
+			return "registerAccount";
 		}
 	}
 
 	@RequestMapping("/initUpdate")
 	public String initUpdate(@RequestParam("id") Integer id, Model model) {
-		sem_account accountById = accountDao.getAccountById(id);
+		sem_account accountById = accountDAO.getAccountById(id);
 		model.addAttribute("a", accountById);
 
 		return "updateAccount";
@@ -56,7 +61,7 @@ public class AccountController {
 
 	@RequestMapping("/updateAccount")
 	public String updateAccount(@ModelAttribute("a") sem_account a, Model model) {
-		boolean bl = accountDao.updateAccount(a);
+		boolean bl = accountDAO.updateAccount(a);
 		if (bl) {
 			return "redirect:/listAccounts";
 
@@ -70,7 +75,7 @@ public class AccountController {
 
 	@RequestMapping("/detailAccount")
 	public String detailAccount(@RequestParam("id") Integer id, Model model) {
-		sem_account accountById = accountDao.getAccountById(id);
+		sem_account accountById = accountDAO.getAccountById(id);
 		model.addAttribute("a", accountById);
 
 		return "detailAccount";
@@ -78,13 +83,13 @@ public class AccountController {
 
 	@RequestMapping("/deleteAccount")
 	public String deleteAccount(@RequestParam("id") Integer id, Model model) {
-		boolean bl = accountDao.deleteAccount(id);
+		boolean bl = accountDAO.deleteAccount(id);
 		if (bl) {
 			model.addAttribute("success", "Delete success !");
 		} else {
 			model.addAttribute("err", "Delete failed !");
 		}
-		List<sem_account> list = accountDao.getAccounts();
+		List<sem_account> list = accountDAO.getAccounts();
 		model.addAttribute("list", list);
 		return "listAccounts";
 	}

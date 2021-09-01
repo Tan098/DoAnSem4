@@ -1,26 +1,41 @@
 package sem.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import sem.dao.AuthorDAO;
 import sem.dao.CategoryDAO;
 import sem.dao.CustomerDAO;
 import sem.dao.ImageDAO;
 import sem.dao.OrderDAO;
 import sem.dao.PublisherDAO;
 import sem.entities.sem_account;
+import sem.entities.sem_author;
+import sem.entities.sem_book;
 import sem.entities.sem_category;
 import sem.entities.sem_customer;
 import sem.entities.sem_image;
+import sem.entities.sem_publisher;
 
 @Controller
-@RequestMapping(value = "Admin")
 public class AdminController {
 	@Autowired
 	private CategoryDAO categoryDAO;
@@ -32,12 +47,27 @@ public class AdminController {
 	private OrderDAO orderDAO;
 	@Autowired
 	private PublisherDAO publisherDAO;
+	@Autowired
+	private AuthorDAO authorDao;
 
 	private Integer pageIndex, pageSize;
-	
+
+	@InitBinder
+	public void initBinder(WebDataBinder data) {
+		SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
+		s.setLenient(false);
+		data.registerCustomEditor(Date.class, new CustomDateEditor(s, true));
+	}
+
+	// Home
+	@RequestMapping(value = "/home")
+	public String HomePage() {
+		return "home";
+	}
+	// End
 
 	// Catergory
-	@RequestMapping(value ="/listCategories" )
+	@RequestMapping(value = "/listCategories")
 	public String listCategories(Model model) {
 		List<sem_category> list = categoryDAO.getCategories(pageSize == null ? 0 : pageSize,
 				pageIndex == null ? 15 : pageIndex);
@@ -176,69 +206,189 @@ public class AdminController {
 
 	// Image
 	@RequestMapping(value = "/listImages")
-	public String listImages(Model model) {
-		List<sem_image> list = imageDAO.getImages(pageSize == null ? 0 : pageSize,
-				pageIndex == null ? 15 : pageIndex);
+	public String listImages(Integer book, Model model) {
+		List<sem_image> list = imageDAO.getImages(book);
 		model.addAttribute("list", list);
 
 		return "listImages";
 	}
 
 	@RequestMapping("/initInsertImage")
-	public String initInsertImage(Model model) {
+	public String initInsertImage(@RequestParam("book") Integer book, Model model) {
 		sem_image i = new sem_image();
+		sem_book b = new sem_book(book);
+		i.setBook(b);
 		model.addAttribute("i", i);
-
 		return "insertImage";
 	}
 
 	@RequestMapping("/insertImage")
-	public String insertImage(@ModelAttribute("i") sem_image i, Model model) {
+	public String insertImage(@ModelAttribute("i") sem_image i, @RequestParam("pathImage") MultipartFile multipartFile,
+			HttpServletRequest request, Model model) throws IOException {
+		String path = request.getServletContext().getRealPath("resources/images");
+		File f = new File(path);
+		File nameFile = new File(f.getAbsoluteFile() + "/" + multipartFile.getOriginalFilename());
+		byte[] dataIamge = multipartFile.getBytes();
+		if (!nameFile.exists()) {
+			Files.write(nameFile.toPath(), dataIamge, StandardOpenOption.CREATE);
+		}
+		i.setPath(multipartFile.getOriginalFilename());
 		boolean bl = imageDAO.insertImage(i);
 		if (bl) {
-			return "redirect:/listImages";
+			return "redirect:/listBooks";
 		} else {
 			model.addAttribute("err", "Insert Failed !");
 			model.addAttribute("i", i);
-
 			return "insertImage";
 		}
 	}
 
-	@RequestMapping("/initUpdateImage")
-	public String initUpdateImage(@RequestParam("id") Integer id, Model model) {
-		sem_image iamgeById = imageDAO.getImageById(id);
-		model.addAttribute("i", iamgeById);
-
-		return "updateImage";
-	}
-
-	@RequestMapping("/updateImage")
-	public String updateImage(@ModelAttribute("i") sem_image i, Model model) {
-		boolean bl = imageDAO.updateImage(i);
-		if (bl) {
-			return "redirect:/listImages";
-
-		} else {
-			model.addAttribute("err", "Update Failed !");
-			model.addAttribute("i", i);
-
-			return "updateImage";
-		}
-	}
-
 	@RequestMapping("/deleteImage")
-	public String deleteImage(@RequestParam("id") Integer id, Model model) {
+	public String deleteImage(@RequestParam("id") Integer id, Integer book, Model model) {
 		boolean bl = imageDAO.deleteImage(id);
 		if (bl) {
 			model.addAttribute("success", "Delete success !");
 		} else {
 			model.addAttribute("err", "Delete failed !");
 		}
-		List<sem_image> list = imageDAO.getImages(pageSize == null ? 0 : pageSize,
-				pageIndex == null ? 15 : pageIndex);
+		List<sem_image> list = imageDAO.getImages(book);
 		model.addAttribute("list", list);
 		return "deleteImage";
+	}
+	// End
+
+	// Author
+	@RequestMapping(value = "/listAuthors")
+	public String listAuthors(Model model, Integer offset, Integer maxResult) {
+		List<sem_author> list = authorDao.getAuthors(offset == null ? 0 : offset, maxResult == null ? 15 : maxResult);
+		model.addAttribute("list", list);
+
+		return "listAuthors";
+	}
+
+	@RequestMapping("/initInsertAuthor")
+	public String initInsertAuthor(Model model) {
+		sem_author a = new sem_author();
+		model.addAttribute("a", a);
+
+		return "insertAccount";
+	}
+
+	@RequestMapping("/insertAuthor")
+	public String insertAuthor(@ModelAttribute("a") sem_author a, Model model) {
+		boolean bl = authorDao.insertAuthor(a);
+		if (bl) {
+			return "redirect:/listAuthors";
+		} else {
+			model.addAttribute("err", "Insert Failed !");
+			model.addAttribute("a", a);
+
+			return "insertAuthor";
+		}
+	}
+
+	@RequestMapping("/initUpdateAuthor")
+	public String initUpdate(@RequestParam("id") Integer id, Model model) {
+		sem_author authorById = authorDao.getAuthorById(id);
+		model.addAttribute("a", authorById);
+
+		return "updateAuthor";
+	}
+
+	@RequestMapping("/updateAuthor")
+	public String updateAuthor(@ModelAttribute("a") sem_author a, Model model) {
+		boolean bl = authorDao.updateAuthor(a);
+		if (bl) {
+			return "redirect:/listAuthors";
+
+		} else {
+			model.addAttribute("err", "Update Failed !");
+			model.addAttribute("a", a);
+
+			return "updateAccount";
+		}
+	}
+
+	@RequestMapping("/detailAuthor")
+	public String detailAuthor(@RequestParam("id") Integer id, Model model) {
+		sem_author authorById = authorDao.getAuthorById(id);
+		model.addAttribute("a", authorById);
+
+		return "detailAuthor";
+	}
+
+	@RequestMapping("/deleteAuthor")
+	public String deleteAuthor(@RequestParam("id") Integer id, Model model, Integer offset, Integer maxResult) {
+		boolean bl = authorDao.deleteAuthor(id);
+		if (bl) {
+			model.addAttribute("success", "Delete success !");
+		} else {
+			model.addAttribute("err", "Delete failed !");
+		}
+		List<sem_author> list = authorDao.getAuthors(offset == null ? 0 : offset, maxResult == null ? 15 : maxResult);
+		model.addAttribute("list", list);
+		return "listAuthors";
+	}
+	// End
+
+	// Publisher
+	@RequestMapping(value = "/listPublishers")
+	public String listPublishers(Model model) {
+		List<sem_publisher> list = publisherDAO.getPublishers();
+		model.addAttribute("list", list);
+
+		return "listPublishers";
+	}
+
+	@RequestMapping("/initInsertPublisher")
+	public String initInsertPublisher(Model model) {
+		sem_publisher p = new sem_publisher();
+		model.addAttribute("p", p);
+
+		return "insertPublisher";
+	}
+
+	@RequestMapping("/insertPublisher")
+	public String insertPublisher(@ModelAttribute("p") sem_publisher p, Model model) {
+		boolean bl = publisherDAO.insertPublisher(p);
+		if (bl) {
+			return "redirect:/listPublishers";
+		} else {
+			model.addAttribute("err", "Insert Failed !");
+			model.addAttribute("p", p);
+
+			return "insertPublisher";
+		}
+	}
+
+	@RequestMapping("/initUpdatePublisher")
+	public String initUpdatePublisher(@RequestParam("id") Integer id, Model model) {
+		sem_publisher publisherById = publisherDAO.getPublisherById(id);
+		model.addAttribute("p", publisherById);
+
+		return "updatePublisher";
+	}
+
+	@RequestMapping("/updatePublisher")
+	public String updatePublisher(@ModelAttribute("p") sem_publisher p, Model model) {
+		boolean bl = publisherDAO.updatePublisher(p);
+		if (bl) {
+			return "redirect:/listPublishers";
+
+		} else {
+			model.addAttribute("err", "Update Failed !");
+			model.addAttribute("p", p);
+
+			return "updatePublisher";
+		}
+	}
+
+	@RequestMapping("/detailPublisher")
+	public String detailPublisher(@RequestParam("id") Integer id, Model model) {
+		sem_publisher publisherById = publisherDAO.getPublisherById(id);
+		model.addAttribute("p", publisherById);
+
+		return "detailPublisher";
 	}
 	// End
 }

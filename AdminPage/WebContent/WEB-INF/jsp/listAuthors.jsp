@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -21,7 +21,7 @@
 <!-- Theme style -->
 <link rel="stylesheet"
 	href="<c:url value="/resources/dist/css/adminlte.min.css" />">
-<title>AdminLTE 3 | Danh mục</title>
+<title>AdminLTE 3 | Tác giả</title>
 </head>
 <body>
 	<div class="wrapper">
@@ -29,61 +29,60 @@
 		<jsp:include page="/WEB-INF/jsp/navbar.jsp" flush="false"></jsp:include>
 		<jsp:include page="/WEB-INF/jsp/sidebar.jsp" flush="false"></jsp:include>
 		<!-- Content Wrapper. Contains page content -->
-		<div class="content-wrapper" style="min-height: 1302.4px;">
+		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
 				<div class="container-fluid">
 					<div class="row mb-2">
 						<div class="col-sm-6">
-							<h1>Danh mục</h1>
+							<h1>Tác giả</h1>
 						</div>
+						<!-- /.col -->
 						<div class="col-sm-6">
 							<ol class="breadcrumb float-sm-right">
 								<li class="breadcrumb-item"><a href="home">Quản lý</a></li>
-								<li class="breadcrumb-item active">Danh mục</li>
+								<li class="breadcrumb-item active">Tác giả</li>
 							</ol>
 						</div>
+						<!-- /.col -->
 					</div>
+					<!-- /.row -->
+					<!-- /.container-fluid -->
 				</div>
-				<!-- /.container-fluid -->
 			</section>
+			<!-- /.content-header -->
 
 			<!-- Main content -->
 			<section class="content">
 				<div class="card">
 					<div class="card-header">
-						<h3 class="card-title">Danh sách danh mục</h3>
+						<h3 class="card-title">Danh sách tác giả</h3>
 					</div>
 					<!-- /.card-header -->
 					<div class="card-body">
 						<table id="example1" class="table table-bordered table-striped">
 							<thead>
 								<tr>
-									<th>Tên danh mục</th>
-									<th>Bí danh</th>
-									<th>Mô tả</th>
+									<th>Mã tác giả</th>
+									<th>Tên tác giả</th>
 									<th>Hành động</th>
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach items="${list}" var="c">
+								<c:forEach items="${list}" var="a">
 									<tr>
-										<td>${c.name}</td>
-										<td>${c.alias}</td>
-										<td>${c.descriptions}</td>
-										<td>
-											<div class="tools">
-												<a href="initUpdateCategory?id=${c.id}"><i class="fas fa-edit"></i></a>
-											</div>
-										</td>
+										<td>${a.id }</td>
+										<td>${a.name }</td>
+										<td><a href="initUpdateAuthor?id=${a.id}"><i
+												class="fas fa-edit"></i></a> <a href="deleteAuthor?id=${a.id}"><i
+												class="fa fa-trash"></i></a></td>
 									</tr>
 								</c:forEach>
 							</tbody>
 							<tfoot>
 								<tr>
-									<th>Tên danh mục</th>
-									<th>Bí danh</th>
-									<th>Mô tả</th>
+									<th>Mã tác giả</th>
+									<th>Tên tác giả</th>
 									<th>Hành động</th>
 								</tr>
 							</tfoot>
@@ -91,12 +90,11 @@
 					</div>
 					<!-- /.card-body -->
 					<div class="card-footer clearfix">
-						<a href="insertCategory">
-							<p>Thêm danh mục</p>
+						<a href="insertAuthor">
+							<p>Thêm Tác giả</p>
 						</a>
 					</div>
 				</div>
-				<!-- /.card -->
 			</section>
 			<!-- /.content -->
 		</div>

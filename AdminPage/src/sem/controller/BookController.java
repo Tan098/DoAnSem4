@@ -1,12 +1,15 @@
 package sem.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +25,13 @@ public class BookController {
 	private BookDAO bookDao;
 	@Autowired
 	private PublisherDAO pubDao;
+	
+	@InitBinder
+	public void initBinder(WebDataBinder data) {
+		SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
+		s.setLenient(false);
+		data.registerCustomEditor(Date.class, new CustomDateEditor(s, true));
+	}
 	
 	/** Nhớ Declarce bean của nó ở file spring-config.xml **/
 	

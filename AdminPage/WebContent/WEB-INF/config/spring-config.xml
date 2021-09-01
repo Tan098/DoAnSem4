@@ -16,11 +16,12 @@
 	<mvc:resources mapping="/resources/**"
 		location="/resources/" />
 
-	<!-- <bean id="viewResolver"
-		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
-		<property name="viewClass"
-			value="org.springframework.web.servlet.view.tiles3.TilesView" />
-	</bean> -->
+	<!-- <bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver"> 
+		<property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" 
+		/> </bean> -->
+
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></bean>
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -45,7 +46,7 @@
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
-		<property name="packagesToScan" value="sem.entities"/>
+		<property name="packagesToScan" value="sem.entities" />
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.show_sql">true</prop>
@@ -55,11 +56,13 @@
 	</bean>
 
 	<!-- Khai báo bean ở đây -->
-	<!-- Copy theo mẫu này : 
-		<bean id="" class="sem.dao.impl."> 
-			<property name="tìm biến của SessionFactory được khai báo tại fileDAOImpl" ref="sessionFactory"/> 
+	<!-- Copy theo mẫu này : <bean id="" class="sem.dao.impl."> <property name="tìm 
+		biến của SessionFactory được khai báo tại fileDAOImpl" ref="sessionFactory"/> 
 		</bean> -->
 
+	<bean id="accountDAO" class="sem.dao.impl.AccountDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
 	<bean id="bookDao" class="sem.dao.impl.BookDAOimpl">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
@@ -72,19 +75,19 @@
 	<bean id="cartDao" class="sem.dao.impl.CartDAOImpl">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	<bean id="categoryDAO" class="sem.dao.impl.CategoryDAOImpl"> 
-		<property name="sessionFactory" ref="sessionFactory"/> 
+	<bean id="categoryDAO" class="sem.dao.impl.CategoryDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	<bean id="customerDAO" class="sem.dao.impl.CustomerDAOImpl"> 
-		<property name="sessionFactory" ref="sessionFactory"/> 
+	<bean id="customerDAO" class="sem.dao.impl.CustomerDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	<bean id="imageDAO" class="sem.dao.impl.ImageDAOImpl"> 
-		<property name="sessionFactory" ref="sessionFactory"/> 
+	<bean id="imageDAO" class="sem.dao.impl.ImageDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	<bean id="orderDAO" class="sem.dao.impl.OrderDAOImpl"> 
-		<property name="sessionFactory" ref="sessionFactory"/> 
+	<bean id="orderDAO" class="sem.dao.impl.OrderDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	<bean id="publisherDAO" class="sem.dao.impl.PublisherDAOImpl"> 
-		<property name="sessionFactory" ref="sessionFactory"/> 
-	</bean>		
+	<bean id="publisherDAO" class="sem.dao.impl.PublisherDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
 </beans>

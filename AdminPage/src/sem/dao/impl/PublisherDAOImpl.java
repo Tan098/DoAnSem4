@@ -7,6 +7,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import sem.dao.PublisherDAO;
+import sem.entities.sem_book;
 import sem.entities.sem_publisher;
 
 public class PublisherDAOImpl implements PublisherDAO{
@@ -74,6 +75,26 @@ public class PublisherDAOImpl implements PublisherDAO{
 			session.close();
 		}
 		return false;
+	}
+
+	@Override
+	public sem_publisher getPublisherById(Integer id) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.openSession();
+		try {
+			session.beginTransaction();
+			sem_publisher p = (sem_publisher) session.createQuery("from sem_publisher where id = :id").setParameter("id", id)
+					.uniqueResult();
+			session.getTransaction().commit();
+			session.close();
+			return p;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			session.getTransaction().rollback();
+			session.close();
+		}
+		return null;
 	}
 
 }
