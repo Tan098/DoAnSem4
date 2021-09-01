@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -18,6 +20,7 @@ public class sem_category implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private int id;
 	
@@ -35,6 +38,13 @@ public class sem_category implements Serializable{
 
 	public sem_category() {
 		super();
+	}
+
+	public sem_category(String alias, String name, String descriptions) {
+		super();
+		this.alias = alias;
+		this.name = name;
+		this.descriptions = descriptions;
 	}
 
 	public sem_category(int id, String alias, String name, String descriptions,

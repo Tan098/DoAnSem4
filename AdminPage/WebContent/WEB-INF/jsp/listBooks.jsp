@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,7 +22,7 @@
 <!-- Theme style -->
 <link rel="stylesheet"
 	href="<c:url value="/resources/dist/css/adminlte.min.css" />">
-<title>AdminLTE 3 | Danh mục</title>
+<title>AdminLTE 3 | Sách</title>
 </head>
 <body>
 	<div class="wrapper">
@@ -35,12 +36,12 @@
 				<div class="container-fluid">
 					<div class="row mb-2">
 						<div class="col-sm-6">
-							<h1>Danh mục</h1>
+							<h1>Sách</h1>
 						</div>
 						<div class="col-sm-6">
 							<ol class="breadcrumb float-sm-right">
 								<li class="breadcrumb-item"><a href="home">Quản lý</a></li>
-								<li class="breadcrumb-item active">Danh mục</li>
+								<li class="breadcrumb-item active">Sách</li>
 							</ol>
 						</div>
 					</div>
@@ -52,28 +53,48 @@
 			<section class="content">
 				<div class="card">
 					<div class="card-header">
-						<h3 class="card-title">Danh sách danh mục</h3>
+						<h3 class="card-title">Danh sách</h3>
 					</div>
 					<!-- /.card-header -->
 					<div class="card-body">
 						<table id="example1" class="table table-bordered table-striped">
 							<thead>
 								<tr>
-									<th>Tên danh mục</th>
+									<th>Mã sách</th>
+									<th>Tên sách</th>
 									<th>Bí danh</th>
 									<th>Mô tả</th>
+									<th>Số lượng</th>
+									<th>Giá</th>
+									<th>Năm phát hành</th>
+									<th>Trạng thái</th>
+									<th>Nhà xuất bản</th>
 									<th>Hành động</th>
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach items="${list}" var="c">
+								<c:forEach items="${list}" var="b">
 									<tr>
-										<td>${c.name}</td>
-										<td>${c.alias}</td>
-										<td>${c.descriptions}</td>
+										<td>${b.id}</td>
+										<td>${b.name}</td>
+										<td>${b.alias}</td>
+										<td>${b.descriptions}</td>
+										<td>${b.quantity}</td>
+										<td>${b.price}</td>
+										<td><fmt:formatDate type="date" pattern="yyyy-MM-dd"
+												value="${b.yearofpublic}" /></td>
+										<td>${b.status ? 'Còn hàng' : 'Hết hàng'}</td>
+										<td>${b.publicsher.name}</td>
 										<td>
 											<div class="tools">
-												<a href="initUpdateCategory?id=${c.id}"><i class="fas fa-edit"></i></a>
+												<a href="initUpdateBook?id=${b.id}"><i
+													class="fas fa-edit"></i></a>
+												<a href="initInsertImage?book=${b.id}"><i
+													class="fas fa-image"></i></a> 
+												<a href="#"><i 
+													class="fas fa-user"></i></a>
+												<a href="#"><i
+													class="fas fa-tags"></i></a>
 											</div>
 										</td>
 									</tr>
@@ -81,9 +102,15 @@
 							</tbody>
 							<tfoot>
 								<tr>
-									<th>Tên danh mục</th>
+									<th>Mã sách</th>
+									<th>Tên sách</th>
 									<th>Bí danh</th>
 									<th>Mô tả</th>
+									<th>Số lượng</th>
+									<th>Giá</th>
+									<th>Năm phát hành</th>
+									<th>Trạng thái</th>
+									<th>Nhà xuất bản</th>
 									<th>Hành động</th>
 								</tr>
 							</tfoot>
@@ -91,8 +118,8 @@
 					</div>
 					<!-- /.card-body -->
 					<div class="card-footer clearfix">
-						<a href="insertCategory">
-							<p>Thêm danh mục</p>
+						<a href="insertBook">
+							<p>Thêm sách</p>
 						</a>
 					</div>
 				</div>

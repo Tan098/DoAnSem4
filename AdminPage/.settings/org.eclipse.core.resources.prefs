@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//src/sem/controller/AdminController.java=UTF-8
 encoding//src/sem/controller/BookController.java=UTF-8
 encoding//src/sem/dao/impl/AccountDAOImpl.java=UTF-8
 encoding//src/sem/dao/impl/AuthorDAOImpl.java=UTF-8

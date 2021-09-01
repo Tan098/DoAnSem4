@@ -42,7 +42,7 @@ public class AccountDAOImpl implements AccountDAO {
 	}
 
 	@Override
-	public boolean insertAccount(sem_account a) {
+	public boolean registerAccount(sem_account a) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		try {

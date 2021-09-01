@@ -5,10 +5,14 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name = "sem_image")
@@ -19,6 +23,7 @@ public class sem_image implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private int id;
 	
@@ -49,6 +54,20 @@ public class sem_image implements Serializable{
 		this.caption = caption;
 		this.isdefault = isdefault;
 		this.datecreated = datecreated;
+		this.path = path;
+	}
+
+	/**
+	 * @return the path
+	 */
+	public String getPath() {
+		return path;
+	}
+
+	/**
+	 * @param path the path to set
+	 */
+	public void setPath(String path) {
 		this.path = path;
 	}
 
@@ -121,21 +140,7 @@ public class sem_image implements Serializable{
 	public void setDatecreated(Date datecreated) {
 		this.datecreated = datecreated;
 	}
-
-	/**
-	 * @return the path
-	 */
-	public String getPath() {
-		return path;
-	}
-
-	/**
-	 * @param path the path to set
-	 */
-	public void setPath(String path) {
-		this.path = path;
-	}
-
+	
 	/**
 	 * @return the serialversionuid
 	 */
