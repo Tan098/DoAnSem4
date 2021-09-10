@@ -3,6 +3,7 @@ package sem.entities;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -37,7 +40,9 @@ public class sem_image implements Serializable{
 	@Column(name = "isdefault")
 	private Boolean isdefault;
 	
-	@Column(name = "datecreated")
+	@Basic(optional = false)
+	@Column(name = "datecreated", insertable = false, updatable = false)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date datecreated;
 	
 	@Column(name = "path")

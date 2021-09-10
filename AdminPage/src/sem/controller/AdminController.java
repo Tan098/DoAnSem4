@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import sem.dao.AuthorAndBookDAO;
 import sem.dao.AuthorDAO;
+import sem.dao.CategoryAndBookDAO;
 import sem.dao.CategoryDAO;
 import sem.dao.CustomerDAO;
 import sem.dao.ImageDAO;
@@ -29,8 +31,12 @@ import sem.dao.OrderDAO;
 import sem.dao.PublisherDAO;
 import sem.entities.sem_account;
 import sem.entities.sem_author;
+import sem.entities.sem_author_book;
+import sem.entities.sem_author_book_pk;
 import sem.entities.sem_book;
 import sem.entities.sem_category;
+import sem.entities.sem_category_book;
+import sem.entities.sem_category_book_pk;
 import sem.entities.sem_customer;
 import sem.entities.sem_image;
 import sem.entities.sem_publisher;
@@ -49,6 +55,10 @@ public class AdminController {
 	private PublisherDAO publisherDAO;
 	@Autowired
 	private AuthorDAO authorDao;
+	@Autowired
+	private CategoryAndBookDAO categoryAndBookDAO;
+	@Autowired
+	private AuthorAndBookDAO authorAndBookDAO;
 
 	private Integer pageIndex, pageSize;
 
@@ -69,10 +79,8 @@ public class AdminController {
 	// Catergory
 	@RequestMapping(value = "/listCategories")
 	public String listCategories(Model model) {
-		List<sem_category> list = categoryDAO.getCategories(pageSize == null ? 0 : pageSize,
-				pageIndex == null ? 15 : pageIndex);
+		List<sem_category> list = categoryDAO.getCategories();
 		model.addAttribute("list", list);
-
 		return "listCategories";
 	}
 
@@ -206,10 +214,9 @@ public class AdminController {
 
 	// Image
 	@RequestMapping(value = "/listImages")
-	public String listImages(Integer book, Model model) {
-		List<sem_image> list = imageDAO.getImages(book);
+	public String listImages(Model model) {
+		List<sem_image> list = imageDAO.getImages();
 		model.addAttribute("list", list);
-
 		return "listImages";
 	}
 
@@ -251,7 +258,7 @@ public class AdminController {
 		} else {
 			model.addAttribute("err", "Delete failed !");
 		}
-		List<sem_image> list = imageDAO.getImages(book);
+		List<sem_image> list = imageDAO.getImages();
 		model.addAttribute("list", list);
 		return "deleteImage";
 	}
@@ -260,7 +267,7 @@ public class AdminController {
 	// Author
 	@RequestMapping(value = "/listAuthors")
 	public String listAuthors(Model model, Integer offset, Integer maxResult) {
-		List<sem_author> list = authorDao.getAuthors(offset == null ? 0 : offset, maxResult == null ? 15 : maxResult);
+		List<sem_author> list = authorDao.getAuthors();
 		model.addAttribute("list", list);
 
 		return "listAuthors";
@@ -325,7 +332,7 @@ public class AdminController {
 		} else {
 			model.addAttribute("err", "Delete failed !");
 		}
-		List<sem_author> list = authorDao.getAuthors(offset == null ? 0 : offset, maxResult == null ? 15 : maxResult);
+		List<sem_author> list = authorDao.getAuthors();
 		model.addAttribute("list", list);
 		return "listAuthors";
 	}
@@ -389,6 +396,116 @@ public class AdminController {
 		model.addAttribute("p", publisherById);
 
 		return "detailPublisher";
+	}
+	// End
+
+	// CategoryBook
+	@RequestMapping(value = "/listCategoryBooks")
+	public String listCategoryBooks(Model model) {
+		List<sem_category_book> list = categoryAndBookDAO.getList();
+		model.addAttribute("list", list);
+
+		return "listCategoryBooks";
+	}
+
+	@RequestMapping("/initInsertCategoryBook")
+	public String initInsertCategoryBook(@RequestParam("book") Integer book, Model model) {
+		sem_category_book cb = new sem_category_book();
+		sem_book b = new sem_book(book);
+		cb.setBook(b);
+		model.addAttribute("cb", cb);
+		
+		List<sem_category> cate = categoryDAO.getCategories();
+		model.addAttribute("listc", cate);
+		return "insertCategoryBook";
+	}
+
+	@RequestMapping("/insertCategoryBook")
+	public String insertCategoryBook(@ModelAttribute("cb") sem_category_book cb, HttpServletRequest request,
+			Model model) throws IOException {
+		sem_category_book_pk objPK = new sem_category_book_pk();
+		objPK.setBook(cb.getBook().getId());
+		objPK.setCategory(cb.getCategory().getId());
+		cb.setCategory_book_pk(objPK);
+		boolean bl = categoryAndBookDAO.insertCategoryBook(cb);
+		if (bl) {
+			return "redirect:/listBooks";
+		} else {
+			model.addAttribute("err", "Insert Failed !");
+			model.addAttribute("cb", cb);
+			
+			List<sem_category> cate = categoryDAO.getCategories();
+			model.addAttribute("listc", cate);
+			return "insertCategoryBook";
+		}
+	}
+
+	@RequestMapping("/deleteCategoryBook")
+	public String deleteCategoryBook(@RequestParam("book") Integer book, Model model) {
+		boolean bl = categoryAndBookDAO.deleteCategoryBook(book);
+		if (bl) {
+			model.addAttribute("success", "Delete success !");
+		} else {
+			model.addAttribute("err", "Delete failed !");
+		}
+		List<sem_category_book> list = categoryAndBookDAO.getList();
+		model.addAttribute("list", list);
+		return "deleteCategoryBook";
+	}
+	// End
+	
+	// AuthorBook
+	@RequestMapping(value = "/listAuthorBooks")
+	public String listAuthorBooks(Model model) {
+		List<sem_author_book> list = authorAndBookDAO.getList();
+		model.addAttribute("list", list);
+
+		return "listAuthorBooks";
+	}
+
+	@RequestMapping("/initInsertAuthorBook")
+	public String initInsertAuthorBook(@RequestParam("book") Integer book, Model model) {
+		sem_author_book ab = new sem_author_book();
+		sem_book b = new sem_book(book);
+		ab.setBook(b);
+		model.addAttribute("ab", ab);
+		
+		List<sem_author> au = authorDao.getAuthors();
+		model.addAttribute("lista", au);
+		return "insertAuthorBook";
+	}
+
+	@RequestMapping("/insertAuthorBook")
+	public String insertAuthorBook(@ModelAttribute("ab") sem_author_book ab, HttpServletRequest request,
+			Model model) throws IOException {
+		sem_author_book_pk objPK = new sem_author_book_pk();
+		objPK.setBook(ab.getBook().getId());
+		objPK.setAuthor(ab.getAuthor().getId());
+		ab.setAuthor_book_pk(objPK);
+		boolean bl = authorAndBookDAO.insertAuthorBook(ab);
+		if (bl) {
+			return "redirect:/listBooks";
+		} else {
+			model.addAttribute("err", "Insert Failed !");
+			model.addAttribute("ab", ab);
+			
+			List<sem_author> au = authorDao.getAuthors();
+			model.addAttribute("lista", au);
+			return "insertAuthorBook";
+		}
+	}
+
+	@RequestMapping("/deleteAuthorBook")
+	public String deleteAuthorBook(@RequestParam("book") Integer book, Model model) {
+		boolean bl = authorAndBookDAO.deleteAuthorBook(book);
+		if (bl) {
+			model.addAttribute("success", "Delete success !");
+		} else {
+			model.addAttribute("err", "Delete failed !");
+		}
+		List<sem_author_book> list = authorAndBookDAO.getList();
+		model.addAttribute("list", list);
+		return "deleteAuthorBook";
 	}
 	// End
 }

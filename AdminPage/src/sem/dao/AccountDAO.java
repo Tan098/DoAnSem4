@@ -10,4 +10,5 @@ public interface AccountDAO {
 	public boolean updateAccount(sem_account a);
 	public boolean deleteAccount(Integer id);
 	public sem_account getAccountById(Integer id);
+	public boolean loginAccount(String username, String password);
 }

@@ -5,13 +5,11 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
-import sem.dao.ImageDAO;
-import sem.entities.sem_image;
+import sem.dao.AuthorAndBookDAO;
+import sem.entities.sem_author_book;
 
-@Repository
-public class ImageDAOImpl implements ImageDAO {
+public class AuthorAndBookDAOImpl implements AuthorAndBookDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 
@@ -22,14 +20,14 @@ public class ImageDAOImpl implements ImageDAO {
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-
+	
 	@Override
-	public List<sem_image> getImages() {
+	public List<sem_author_book> getList() {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			List list = (List) session.createQuery("from sem_image").list();
+			List list = (List) session.createQuery("from sem_author_book").list();
 			session.getTransaction().commit();
 			session.close();
 			return list;
@@ -43,12 +41,12 @@ public class ImageDAOImpl implements ImageDAO {
 	}
 
 	@Override
-	public boolean insertImage(sem_image i) {
+	public boolean insertAuthorBook(sem_author_book ab) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			session.save(i);
+			session.save(ab);
 			session.getTransaction().commit();
 			session.close();
 			return true;
@@ -62,12 +60,13 @@ public class ImageDAOImpl implements ImageDAO {
 	}
 
 	@Override
-	public boolean deleteImage(Integer id) {
+	public boolean deleteAuthorBook(Integer book) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			int i = session.createQuery("delete from sem_image where id = :id").setParameter("id", id).executeUpdate();
+			int i = session.createQuery("delete from sem_author_book where book = :book").setParameter("book", book)
+					.executeUpdate();
 			session.getTransaction().commit();
 			session.close();
 			if (i > 0)
@@ -82,16 +81,16 @@ public class ImageDAOImpl implements ImageDAO {
 	}
 
 	@Override
-	public sem_image getImageById(Integer id) {
+	public sem_author_book getAuthorBookById(Integer book) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			sem_image b = (sem_image) session.createQuery("from sem_image where id = :id").setParameter("id", id)
-					.uniqueResult();
+			sem_author_book cb = (sem_author_book) session.createQuery("from sem_author_book where book = :book")
+					.setParameter("book", book).uniqueResult();
 			session.getTransaction().commit();
 			session.close();
-			return b;
+			return cb;
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

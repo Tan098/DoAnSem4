@@ -91,9 +91,9 @@
 													class="fas fa-edit"></i></a>
 												<a href="initInsertImage?book=${b.id}"><i
 													class="fas fa-image"></i></a> 
-												<a href="#"><i 
+												<a href="initInsertAuthorBook?book=${b.id}"><i 
 													class="fas fa-user"></i></a>
-												<a href="#"><i
+												<a href="initInsertCategoryBook?book=${b.id}"><i
 													class="fas fa-tags"></i></a>
 											</div>
 										</td>

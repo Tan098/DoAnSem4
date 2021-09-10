@@ -103,9 +103,7 @@
 					</div>
 					<!-- /.card-body -->
 					<div class="card-footer clearfix">
-						<a href="initInsertImage?book=${i.book}">
-							<p>Thêm ảnh</p>
-						</a>
+						
 					</div>
 				</div>
 				<!-- /.card -->

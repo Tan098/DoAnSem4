@@ -5,7 +5,7 @@ import java.util.List;
 import sem.entities.sem_author;
 
 public interface AuthorDAO {
-	public List<sem_author> getAuthors(Integer offset, Integer maxResult);
+	public List<sem_author> getAuthors();
 	public boolean insertAuthor(sem_author a);
 	public boolean updateAuthor(sem_author a);
 	public boolean deleteAuthor(Integer id);
