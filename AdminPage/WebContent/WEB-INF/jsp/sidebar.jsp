@@ -70,6 +70,10 @@
 								<i class="far fa-circle nav-icon"></i>
 								<p>Nhà Xuất bản</p>
 						</a></li>
+						<li class="nav-item"><a href="listImages" class="nav-link">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Ảnh</p>
+						</a></li>
 					</ul></li>
 			</ul>
 		</nav>

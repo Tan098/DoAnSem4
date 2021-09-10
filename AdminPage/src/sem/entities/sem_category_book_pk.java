@@ -17,6 +17,7 @@ public class sem_category_book_pk implements Serializable{
 	@Column(name = "category")
 	private int category;
 	
+	
 	public sem_category_book_pk() {
 		super();
 	}

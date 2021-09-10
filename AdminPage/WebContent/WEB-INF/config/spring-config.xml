@@ -90,4 +90,10 @@
 	<bean id="publisherDAO" class="sem.dao.impl.PublisherDAOImpl">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
+	<bean id="categoryAndBookDAO" class="sem.dao.impl.CategoryAndBookDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="authorAndBookDAO" class="sem.dao.impl.AuthorAndBookDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
 </beans>

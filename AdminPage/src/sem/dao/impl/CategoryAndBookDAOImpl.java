@@ -5,13 +5,12 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
-import sem.dao.ImageDAO;
+import sem.dao.CategoryAndBookDAO;
+import sem.entities.sem_category_book;
 import sem.entities.sem_image;
 
-@Repository
-public class ImageDAOImpl implements ImageDAO {
+public class CategoryAndBookDAOImpl implements CategoryAndBookDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 
@@ -24,12 +23,12 @@ public class ImageDAOImpl implements ImageDAO {
 	}
 
 	@Override
-	public List<sem_image> getImages() {
+	public List<sem_category_book> getList() {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			List list = (List) session.createQuery("from sem_image").list();
+			List list = (List) session.createQuery("from sem_category_book").list();
 			session.getTransaction().commit();
 			session.close();
 			return list;
@@ -43,12 +42,12 @@ public class ImageDAOImpl implements ImageDAO {
 	}
 
 	@Override
-	public boolean insertImage(sem_image i) {
+	public boolean insertCategoryBook(sem_category_book cb) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			session.save(i);
+			session.save(cb);
 			session.getTransaction().commit();
 			session.close();
 			return true;
@@ -62,12 +61,13 @@ public class ImageDAOImpl implements ImageDAO {
 	}
 
 	@Override
-	public boolean deleteImage(Integer id) {
-		// TODO Auto-generated method stub
+	public boolean deleteCategoryBook(Integer book) {
+		// TODO Auto-generated method stub hàm nào em đặt bug vào
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			int i = session.createQuery("delete from sem_image where id = :id").setParameter("id", id).executeUpdate();
+			int i = session.createQuery("delete from sem_category_book where book = :book").setParameter("book", book)
+					.executeUpdate();
 			session.getTransaction().commit();
 			session.close();
 			if (i > 0)
@@ -82,16 +82,16 @@ public class ImageDAOImpl implements ImageDAO {
 	}
 
 	@Override
-	public sem_image getImageById(Integer id) {
+	public sem_category_book getCategoryBookById(Integer book) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			sem_image b = (sem_image) session.createQuery("from sem_image where id = :id").setParameter("id", id)
-					.uniqueResult();
+			sem_category_book cb = (sem_category_book) session.createQuery("from sem_category_book where book = :book")
+					.setParameter("book", book).uniqueResult();
 			session.getTransaction().commit();
 			session.close();
-			return b;
+			return cb;
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
