@@ -12,25 +12,25 @@ import sem.entities.sem_account;
 import sem.entities.sem_category;
 
 @Repository
-public class CategoryDAOImpl implements CategoryDAO{
+public class CategoryDAOImpl implements CategoryDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
-	
-	/** Nhớ copy cái đoạn ở dưới này rồi pase vô tất cả cái DAOImpl nào có sessionFactory **/
+
+	/**
+	 * Nhớ copy cái đoạn ở dưới này rồi pase vô tất cả cái DAOImpl nào có
+	 * sessionFactory
+	 **/
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-	
+
 	@Override
-	public List<sem_category> getCategories(Integer pageIndex, Integer pageSize) {
+	public List<sem_category> getCategories() {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			List list = session.createQuery("from sem_category")
-					.setFirstResult(pageIndex)
-					.setMaxResults(pageSize)
-					.list();
+			List list = session.createQuery("from sem_category").list();
 			session.getTransaction().commit();
 			session.close();
 			return list;
@@ -88,8 +88,7 @@ public class CategoryDAOImpl implements CategoryDAO{
 		try {
 			session.beginTransaction();
 			sem_category b = (sem_category) session.createQuery("from sem_category where id = :id")
-			.setParameter("id", id)
-			.uniqueResult();
+					.setParameter("id", id).uniqueResult();
 			session.getTransaction().commit();
 			session.close();
 			return b;

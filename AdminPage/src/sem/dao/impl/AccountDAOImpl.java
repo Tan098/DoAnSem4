@@ -14,8 +14,11 @@ import sem.entities.sem_account;
 public class AccountDAOImpl implements AccountDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
-	
-	/** Nhớ copy cái đoạn ở dưới này rồi pase vô tất cả cái DAOImpl nào có sessionFactory **/
+
+	/**
+	 * Nhớ copy cái đoạn ở dưới này rồi pase vô tất cả cái DAOImpl nào có
+	 * sessionFactory
+	 **/
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
@@ -85,12 +88,11 @@ public class AccountDAOImpl implements AccountDAO {
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			int i = session.createQuery("delete from sem_account where id = :id")
-			.setParameter("id",id)
-			.executeUpdate();
+			int i = session.createQuery("delete from sem_account where id = :id").setParameter("id", id)
+					.executeUpdate();
 			session.getTransaction().commit();
 			session.close();
-			if (i>0) 
+			if (i > 0)
 				return true;
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -107,12 +109,11 @@ public class AccountDAOImpl implements AccountDAO {
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			sem_account b = (sem_account) session.createQuery("from sem_account where id = :id")
-			.setParameter("id", id)
-			.uniqueResult();
+			sem_account a = (sem_account) session.createQuery("from sem_account where id = :id").setParameter("id", id)
+					.uniqueResult();
 			session.getTransaction().commit();
 			session.close();
-			return b;
+			return a;
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -120,6 +121,27 @@ public class AccountDAOImpl implements AccountDAO {
 			session.close();
 		}
 		return null;
+	}
+
+	@Override
+	public boolean loginAccount(String username, String password) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.openSession();
+		try {
+			session.beginTransaction();
+			int i = (int) session.createQuery("from sem_account where username = :username and password = :password")
+					.setParameter("username", username).setParameter("password", password).uniqueResult();
+			session.getTransaction().commit();
+			session.close();
+			if (i > 0)
+				return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			session.getTransaction().rollback();
+			session.close();
+		}
+		return false;
 	}
 
 }

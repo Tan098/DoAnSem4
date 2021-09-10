@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -19,12 +20,12 @@ public class sem_category_book implements Serializable{
 	@EmbeddedId
 	private sem_category_book_pk category_book_pk;
 
-	@ManyToOne
-	@JoinColumn(name = "book", referencedColumnName = "id", insertable = false, updatable = false)	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "book", nullable = false, insertable = false, updatable = false)	
 	private sem_book book;
 
-	@ManyToOne
-	@JoinColumn(name = "category", referencedColumnName = "id", insertable = false, updatable = false)
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "category", nullable = false, insertable = false, updatable = false)
 	private sem_category category;
 	
 	public sem_category_book() {

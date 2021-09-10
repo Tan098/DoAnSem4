@@ -1,12 +1,16 @@
 eclipse.preferences.version=1
 encoding//src/sem/controller/AdminController.java=UTF-8
 encoding//src/sem/controller/BookController.java=UTF-8
+encoding//src/sem/controller/LoginController.java=UTF-8
 encoding//src/sem/dao/impl/AccountDAOImpl.java=UTF-8
+encoding//src/sem/dao/impl/AuthorAndBookDAOImpl.java=UTF-8
 encoding//src/sem/dao/impl/AuthorDAOImpl.java=UTF-8
 encoding//src/sem/dao/impl/BookDAOimpl.java=UTF-8
 encoding//src/sem/dao/impl/CartDAOImpl.java=UTF-8
+encoding//src/sem/dao/impl/CategoryAndBookDAOImpl.java=UTF-8
 encoding//src/sem/dao/impl/CategoryDAOImpl.java=UTF-8
 encoding//src/sem/dao/impl/CustomerDAOImpl.java=UTF-8
 encoding//src/sem/dao/impl/ImageDAOImpl.java=UTF-8
 encoding//src/sem/dao/impl/OrderDAOImpl.java=UTF-8
 encoding//src/sem/dao/impl/PublisherDAOImpl.java=UTF-8
+encoding//src/sem/entities/sem_category_book_pk.java=UTF-8

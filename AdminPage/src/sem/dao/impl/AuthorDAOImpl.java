@@ -11,25 +11,25 @@ import sem.dao.AuthorDAO;
 import sem.entities.sem_author;
 
 @Repository
-public class AuthorDAOImpl implements AuthorDAO{
+public class AuthorDAOImpl implements AuthorDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
-	
-	/** Nhớ copy cái đoạn ở dưới này rồi pase vô tất cả cái DAOImpl nào có sessionFactory **/
+
+	/**
+	 * Nhớ copy cái đoạn ở dưới này rồi pase vô tất cả cái DAOImpl nào có
+	 * sessionFactory
+	 **/
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-	
+
 	@Override
-	public List<sem_author> getAuthors(Integer offset, Integer maxResult) {
+	public List<sem_author> getAuthors() {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			List list = session.createQuery("from sem_author")
-					.setFirstResult(offset)
-					.setMaxResults(maxResult)
-					.list();
+			List list = session.createQuery("from sem_author").list();
 			session.getTransaction().commit();
 			session.close();
 			return list;
@@ -41,6 +41,7 @@ public class AuthorDAOImpl implements AuthorDAO{
 		}
 		return null;
 	}
+
 	@Override
 	public boolean insertAuthor(sem_author a) {
 		Session session = sessionFactory.openSession();
@@ -58,15 +59,15 @@ public class AuthorDAOImpl implements AuthorDAO{
 		}
 		return false;
 	}
+
 	@Override
 	public sem_author getAuthorById(Integer id) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			sem_author b = (sem_author) session.createQuery("from sem_author where id = :id")
-			.setParameter("id", id)
-			.uniqueResult();
+			sem_author b = (sem_author) session.createQuery("from sem_author where id = :id").setParameter("id", id)
+					.uniqueResult();
 			session.getTransaction().commit();
 			session.close();
 			return b;
@@ -78,6 +79,7 @@ public class AuthorDAOImpl implements AuthorDAO{
 		}
 		return null;
 	}
+
 	@Override
 	public boolean updateAuthor(sem_author a) {
 		Session session = sessionFactory.openSession();
@@ -95,18 +97,17 @@ public class AuthorDAOImpl implements AuthorDAO{
 		}
 		return false;
 	}
+
 	@Override
 	public boolean deleteAuthor(Integer id) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			int i = session.createQuery("delete from sem_author where id = :id")
-			.setParameter("id",id)
-			.executeUpdate();
+			int i = session.createQuery("delete from sem_author where id = :id").setParameter("id", id).executeUpdate();
 			session.getTransaction().commit();
 			session.close();
-			if (i>0) 
+			if (i > 0)
 				return true;
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -116,6 +117,5 @@ public class AuthorDAOImpl implements AuthorDAO{
 		}
 		return false;
 	}
-
 
 }

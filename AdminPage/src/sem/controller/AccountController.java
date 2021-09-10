@@ -17,11 +17,6 @@ public class AccountController {
 	@Autowired
 	private AccountDAO accountDAO;
 
-	@RequestMapping(value = { "/loginAdmin", "/" })
-	public String loginAdmin(Model model) {
-		return "loginAdmin";
-	}
-
 	@RequestMapping(value = "/listAccounts")
 	public String listAccounts(Model model) {
 		List<sem_account> list = accountDAO.getAccounts();

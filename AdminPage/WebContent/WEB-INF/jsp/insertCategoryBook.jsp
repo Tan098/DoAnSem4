@@ -36,7 +36,7 @@
 								<li class="breadcrumb-item"><a href="home">Trang chủ</a></li>
 								<li class="breadcrumb-item"><a href=listBooks>Sách</a></li>
 								</li>
-								<li class="breadcrumb-item active">Thêm sách</li>
+								<li class="breadcrumb-item active">Thêm danh mục</li>
 							</ol>
 						</div>
 					</div>
@@ -54,60 +54,23 @@
 							<div class="card card-primary">
 								<div class="card-header">
 									<h3 class="card-title">
-										Sách<small>thêm mới</small>
+										Sách<small>thêm danh mục</small>
 									</h3>
 								</div>
 								<!-- /.card-header -->
 								<!-- form start -->
-								<form:form action="insertBook" modelAttribute="b" method="post"
+								<form:form action="insertCategoryBook" modelAttribute="cb" method="post"
 									id="quickForm">
 									<div class="card-body">
 										<div class="form-group">
-											<label>Bí danh</label>
-											<form:input path="alias" name="alias" class="form-control"
-												placeholder="Nhập bí danh" />
+											<label>Mã sách</label>
+											<form:input path="book.id" type="text"
+												class="form-control" readonly="true" />
 										</div>
 										<div class="form-group">
-											<label>Tên sách</label>
-											<form:input path="name" name="name" class="form-control"
-												placeholder="Nhập tên danh mục" />
-										</div>
-										<div class="form-group">
-											<label>Mô tả</label>
-											<form:textarea path="descriptions" name="descriptions"
-												class="form-control" placeholder="Nhập mô tả cho danh mục"></form:textarea>
-										</div>
-										<div class="form-group">
-											<label>Số lượng</label>
-											<form:input path="quantity" type="number" name="quantity"
-												class="form-control" placeholder="Nhập số lượng"></form:input>
-										</div>
-										<div class="form-group">
-											<label>Giá</label>
-											<form:input path="price" type="number" name="price"
-												class="form-control" placeholder="Nhập giá"></form:input>
-										</div>
-										<div class="form-group">
-											<label>Năm phát hành</label>
-											<form:input path="yearofpublic" type="date"
-												name="yearofpublic" class="form-control"
-												placeholder="Nhập năm phát hành"></form:input>
-										</div>
-										<div class="form-group">
-											<label>Trạng thái</label>
-											<div>
-												<form:radiobutton path="status" value="true" />
-												Còn hàng
-											</div>
-											<div>
-												<form:radiobutton path="status" value="false" />
-												Hết hàng
-											</div>
-										</div>
-										<div class="form-group">
-											<label>Nhà xuất bản</label>
-											<form:select path="publicsher.id" class="form-control">
-												<form:options items="${listp}" itemLabel="name"
+											<label>Danh mục</label>
+											<form:select path="category.id" class="form-control">
+												<form:options items="${listc}" itemLabel="name"
 													itemValue="id" />
 											</form:select>
 										</div>
@@ -143,55 +106,5 @@
 		src="<c:url value="/resources/plugins/jquery-validation/jquery.validate.min.js" />"></script>
 	<script
 		src="<c:url value="/resources/plugins/jquery-validation/additional-methods.min.js" />"></script>
-	<script>
-		$(function() {
-			$.validator.setDefaults({
-				submitHandler : function() {
-					$('#quickForm').submit();
-				}
-			});
-			$('#quickForm').validate({
-				rules : {
-					name : {
-						required : true,
-						maxlength : 50
-					},
-					alias : {
-						required : true,
-						maxlength : 15
-					},
-					descriptions : {
-						required : true,
-						maxlength : 200
-					}
-				},
-				messages : {
-					name : {
-						required : "Không được bỏ chống",
-						maxlength : "Tên danh sách không được dài hơn 50 ký tự"
-					},
-					alias : {
-						required : "Không được bỏ chống",
-						maxlength : "Bí danh không được dài hơn 15 ký tự"
-					},
-					descriptions : {
-						required : "Không được bỏ chống",
-						maxlength : "Mô tả sách không được dài hơn 200 ký tự"
-					}
-				},
-				errorElement : 'span',
-				errorPlacement : function(error, element) {
-					error.addClass('invalid-feedback');
-					element.closest('.form-group').append(error);
-				},
-				highlight : function(element, errorClass, validClass) {
-					$(element).addClass('is-invalid');
-				},
-				unhighlight : function(element, errorClass, validClass) {
-					$(element).removeClass('is-invalid');
-				}
-			});
-		});
-	</script>
 </body>
 </html>
