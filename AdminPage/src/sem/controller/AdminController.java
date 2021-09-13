@@ -29,7 +29,6 @@ import sem.dao.CustomerDAO;
 import sem.dao.ImageDAO;
 import sem.dao.OrderDAO;
 import sem.dao.PublisherDAO;
-import sem.entities.sem_account;
 import sem.entities.sem_author;
 import sem.entities.sem_author_book;
 import sem.entities.sem_author_book_pk;
