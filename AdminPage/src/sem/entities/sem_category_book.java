@@ -2,41 +2,49 @@ package sem.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "sem_category_book")
-public class sem_category_book implements Serializable{
+public class sem_category_book implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@EmbeddedId
 	private sem_category_book_pk category_book_pk;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "book", nullable = false, insertable = false, updatable = false)	
+	@JoinColumn(name = "book", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
 	private sem_book book;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "category", nullable = false, insertable = false, updatable = false)
+	@JoinColumn(name = "category", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
 	private sem_category category;
-	
+
+	@Column(name = "alias")
+	private String alias;
+
 	public sem_category_book() {
 		super();
 	}
 
-	public sem_category_book(sem_category_book_pk category_book_pk, sem_book book, sem_category category) {
+	public sem_category_book(sem_category_book_pk category_book_pk, sem_book book, sem_category category,
+			String alias) {
 		super();
 		this.category_book_pk = category_book_pk;
 		this.book = book;
 		this.category = category;
+		this.alias = alias;
 	}
 
 	/**
@@ -86,5 +94,19 @@ public class sem_category_book implements Serializable{
 	 */
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	/**
+	 * @return the alias
+	 */
+	public String getAlias() {
+		return alias;
+	}
+
+	/**
+	 * @param alias the alias to set
+	 */
+	public void setAlias(String alias) {
+		this.alias = alias;
 	}
 }

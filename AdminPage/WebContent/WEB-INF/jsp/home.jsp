@@ -38,7 +38,6 @@
 	href="<c:url value="/resources/plugins/summernote/summernote-bs4.min.css"/>">
 </head>
 <body>
-	${sessionScope.username}
 	<div class="wrapper">
 		<jsp:include page="/WEB-INF/jsp/preload.jsp" flush="false"></jsp:include>
 		<jsp:include page="/WEB-INF/jsp/navbar.jsp" flush="false"></jsp:include>
@@ -50,7 +49,7 @@
 				<div class="container-fluid">
 					<div class="row mb-2">
 						<div class="col-sm-6">
-							<h1 class="m-0">Dashboard</h1>
+							<h1 class="m-0">Xin chào ${sessionScope.username}</h1>
 						</div>
 						<!-- /.col -->
 						<div class="col-sm-6">
