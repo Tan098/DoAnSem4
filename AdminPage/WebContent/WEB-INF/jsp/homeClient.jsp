@@ -2,10 +2,10 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html lang="en">
+<html >
 <head>
 <meta charset="utf-8">
-<title>Bootshop online Shopping cart</title>
+<title>Bookshop online Shopping cart</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="">
@@ -137,252 +137,33 @@
 				<div class="span9">
 					<div class="well well-small">
 						<h4>
-							Featured Products <small class="pull-right">200+ featured
-								products</small>
+							Featured Books <small class="pull-right">20+ featured
+								books</small>
 						</h4>
 						<div class="row-fluid">
 							<div id="featured" class="carousel slide">
 								<div class="carousel-inner">
 									<div class="item active">
+										<c:forEach var="b" items="${listc}">
 										<ul class="thumbnails">
 											<li class="span3">
 												<div class="thumbnail">
-													<i class="tag"></i> <a href="product_details.html"><img
-														src="<c:url value="/resources/themes/images/products/b1.jpg"/>"
-														alt=""></a>
+													<i class="tag"></i> <a href="product_details.html">${b.path}</a>
 													<div class="caption">
-														<h5>Product name</h5>
+														<h5>${b.caption}</h5>
 														<h4>
-															<a class="btn" href="product_details.html">VIEW</a> <span
-																class="pull-right">$222.00</span>
+															<a class="btn" href="product_details.html">VIEW</a> 
+															<span class="pull-right">${b.sem_book.price}</span>
 														</h4>
 													</div>
 												</div>
-											</li>
-											<li class="span3">
-												<div class="thumbnail">
-													<i class="tag"></i> <a href="product_details.html"><img
-														src="<c:url value="/resources/themes/images/products/b2.jpg"/>"
-														alt=""></a>
-													<div class="caption">
-														<h5>Product name</h5>
-														<h4>
-															<a class="btn" href="product_details.html">VIEW</a> <span
-																class="pull-right">$222.00</span>
-														</h4>
-													</div>
-												</div>
-											</li>
-											<li class="span3">
-												<div class="thumbnail">
-													<i class="tag"></i> <a href="product_details.html"><img
-														src="<c:url value="/resources/themes/images/products/b3.jpg"/>"
-														alt=""></a>
-													<div class="caption">
-														<h5>Product name</h5>
-														<h4>
-															<a class="btn" href="product_details.html">VIEW</a> <span
-																class="pull-right">$222.00</span>
-														</h4>
-													</div>
-												</div>
-											</li>
-											<li class="span3">
-												<div class="thumbnail">
-													<i class="tag"></i> <a href="product_details.html"><img
-														src="<c:url value="/resources/themes/images/products/b4.jpg"/>"
-														alt=""></a>
-													<div class="caption">
-														<h5>Product name</h5>
-														<h4>
-															<a class="btn" href="product_details.html">VIEW</a> <span
-																class="pull-right">$222.00</span>
-														</h4>
-													</div>
-												</div>
-											</li>
+											</li>											
 										</ul>
+										</c:forEach>
+										
+										
 									</div>
-									<div class="item">
-										<ul class="thumbnails">
-											<li class="span3">
-												<div class="thumbnail">
-													<i class="tag"></i> <a href="product_details.html"><img
-														src="<c:url value="/resources/themes/images/products/5.jpg"/>"
-														alt=""></a>
-													<div class="caption">
-														<h5>Product name</h5>
-														<h4>
-															<a class="btn" href="product_details.html">VIEW</a> <span
-																class="pull-right">$222.00</span>
-														</h4>
-													</div>
-												</div>
-											</li>
-											<li class="span3">
-												<div class="thumbnail">
-													<i class="tag"></i> <a href="product_details.html"><img
-														src="<c:url value="/resources/themes/images/products/6.jpg"/>"
-														alt=""></a>
-													<div class="caption">
-														<h5>Product name</h5>
-														<h4>
-															<a class="btn" href="product_details.html">VIEW</a> <span
-																class="pull-right">$222.00</span>
-														</h4>
-													</div>
-												</div>
-											</li>
-											<li class="span3">
-												<div class="thumbnail">
-													<a href="product_details.html"><img
-														src="<c:url value="/resources/themes/images/products/7.jpg"/>"
-														alt=""></a>
-													<div class="caption">
-														<h5>Product name</h5>
-														<h4>
-															<a class="btn" href="product_details.html">VIEW</a> <span
-																class="pull-right">$222.00</span>
-														</h4>
-													</div>
-												</div>
-											</li>
-											<li class="span3">
-												<div class="thumbnail">
-													<a href="product_details.html"><img
-														src="<c:url value="/resources/themes/images/products/8.jpg"/>"
-														alt=""></a>
-													<div class="caption">
-														<h5>Product name</h5>
-														<h4>
-															<a class="btn" href="product_details.html">VIEW</a> <span
-																class="pull-right">$222.00</span>
-														</h4>
-													</div>
-												</div>
-											</li>
-										</ul>
-									</div>
-									<div class="item">
-										<ul class="thumbnails">
-											<li class="span3">
-												<div class="thumbnail">
-													<a href="product_details.html"><img
-														src="<c:url value="/resources/themes/images/products/9.jpg"/>"
-														alt=""></a>
-													<div class="caption">
-														<h5>Product name</h5>
-														<h4>
-															<a class="btn" href="product_details.html">VIEW</a> <span
-																class="pull-right">$222.00</span>
-														</h4>
-													</div>
-												</div>
-											</li>
-											<li class="span3">
-												<div class="thumbnail">
-													<a href="product_details.html"><img
-														src="<c:url value="/resources/themes/images/products/10.jpg"/>"
-														alt=""></a>
-													<div class="caption">
-														<h5>Product name</h5>
-														<h4>
-															<a class="btn" href="product_details.html">VIEW</a> <span
-																class="pull-right">$222.00</span>
-														</h4>
-													</div>
-												</div>
-											</li>
-											<li class="span3">
-												<div class="thumbnail">
-													<a href="product_details.html"><img
-														src="<c:url value="/resources/themes/images/products/11.jpg"/>"
-														alt=""></a>
-													<div class="caption">
-														<h5>Product name</h5>
-														<h4>
-															<a class="btn" href="product_details.html">VIEW</a> <span
-																class="pull-right">$222.00</span>
-														</h4>
-													</div>
-												</div>
-											</li>
-											<li class="span3">
-												<div class="thumbnail">
-													<a href="product_details.html"><img
-														src="<c:url value="/resources/themes/images/products/1.jpg"/>"
-														alt=""></a>
-													<div class="caption">
-														<h5>Product name</h5>
-														<h4>
-															<a class="btn" href="product_details.html">VIEW</a> <span
-																class="pull-right">$222.00</span>
-														</h4>
-													</div>
-												</div>
-											</li>
-										</ul>
-									</div>
-									<div class="item">
-										<ul class="thumbnails">
-											<li class="span3">
-												<div class="thumbnail">
-													<a href="product_details.html"><img
-														src="<c:url value="/resources/themes/images/products/2.jpg"/>"
-														alt=""></a>
-													<div class="caption">
-														<h5>Product name</h5>
-														<h4>
-															<a class="btn" href="product_details.html">VIEW</a> <span
-																class="pull-right">$222.00</span>
-														</h4>
-													</div>
-												</div>
-											</li>
-											<li class="span3">
-												<div class="thumbnail">
-													<a href="product_details.html"><img
-														src="<c:url value="/resources/themes/images/products/3.jpg"/>"
-														alt=""></a>
-													<div class="caption">
-														<h5>Product name</h5>
-														<h4>
-															<a class="btn" href="product_details.html">VIEW</a> <span
-																class="pull-right">$222.00</span>
-														</h4>
-													</div>
-												</div>
-											</li>
-											<li class="span3">
-												<div class="thumbnail">
-													<a href="product_details.html"><img
-														src="<c:url value="/resources/themes/images/products/4.jpg"/>"
-														alt=""></a>
-													<div class="caption">
-														<h5>Product name</h5>
-														<h4>
-															<a class="btn" href="product_details.html">VIEW</a> <span
-																class="pull-right">$222.00</span>
-														</h4>
-													</div>
-												</div>
-											</li>
-											<li class="span3">
-												<div class="thumbnail">
-													<a href="product_details.html"><img
-														src="<c:url value="/resources/themes/images/products/5.jpg"/>"
-														alt=""></a>
-													<div class="caption">
-														<h5>Product name</h5>
-														<h4>
-															<a class="btn" href="product_details.html">VIEW</a> <span
-																class="pull-right">$222.00</span>
-														</h4>
-													</div>
-												</div>
-											</li>
-										</ul>
-									</div>
+									
 								</div>
 								<a class="left carousel-control" href="#featured"
 									data-slide="prev">‹</a> <a class="right carousel-control"
@@ -390,111 +171,29 @@
 							</div>
 						</div>
 					</div>
-					<h4>Latest Products</h4>
+					<h4>Latest Books</h4>
 					<ul class="thumbnails">
 						<li class="span3">
 							<div class="thumbnail">
+							<c:forEach var="b" items="${listc}">
 								<a href="product_details.html"><img
 									src="<c:url value="/resources/themes/images/products/6.jpg"/>"
 									alt="" /></a>
 								<div class="caption">
-									<h5>Product name</h5>
-									<p>Lorem Ipsum is simply dummy text.</p>
+									<h5>${b.book.name}</h5>
+									<p>${b.caption}</p>
 
 									<h4 style="text-align: center">
 										<a class="btn" href="product_details.html"> <i
 											class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to
 											<i class="icon-shopping-cart"></i>
-										</a> <a class="btn btn-primary" href="#">$222.00</a>
+										</a> <a class="btn btn-primary" href="#">${b.sem_book.price}</a>
 									</h4>
 								</div>
+								</c:forEach>
 							</div>
 						</li>
-						<li class="span3">
-							<div class="thumbnail">
-								<a href="product_details.html"><img
-									src="<c:url value="/resources/themes/images/products/7.jpg"/>"
-									alt="" /></a>
-								<div class="caption">
-									<h5>Product name</h5>
-									<p>Lorem Ipsum is simply dummy text.</p>
-									<h4 style="text-align: center">
-										<a class="btn" href="product_details.html"> <i
-											class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to
-											<i class="icon-shopping-cart"></i>
-										</a> <a class="btn btn-primary" href="#">$222.00</a>
-									</h4>
-								</div>
-							</div>
-						</li>
-						<li class="span3">
-							<div class="thumbnail">
-								<a href="product_details.html"><img
-									src="<c:url value="/resources/themes/images/products/8.jpg"/>"
-									alt="" /></a>
-								<div class="caption">
-									<h5>Product name</h5>
-									<p>Lorem Ipsum is simply dummy text.</p>
-									<h4 style="text-align: center">
-										<a class="btn" href="product_details.html"> <i
-											class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to
-											<i class="icon-shopping-cart"></i>
-										</a> <a class="btn btn-primary" href="#">$222.00</a>
-									</h4>
-								</div>
-							</div>
-						</li>
-						<li class="span3">
-							<div class="thumbnail">
-								<a href="product_details.html"><img
-									src="<c:url value="/resources/themes/images/products/9.jpg"/>"
-									alt="" /></a>
-								<div class="caption">
-									<h5>Product name</h5>
-									<p>Lorem Ipsum is simply dummy text.</p>
-									<h4 style="text-align: center">
-										<a class="btn" href="product_details.html"> <i
-											class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to
-											<i class="icon-shopping-cart"></i>
-										</a> <a class="btn btn-primary" href="#">$222.00</a>
-									</h4>
-								</div>
-							</div>
-						</li>
-						<li class="span3">
-							<div class="thumbnail">
-								<a href="product_details.html"><img
-									src="<c:url value="/resources/themes/images/products/10.jpg"/>"
-									alt="" /></a>
-								<div class="caption">
-									<h5>Product name</h5>
-									<p>Lorem Ipsum is simply dummy text.</p>
-									<h4 style="text-align: center">
-										<a class="btn" href="product_details.html"> <i
-											class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to
-											<i class="icon-shopping-cart"></i>
-										</a> <a class="btn btn-primary" href="#">$222.00</a>
-									</h4>
-								</div>
-							</div>
-						</li>
-						<li class="span3">
-							<div class="thumbnail">
-								<a href="product_details.html"><img
-									src="<c:url value="/resources/themes/images/products/11.jpg"/>"
-									alt="" /></a>
-								<div class="caption">
-									<h5>Product name</h5>
-									<p>Lorem Ipsum is simply dummy text.</p>
-									<h4 style="text-align: center">
-										<a class="btn" href="product_details.html"> <i
-											class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to
-											<i class="icon-shopping-cart"></i>
-										</a> <a class="btn btn-primary" href="#">$222.00</a>
-									</h4>
-								</div>
-							</div>
-						</li>
+						
 					</ul>
 
 				</div>

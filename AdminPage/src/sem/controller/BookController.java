@@ -96,11 +96,21 @@ public class BookController {
 		}
 	}
 
-	@RequestMapping("/detailBook")
-	public String detailBook(@RequestParam("id") Integer id, Model model) {
-		sem_book bookById = bookDao.getBookById(id);
-		model.addAttribute("b", bookById);
 
+<<<<<<< HEAD
+//	@RequestMapping("/deleteBook")
+//	public String deleteBook(@RequestParam("id") Integer id, Model model,Integer offset, Integer maxResult) {
+//		boolean bl = bookDao.deleteBook(id);
+//		if (bl) {
+//			model.addAttribute("success", "Delete success !");
+//		}else {
+//			model.addAttribute("err", "Delete failed !");
+//		}
+//		List<sem_book> list = bookDao.getBooks(offset == null ?0:offset,maxResult==null?15:maxResult);
+//		model.addAttribute("list", list);
+//		return "listBooks";
+//	}
+=======
 		return "detailBook";
 	}
 
@@ -116,4 +126,5 @@ public class BookController {
 		model.addAttribute("list", list);
 		return "listBooks";
 	}
+>>>>>>> 8f961c7a1fc5e59629075750d4ea884e0f7a5c9c
 }

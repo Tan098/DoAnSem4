@@ -4,7 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
-<head>
 <meta charset="UTF-8">
 <!-- Google Font: Source Sans Pro -->
 <link rel="stylesheet"
@@ -81,7 +80,9 @@
 										<td>${i.path}</td>
 										<td>
 											<div class="tools">
-												<a href="deleteImage?id=${i.id}"><i class="fas fa-trash"></i></a>
+												<a href="initUpdateImage?id=${i.id}"><i
+													class="fas fa-edit"></i></a> <a href="deleteImage?id=${i.id}"><i
+													class="fas fa-trash"></i></a>
 											</div>
 										</td>
 									</tr>
@@ -101,7 +102,9 @@
 						</table>
 					</div>
 					<!-- /.card-body -->
-					<div class="card-footer clearfix"></div>
+					<div class="card-footer clearfix">
+						
+					</div>
 				</div>
 				<!-- /.card -->
 			</section>
