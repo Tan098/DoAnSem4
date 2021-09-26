@@ -69,6 +69,21 @@
 							class="nav-link"> <i class="far fa-circle nav-icon"></i>
 								<p>Nhà Xuất bản</p>
 						</a></li>
+					</ul></li>
+				<!-- Control Detail Book -->
+				<li class="nav-item menu-open"><a class="nav-link"> <i
+						class="nav-icon fas fa-edit"></i>
+						<p>Quản lý chi tiết sách</p> <i class="right fas fa-angle-left"></i>
+				</a>
+					<ul class="nav nav-treeview">
+						<li class="nav-item"><a href="listCategoryBooks"
+							class="nav-link"> <i class="far fa-circle nav-icon"></i>
+								<p>Danh mục</p>
+						</a></li>
+						<li class="nav-item"><a href="listAuthorBooks"
+							class="nav-link"> <i class="far fa-circle nav-icon"></i>
+								<p>Tác giả</p>
+						</a></li>
 						<li class="nav-item"><a href="listImages" class="nav-link">
 								<i class="far fa-circle nav-icon"></i>
 								<p>Ảnh</p>
@@ -78,6 +93,7 @@
 						<i class="nav-icon fas fa-sign-out-alt"></i>
 						<p>Đăng xuất</p>
 				</a></li>
+
 			</ul>
 		</nav>
 		<!-- /.sidebar-menu -->

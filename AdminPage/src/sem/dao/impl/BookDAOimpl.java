@@ -24,12 +24,12 @@ public class BookDAOimpl implements BookDAO {
 	}
 
 	@Override
-	public List<sem_book> getBooks(Integer offset, Integer maxResult) {
+	public List<sem_book> getBooks() {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			List list = session.createQuery("from sem_book").setFirstResult(offset).setMaxResults(maxResult).list();
+			List list = session.createQuery("from sem_book").list();
 			session.getTransaction().commit();
 			session.close();
 			return list;

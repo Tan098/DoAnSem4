@@ -29,9 +29,7 @@ public class AccountDAOImpl implements AccountDAO {
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			List list = session.createQuery("from sem_account")
-
-					.list();
+			List list = session.createQuery("from sem_account").list();
 			session.getTransaction().commit();
 			session.close();
 			return list;
@@ -124,24 +122,27 @@ public class AccountDAOImpl implements AccountDAO {
 	}
 
 	@Override
-	public boolean loginAccount(String username, String password) {
+	public sem_account loginAccount(String username, String password) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
+		sem_account account = null;
 		try {
 			session.beginTransaction();
-			int i = (int) session.createQuery("from sem_account where username = :username and password = :password")
+			// Tạo truy vấn
+			account = (sem_account) session.createQuery("from sem_account where username = :username and password = :password")
 					.setParameter("username", username).setParameter("password", password).uniqueResult();
 			session.getTransaction().commit();
 			session.close();
-			if (i > 0)
-				return true;
+			// Nếu như có giá trị trả về
+			if (account != null)
+				return account;
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 			session.getTransaction().rollback();
 			session.close();
 		}
-		return false;
+		return null;
 	}
 
 }

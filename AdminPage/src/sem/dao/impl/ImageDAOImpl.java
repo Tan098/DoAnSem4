@@ -87,11 +87,11 @@ public class ImageDAOImpl implements ImageDAO {
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			sem_image b = (sem_image) session.createQuery("from sem_image where id = :id").setParameter("id", id)
+			sem_image i = (sem_image) session.createQuery("from sem_image where id = :id").setParameter("id", id)
 					.uniqueResult();
 			session.getTransaction().commit();
 			session.close();
-			return b;
+			return i;
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
