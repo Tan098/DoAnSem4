@@ -29,7 +29,7 @@ public class ImageDAOImpl implements ImageDAO {
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			List list = (List) session.createQuery("from sem_image").list();
+			List list = session.createQuery("from sem_image").list();
 			session.getTransaction().commit();
 			session.close();
 			return list;
