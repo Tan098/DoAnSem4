@@ -413,7 +413,7 @@ public class AdminController {
 		sem_book b = new sem_book(book);
 		cb.setBook(b);
 		model.addAttribute("cb", cb);
-		
+
 		List<sem_category> cate = categoryDAO.getCategories();
 		model.addAttribute("listc", cate);
 		return "insertCategoryBook";
@@ -432,7 +432,7 @@ public class AdminController {
 		} else {
 			model.addAttribute("err", "Insert Failed !");
 			model.addAttribute("cb", cb);
-			
+
 			List<sem_category> cate = categoryDAO.getCategories();
 			model.addAttribute("listc", cate);
 			return "insertCategoryBook";
@@ -440,8 +440,8 @@ public class AdminController {
 	}
 
 	@RequestMapping("/deleteCategoryBook")
-	public String deleteCategoryBook(@RequestParam("book") Integer book, Model model) {
-		boolean bl = categoryAndBookDAO.deleteCategoryBook(book);
+	public String deleteCategoryBook(@RequestParam("alias") String alias, Model model) {
+		boolean bl = categoryAndBookDAO.deleteCategoryBook(alias);
 		if (bl) {
 			model.addAttribute("success", "Delete success !");
 		} else {
@@ -449,10 +449,10 @@ public class AdminController {
 		}
 		List<sem_category_book> list = categoryAndBookDAO.getList();
 		model.addAttribute("list", list);
-		return "deleteCategoryBook";
+		return "listCategoryBooks";
 	}
 	// End
-	
+
 	// AuthorBook
 	@RequestMapping(value = "/listAuthorBooks")
 	public String listAuthorBooks(Model model) {
@@ -468,15 +468,15 @@ public class AdminController {
 		sem_book b = new sem_book(book);
 		ab.setBook(b);
 		model.addAttribute("ab", ab);
-		
+
 		List<sem_author> au = authorDao.getAuthors();
 		model.addAttribute("lista", au);
 		return "insertAuthorBook";
 	}
 
 	@RequestMapping("/insertAuthorBook")
-	public String insertAuthorBook(@ModelAttribute("ab") sem_author_book ab, HttpServletRequest request,
-			Model model) throws IOException {
+	public String insertAuthorBook(@ModelAttribute("ab") sem_author_book ab, HttpServletRequest request, Model model)
+			throws IOException {
 		sem_author_book_pk objPK = new sem_author_book_pk();
 		objPK.setBook(ab.getBook().getId());
 		objPK.setAuthor(ab.getAuthor().getId());
@@ -487,7 +487,7 @@ public class AdminController {
 		} else {
 			model.addAttribute("err", "Insert Failed !");
 			model.addAttribute("ab", ab);
-			
+
 			List<sem_author> au = authorDao.getAuthors();
 			model.addAttribute("lista", au);
 			return "insertAuthorBook";
@@ -495,8 +495,8 @@ public class AdminController {
 	}
 
 	@RequestMapping("/deleteAuthorBook")
-	public String deleteAuthorBook(@RequestParam("book") Integer book, Model model) {
-		boolean bl = authorAndBookDAO.deleteAuthorBook(book);
+	public String deleteAuthorBook(@RequestParam("alias") String alias, Model model) {
+		boolean bl = authorAndBookDAO.deleteAuthorBook(alias);
 		if (bl) {
 			model.addAttribute("success", "Delete success !");
 		} else {
@@ -504,7 +504,7 @@ public class AdminController {
 		}
 		List<sem_author_book> list = authorAndBookDAO.getList();
 		model.addAttribute("list", list);
-		return "deleteAuthorBook";
+		return "listAuthorBooks";
 	}
 	// End
 }

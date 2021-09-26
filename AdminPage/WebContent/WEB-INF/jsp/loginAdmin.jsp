@@ -35,7 +35,7 @@
 				<form:form action="loginAdmin" method="post" id="quickForm"
 					modelAttribute="login">
 					<div class="input-group mb-3">
-						<input class="form-control" name="username"
+						<input class="form-control" name="username" value="${username}"
 							placeholder="Tài khoản" />
 						<div class="input-group-append">
 							<div class="input-group-text">
@@ -44,12 +44,16 @@
 						</div>
 					</div>
 					<div class="input-group mb-3">
-						<input class="form-control" type="password" name="password" placeholder="Mật khẩu" />
+						<input class="form-control" type="password" name="password"
+							placeholder="Mật khẩu" />
 						<div class="input-group-append">
 							<div class="input-group-text">
 								<span class="fas fa-lock"></span>
 							</div>
 						</div>
+					</div>
+					<div class="input-group mb-3">
+						<c:out value="${err}"></c:out>
 					</div>
 					<div class="row">
 						<div class="col-12">
@@ -83,24 +87,18 @@
 			$('#quickForm').validate({
 				rules : {
 					username : {
-						required : true,
-						maxlength : 15
+						required : true
 					},
 					password : {
-						required : true,
-						maxlength : 16,
-						minlength : 6
+						required : true
 					}
 				},
 				messages : {
 					username : {
-						required : "Không được bỏ chống",
-						maxlength : "Tài khoản không được dài hơn 15 ký tự"
+						required : "Không được bỏ chống"
 					},
 					password : {
-						required : "Không được bỏ chống",
-						maxlength : "Mật khẩu không được dài hơn 16 ký tự",
-						minlength : "Mật khẩu không được ngắn hơn 6 ký tự"
+						required : "Không được bỏ chống"
 					}
 				},
 				errorElement : 'span',

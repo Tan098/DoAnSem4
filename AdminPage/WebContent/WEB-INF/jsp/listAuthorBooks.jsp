@@ -22,7 +22,7 @@
 <!-- Theme style -->
 <link rel="stylesheet"
 	href="<c:url value="/resources/dist/css/adminlte.min.css" />">
-<title>AdminLTE 3 | Ảnh</title>
+<title>AdminLTE 3 | Tác giả của sách</title>
 </head>
 <body>
 	<div class="wrapper">
@@ -41,7 +41,7 @@
 						<div class="col-sm-6">
 							<ol class="breadcrumb float-sm-right">
 								<li class="breadcrumb-item"><a href="home">Quản lý</a></li>
-								<li class="breadcrumb-item active">Ảnh</li>
+								<li class="breadcrumb-item active">Tác giả</li>
 							</ol>
 						</div>
 					</div>
@@ -60,28 +60,22 @@
 						<table id="example1" class="table table-bordered table-striped">
 							<thead>
 								<tr>
-									<th>Mã ảnh</th>
 									<th>Tên sách</th>
-									<th>Chú thích</th>
-									<th>Ảnh đại diện</th>
-									<th>Ngày tạo</th>
-									<th>Ảnh</th>
+									<th>Tên tác giả</th>
+									<th>Bí danh</th>
 									<th>Hành động</th>
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach items="${list}" var="i">
+								<c:forEach items="${list}" var="ab">
 									<tr>
-										<td>${i.id}</td>
-										<td>${i.book.name}</td>
-										<td>${i.caption}</td>
-										<td>${i.isdefault ? 'Đúng' : 'Không'}</td>
-										<td><fmt:formatDate type="date" pattern="yyyy-MM-dd"
-												value="${i.datecreated}" /></td>
-										<td>${i.path}</td>
+										<td>${ab.book.name}</td>
+										<td>${ab.author.name}</td>
+										<td>${ab.alias}</td>
 										<td>
 											<div class="tools">
-												<a href="deleteImage?id=${i.id}"><i class="fas fa-trash"></i></a>
+												<a href="deleteAuthorBook?alias=${ab.alias}"><i
+													class="fas fa-trash"></i></a>
 											</div>
 										</td>
 									</tr>
@@ -89,12 +83,9 @@
 							</tbody>
 							<tfoot>
 								<tr>
-									<th>Mã ảnh</th>
 									<th>Tên sách</th>
-									<th>Chú thích</th>
-									<th>Ảnh đại diện</th>
-									<th>Ngày tạo</th>
-									<th>Ảnh</th>
+									<th>Tên tác giả</th>
+									<th>Bí danh</th>
 									<th>Hành động</th>
 								</tr>
 							</tfoot>

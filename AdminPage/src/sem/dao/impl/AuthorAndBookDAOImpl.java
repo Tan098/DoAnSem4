@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import sem.dao.AuthorAndBookDAO;
 import sem.entities.sem_author_book;
+import sem.entities.sem_author_book_pk;
 
 public class AuthorAndBookDAOImpl implements AuthorAndBookDAO {
 	@Autowired
@@ -20,7 +21,7 @@ public class AuthorAndBookDAOImpl implements AuthorAndBookDAO {
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-	
+
 	@Override
 	public List<sem_author_book> getList() {
 		// TODO Auto-generated method stub
@@ -60,12 +61,12 @@ public class AuthorAndBookDAOImpl implements AuthorAndBookDAO {
 	}
 
 	@Override
-	public boolean deleteAuthorBook(Integer book) {
+	public boolean deleteAuthorBook(String alias) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			int i = session.createQuery("delete from sem_author_book where book = :book").setParameter("book", book)
+			int i = session.createQuery("delete from sem_author_book where alias = :alias").setParameter("alias", alias)
 					.executeUpdate();
 			session.getTransaction().commit();
 			session.close();
@@ -81,16 +82,16 @@ public class AuthorAndBookDAOImpl implements AuthorAndBookDAO {
 	}
 
 	@Override
-	public sem_author_book getAuthorBookById(Integer book) {
+	public sem_author_book getAuthorBookByAlias(String alias) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			sem_author_book cb = (sem_author_book) session.createQuery("from sem_author_book where book = :book")
-					.setParameter("book", book).uniqueResult();
+			sem_author_book ab = (sem_author_book) session.createQuery("from sem_author_book where alias = :alias")
+					.setParameter("alias", alias).uniqueResult();
 			session.getTransaction().commit();
 			session.close();
-			return cb;
+			return ab;
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

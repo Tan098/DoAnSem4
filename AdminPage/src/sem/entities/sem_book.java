@@ -25,7 +25,7 @@ public class sem_book  implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private int id;
+	public int id;
 	
 	@Column(name = "alias")
 	private String alias;

@@ -61,12 +61,12 @@ public class CategoryAndBookDAOImpl implements CategoryAndBookDAO {
 	}
 
 	@Override
-	public boolean deleteCategoryBook(Integer book) {
+	public boolean deleteCategoryBook(String alias) {
 		// TODO Auto-generated method stub hàm nào em đặt bug vào
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			int i = session.createQuery("delete from sem_category_book where book = :book").setParameter("book", book)
+			int i = session.createQuery("delete from sem_category_book where alias = :alias").setParameter("alias", alias)
 					.executeUpdate();
 			session.getTransaction().commit();
 			session.close();
@@ -82,13 +82,13 @@ public class CategoryAndBookDAOImpl implements CategoryAndBookDAO {
 	}
 
 	@Override
-	public sem_category_book getCategoryBookById(Integer book) {
+	public sem_category_book getCategoryBookByAlias(String alias) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			sem_category_book cb = (sem_category_book) session.createQuery("from sem_category_book where book = :book")
-					.setParameter("book", book).uniqueResult();
+			sem_category_book cb = (sem_category_book) session.createQuery("from sem_category_book where alias = :alias")
+					.setParameter("alias", alias).uniqueResult();
 			session.getTransaction().commit();
 			session.close();
 			return cb;
