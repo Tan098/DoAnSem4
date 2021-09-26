@@ -59,13 +59,13 @@
 								</div>
 								<!-- /.card-header -->
 								<!-- form start -->
-								<form:form action="insertCategoryBook" modelAttribute="cb" method="post"
-									id="quickForm">
+								<form:form action="insertCategoryBook" modelAttribute="cb"
+									method="post" id="quickForm">
 									<div class="card-body">
 										<div class="form-group">
 											<label>Mã sách</label>
-											<form:input path="book.id" type="text"
-												class="form-control" readonly="true" />
+											<form:input path="book.id" type="text" class="form-control"
+												readonly="true" />
 										</div>
 										<div class="form-group">
 											<label>Danh mục</label>
@@ -73,6 +73,11 @@
 												<form:options items="${listc}" itemLabel="name"
 													itemValue="id" />
 											</form:select>
+										</div>
+										<div class="form-group">
+											<label>Bí danh</label>
+											<form:input path="alias" name="alias" class="form-control"
+												placeholder="Nhập bí danh" />
 										</div>
 									</div>
 									<!-- /.card-body -->
@@ -106,5 +111,39 @@
 		src="<c:url value="/resources/plugins/jquery-validation/jquery.validate.min.js" />"></script>
 	<script
 		src="<c:url value="/resources/plugins/jquery-validation/additional-methods.min.js" />"></script>
+	<script>
+		$(function() {
+			$.validator.setDefaults({
+				submitHandler : function() {
+					$('#quickForm').submit();
+				}
+			});
+			$('#quickForm').validate({
+				rules : {
+					alias : {
+						required : true,
+						maxlength : 100
+					}
+				},
+				messages : {
+					alias : {
+						required : "Không được bỏ chống",
+						maxlength : "Bí danh không được dài hơn 100 ký tự"
+					}
+				},
+				errorElement : 'span',
+				errorPlacement : function(error, element) {
+					error.addClass('invalid-feedback');
+					element.closest('.form-group').append(error);
+				},
+				highlight : function(element, errorClass, validClass) {
+					$(element).addClass('is-invalid');
+				},
+				unhighlight : function(element, errorClass, validClass) {
+					$(element).removeClass('is-invalid');
+				}
+			});
+		});
+	</script>
 </body>
 </html>
