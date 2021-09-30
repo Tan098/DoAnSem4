@@ -144,7 +144,7 @@
 							<div id="featured" class="carousel slide">
 								<div class="carousel-inner">
 									<div class="item active">
-										<c:forEach var="b" items="${listc}">
+										<c:forEach var="b" items="${list}">
 										<ul class="thumbnails">
 											<li class="span3">
 												<div class="thumbnail">
