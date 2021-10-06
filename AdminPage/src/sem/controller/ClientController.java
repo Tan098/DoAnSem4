@@ -13,14 +13,10 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import sem.dao.BookDAO;
-import sem.dao.CartBookDAO;
 import sem.dao.CategoryDAO;
 import sem.dao.HomeDAO;
-import sem.dao.ImageDAO;
 import sem.entities.sem_book;
 import sem.entities.sem_category;
-import sem.entities.sem_image;
 
 @Controller
 public class ClientController {
@@ -33,8 +29,7 @@ public class ClientController {
 		private HomeDAO homeDAO;
 		@Autowired
 		private CategoryDAO categoryDAO;
-//		@Autowired
-//		private CartBookDAO cartDao;
+
 		
 		@InitBinder
 		public void initBinder(WebDataBinder data) {
@@ -53,12 +48,12 @@ public class ClientController {
 			return "homeClient";
 		}
 		
-		@RequestMapping(value = "/listCategoryHome")
-		public String listCategoryHome(Model model) {
+		@RequestMapping("/sidebarClient")
+		public String sidebarClient(Model model) {
 			List<sem_category> listc = categoryDAO.getCategories();
 			model.addAttribute("listc", listc);
 			
-			return "homeClient";
+			return "sidebarClient";
 		}
 		
 		@RequestMapping("/detailBookHome")

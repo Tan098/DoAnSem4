@@ -29,7 +29,7 @@ public class HomeDAOImpl implements HomeDAO {
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			List list = session.createQuery("from sem_book inner join sem_image on sem_book.id = sem_image.book").list();
+			List list = session.createQuery("from sem_book").list();
 			session.getTransaction().commit();
 			session.close();
 			return list;

@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html >
+<html>
 <head>
 <meta charset="utf-8">
 <title>Bookshop online Shopping cart</title>
@@ -144,16 +144,16 @@
 							<div id="featured" class="carousel slide">
 								<div class="carousel-inner">
 									<div class="item active">
-										<c:forEach var="b" items="${list}">
+										<c:forEach items="${list}" var="b">
 										<ul class="thumbnails">
 											<li class="span3">
 												<div class="thumbnail">
-													<i class="tag"></i> <a href="product_details.html">${b.path}</a>
+													<i class="tag"></i> <a href="product_details.html"><img alt="" src="${b.book.path}"></a>
 													<div class="caption">
-														<h5>${b.caption}</h5>
+														<h5>${b.name}</h5>
 														<h4>
 															<a class="btn" href="product_details.html">VIEW</a> 
-															<span class="pull-right">${b.sem_book.price}</span>
+															<span class="pull-right">${b.price}</span>
 														</h4>
 													</div>
 												</div>
@@ -175,19 +175,19 @@
 					<ul class="thumbnails">
 						<li class="span3">
 							<div class="thumbnail">
-							<c:forEach var="b" items="${listc}">
+							<c:forEach var="b" items="${list}">
 								<a href="product_details.html"><img
 									src="<c:url value="/resources/themes/images/products/6.jpg"/>"
 									alt="" /></a>
 								<div class="caption">
-									<h5>${b.book.name}</h5>
-									<p>${b.caption}</p>
+									<h5>${b.name}</h5>
+									<p>${b.descriptions}</p>
 
 									<h4 style="text-align: center">
 										<a class="btn" href="product_details.html"> <i
 											class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to
 											<i class="icon-shopping-cart"></i>
-										</a> <a class="btn btn-primary" href="#">${b.sem_book.price}</a>
+										</a> <a class="btn btn-primary" href="#">${b.price}</a>
 									</h4>
 								</div>
 								</c:forEach>
