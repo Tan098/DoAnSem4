@@ -133,7 +133,29 @@
 	<div id="mainBody">
 		<div class="container">
 			<div class="row">
-				<jsp:include page="/WEB-INF/jsp/sidebarClient.jsp" flush="false"></jsp:include>
+				
+				<!-- Sidebar ================================================== -->
+				<div id="sidebar" class="span3">
+					<c:forEach items="${listc}" var="d">
+						<ul id="sideManu" class="nav nav-tabs nav-stacked">
+
+							<li><a class="active" href="products.html"><i
+									class="icon-chevron-right"></i>${d.name}</a></li>
+
+						</ul>
+					</c:forEach>
+					<br />
+
+					<div class="thumbnail">
+						<img
+							src="<c:url value="/resources/themes/images/payment_methods.png"/>"
+							title="Bootshop Payment Methods" alt="Payments Methods">
+						<div class="caption">
+							<h5>Payment Methods</h5>
+						</div>
+					</div>
+				</div>
+				<!-- Sidebar end=============================================== -->
 				<div class="span9">
 					<div class="well well-small">
 						<h4>
@@ -145,25 +167,25 @@
 								<div class="carousel-inner">
 									<div class="item active">
 										<c:forEach items="${list}" var="b">
-										<ul class="thumbnails">
-											<li class="span3">
-												<div class="thumbnail">
-													<i class="tag"></i> <a href="product_details.html"><img alt="" src="${b.book.path}"></a>
-													<div class="caption">
-														<h5>${b.name}</h5>
-														<h4>
-															<a class="btn" href="product_details.html">VIEW</a> 
-															<span class="pull-right">${b.price}</span>
-														</h4>
+											<ul class="thumbnails">
+												<li class="span3">
+													<div class="thumbnail">
+														<i class="tag"></i> <a href="product_details.html"><img
+															alt="" src=""></a>
+														<div class="caption">
+															<h5>${b.name}</h5>
+															<h4>
+																<a class="btn" href="product_details.html">VIEW</a> <span
+																	class="pull-right">${b.price}</span>
+															</h4>
+														</div>
 													</div>
-												</div>
-											</li>											
-										</ul>
+												</li>
+											</ul>
 										</c:forEach>
-										
-										
+
 									</div>
-									
+
 								</div>
 								<a class="left carousel-control" href="#featured"
 									data-slide="prev">‹</a> <a class="right carousel-control"
@@ -175,25 +197,23 @@
 					<ul class="thumbnails">
 						<li class="span3">
 							<div class="thumbnail">
-							<c:forEach var="b" items="${list}">
-								<a href="product_details.html"><img
-									src="<c:url value="/resources/themes/images/products/6.jpg"/>"
-									alt="" /></a>
-								<div class="caption">
-									<h5>${b.name}</h5>
-									<p>${b.descriptions}</p>
+								<c:forEach var="b" items="${list}">
+									<a href="product_details.html"><img src="<c:url value="views"/>/assets/images/${b.id.path}" width="100px" height="70px"/></a>
+									<div class="caption">
+										<h5>${b.name}</h5>
+										<p>${b.descriptions}</p>
 
-									<h4 style="text-align: center">
-										<a class="btn" href="product_details.html"> <i
-											class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to
-											<i class="icon-shopping-cart"></i>
-										</a> <a class="btn btn-primary" href="#">${b.price}</a>
-									</h4>
-								</div>
+										<h4 style="text-align: center">
+											<a class="btn" href="product_details.html"> <i
+												class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to
+												<i class="icon-shopping-cart"></i>
+											</a> <a class="btn btn-primary" href="#">${b.price}</a>
+										</h4>
+									</div>
 								</c:forEach>
 							</div>
 						</li>
-						
+
 					</ul>
 
 				</div>
