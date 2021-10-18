@@ -15,7 +15,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name = "sem_image")

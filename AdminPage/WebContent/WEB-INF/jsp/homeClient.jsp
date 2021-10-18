@@ -133,13 +133,13 @@
 	<div id="mainBody">
 		<div class="container">
 			<div class="row">
-				
+
 				<!-- Sidebar ================================================== -->
 				<div id="sidebar" class="span3">
 					<c:forEach items="${listc}" var="d">
 						<ul id="sideManu" class="nav nav-tabs nav-stacked">
 
-							<li><a class="active" href="products.html"><i
+							<li><a class="active" href="product?id=${d.id }"><i
 									class="icon-chevron-right"></i>${d.name}</a></li>
 
 						</ul>
@@ -163,26 +163,35 @@
 								books</small>
 						</h4>
 						<div class="row-fluid">
-							<div id="featured" class="carousel slide">
+							<div id="featured">
 								<div class="carousel-inner">
 									<div class="item active">
-										<c:forEach items="${list}" var="b">
-											<ul class="thumbnails">
+
+										<ul class="thumbnails">
+											<c:forEach items="${list}" var="b">
 												<li class="span3">
 													<div class="thumbnail">
-														<i class="tag"></i> <a href="product_details.html"><img
-															alt="" src=""></a>
+														<i class="tag"></i>
+														<c:forEach var="i" items="${b.sem_images}">
+															<c:if test="${i.isdefault}">
+																<img src="<c:url value="resources"/>/images/${i.path}"
+																	width="100px" height="70px" />
+															</c:if>
+														</c:forEach>
 														<div class="caption">
-															<h5>${b.name}</h5>
+															<h5 style="height: 40px">${b.name}</h5>
 															<h4>
-																<a class="btn" href="product_details.html">VIEW</a> <span
+																<a class="btn" href="detailBook?id=${b.id}">VIEW</a> <span
 																	class="pull-right">${b.price}</span>
 															</h4>
 														</div>
+
 													</div>
+
 												</li>
-											</ul>
-										</c:forEach>
+											</c:forEach>
+										</ul>
+
 
 									</div>
 
@@ -195,25 +204,31 @@
 					</div>
 					<h4>Latest Books</h4>
 					<ul class="thumbnails">
-						<li class="span3">
-							<div class="thumbnail">
-								<c:forEach var="b" items="${list}">
-									<a href="product_details.html"><img src="<c:url value="views"/>/assets/images/${b.id.path}" width="100px" height="70px"/></a>
+						<c:forEach var="b" items="${list}">
+							<li class="span3">
+								<div class="thumbnail">
+									<c:forEach var="i" items="${b.sem_images}">
+										<c:if test="${i.isdefault}">
+											<img src="<c:url value="resources"/>/images/${i.path}"
+												width="100px" height="70px" />
+										</c:if>
+									</c:forEach>
 									<div class="caption">
 										<h5>${b.name}</h5>
 										<p>${b.descriptions}</p>
 
 										<h4 style="text-align: center">
-											<a class="btn" href="product_details.html"> <i
+											<a class="btn" href="detailBook?id=${b.id}"> <i
 												class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to
 												<i class="icon-shopping-cart"></i>
-											</a> <a class="btn btn-primary" href="#">${b.price}</a>
+											</a>
+											<div class="btn btn-primary">${b.price}</div>
 										</h4>
 									</div>
-								</c:forEach>
-							</div>
-						</li>
 
+								</div>
+							</li>
+						</c:forEach>
 					</ul>
 
 				</div>

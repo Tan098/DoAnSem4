@@ -23,11 +23,11 @@ public class sem_author_book implements Serializable {
 	@EmbeddedId
 	private sem_author_book_pk author_book_pk;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name = "book", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
 	private sem_book book;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name = "author", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
 	private sem_author author;
 
