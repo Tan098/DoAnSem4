@@ -96,7 +96,4 @@
 	<bean id="authorAndBookDAO" class="sem.dao.impl.AuthorAndBookDAOImpl">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	<bean id="homeDAO" class="sem.dao.impl.HomeDAOImpl">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
 </beans>

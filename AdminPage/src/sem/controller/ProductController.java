@@ -21,27 +21,17 @@ import sem.entities.sem_category;
 import sem.entities.sem_image;
 
 @Controller
-public class ClientController {
+public class ProductController {
 	// Home
 		
 		@Autowired
 		private ImageDAO imageDAO;
+
 		@Autowired
 		private BookDAO bookDao;
 		@Autowired
 		private CategoryDAO categoryDAO;
 
-		@RequestMapping(value = "/homeClient")
-		public String HomeClient(Model model) {
-			List<sem_book> list = bookDao.getBooks();
-			List<sem_category> listc = categoryDAO.getCategories();
-			//List<sem_image> listi = imageDAO.getImages();
-			model.addAttribute("listc", listc);
-			//model.addAttribute("listi", listi);
-			model.addAttribute("list", list);
-			
-			return "homeClient";
-		}
 		@InitBinder
 		public void initBinder(WebDataBinder data) {
 			SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
@@ -49,9 +39,20 @@ public class ClientController {
 			data.registerCustomEditor(Date.class, new CustomDateEditor(s, true));
 		}
 		
+		@RequestMapping(value = "/product")
+		public String Product(Model model) {
+			List<sem_book> list = bookDao.getBooks();
+			List<sem_category> listc = categoryDAO.getCategories();
+			//List<sem_image> listi = imageDAO.getImages();
+			model.addAttribute("listc", listc);
+			//model.addAttribute("listi", listi);
+			model.addAttribute("list", list);
+			return "product";
+		}
 		
-		@RequestMapping("/detailBook")
-		public String detailBook(@RequestParam("id") Integer id, Model model) {
+		
+		@RequestMapping("/detailBookProduct")
+			public String detailBookProduct(@RequestParam("id") Integer id, Model model) {
 			sem_book bookById = bookDao.getBookById(id);
 			model.addAttribute("b", bookById);
 
