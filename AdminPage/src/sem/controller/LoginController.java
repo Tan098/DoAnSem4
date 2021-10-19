@@ -40,6 +40,7 @@ public class LoginController {
 			return "home";
 		} else {
 			err = "Tài khoản hoặc mật khẩu không đúng!";
+			request.setAttribute("err", err);
 			return "loginAdmin";
 		}
 	}

@@ -2,6 +2,7 @@ package sem.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -9,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -48,13 +50,16 @@ public class sem_order implements Serializable{
 	
 	@Column(name = "status")
 	private Boolean status;
+	
+	@OneToMany(mappedBy = "order")
+	private List<sem_cart_book> sem_cart_books;
 
 	public sem_order() {
 		super();
 	}
 
 	public sem_order(int id, Date timeorder, String name, String address, String phonenumbers, sem_customer customer,
-			float totalprice, Boolean status) {
+			float totalprice, Boolean status, List<sem_cart_book> sem_cart_books) {
 		super();
 		this.id = id;
 		this.timeorder = timeorder;
@@ -64,6 +69,7 @@ public class sem_order implements Serializable{
 		this.customer = customer;
 		this.totalprice = totalprice;
 		this.status = status;
+		this.sem_cart_books = sem_cart_books;
 	}
 
 	/**
@@ -176,6 +182,20 @@ public class sem_order implements Serializable{
 	 */
 	public void setStatus(Boolean status) {
 		this.status = status;
+	}
+	
+	/**
+	 * @return the sem_cart_books
+	 */
+	public List<sem_cart_book> getSem_cart_books() {
+		return sem_cart_books;
+	}
+
+	/**
+	 * @param sem_cart_books the sem_cart_books to set
+	 */
+	public void setSem_cart_books(List<sem_cart_book> sem_cart_books) {
+		this.sem_cart_books = sem_cart_books;
 	}
 
 	/**

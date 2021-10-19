@@ -77,12 +77,12 @@
 										<td>${i.isdefault ? 'Đúng' : 'Không'}</td>
 										<td><fmt:formatDate type="date" pattern="yyyy-MM-dd"
 												value="${i.datecreated}" /></td>
-										<td>${i.path}</td>
+										<td><img
+											src="<c:url value="resources"/>/images/${i.path}"
+											width="100px" height="100px" /></td>
 										<td>
 											<div class="tools">
-												<a href="initUpdateImage?id=${i.id}"><i
-													class="fas fa-edit"></i></a> <a href="deleteImage?id=${i.id}"><i
-													class="fas fa-trash"></i></a>
+												<a href="deleteImage?id=${i.id}"><i class="fas fa-trash"></i></a>
 											</div>
 										</td>
 									</tr>
@@ -102,9 +102,7 @@
 						</table>
 					</div>
 					<!-- /.card-body -->
-					<div class="card-footer clearfix">
-						
-					</div>
+					<div class="card-footer clearfix"></div>
 				</div>
 				<!-- /.card -->
 			</section>

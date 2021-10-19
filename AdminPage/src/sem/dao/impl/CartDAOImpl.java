@@ -9,26 +9,27 @@ import org.springframework.stereotype.Repository;
 
 import sem.dao.CartDAO;
 import sem.entities.sem_cart;
+
 @Repository
-public class CartDAOImpl implements CartDAO{
+public class CartDAOImpl implements CartDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
-	
-	/** Nhớ copy cái đoạn ở dưới này rồi pase vô tất cả cái DAOImpl nào có sessionFactory **/
+
+	/**
+	 * Nhớ copy cái đoạn ở dưới này rồi pase vô tất cả cái DAOImpl nào có
+	 * sessionFactory
+	 **/
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-	
+
 	@Override
-	public List<sem_cart> getCarts(Integer offset, Integer maxResult) {
+	public List<sem_cart> getCarts() {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			List list = session.createQuery("from sem_cart")
-					.setFirstResult(offset)
-					.setMaxResults(maxResult)
-					.list();
+			List list = session.createQuery("from sem_cart").list();
 			session.getTransaction().commit();
 			session.close();
 			return list;
@@ -40,6 +41,7 @@ public class CartDAOImpl implements CartDAO{
 		}
 		return null;
 	}
+
 	@Override
 	public boolean insertCart(sem_cart c) {
 		Session session = sessionFactory.openSession();
@@ -57,15 +59,15 @@ public class CartDAOImpl implements CartDAO{
 		}
 		return false;
 	}
+
 	@Override
 	public sem_cart getCartById(Integer id) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			sem_cart c = (sem_cart) session.createQuery("from sem_cart where id = :id")
-			.setParameter("id", id)
-			.uniqueResult();
+			sem_cart c = (sem_cart) session.createQuery("from sem_cart where id = :id").setParameter("id", id)
+					.uniqueResult();
 			session.getTransaction().commit();
 			session.close();
 			return c;
@@ -77,6 +79,7 @@ public class CartDAOImpl implements CartDAO{
 		}
 		return null;
 	}
+
 	@Override
 	public boolean updateCart(sem_cart c) {
 		Session session = sessionFactory.openSession();
@@ -94,18 +97,17 @@ public class CartDAOImpl implements CartDAO{
 		}
 		return false;
 	}
+
 	@Override
 	public boolean deleteCart(Integer id) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			int i = session.createQuery("delete from sem_cart where id = :id")
-			.setParameter("id",id)
-			.executeUpdate();
+			int i = session.createQuery("delete from sem_cart where id = :id").setParameter("id", id).executeUpdate();
 			session.getTransaction().commit();
 			session.close();
-			if (i>0) 
+			if (i > 0)
 				return true;
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -115,6 +117,5 @@ public class CartDAOImpl implements CartDAO{
 		}
 		return false;
 	}
-
 
 }

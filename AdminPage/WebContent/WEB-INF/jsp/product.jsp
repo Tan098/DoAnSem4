@@ -94,38 +94,39 @@
 						</div>
 					</form>
 
-					
+
 					<br class="clr" />
 					<div class="tab-content">
-						
+
 
 						<div class="tab-pane  active" id="blockView">
 							<div class="thumbnail">
 								<c:forEach var="b" items="${list}">
-							<li class="span3">
-								<div class="thumbnail">
-									<c:forEach var="i" items="${b.sem_images}">
-										<c:if test="${i.isdefault}">
-											<img src="<c:url value="resources"/>/images/${i.path}"
-												width="100px" height="70px" />
-										</c:if>
-									</c:forEach>
-									<div class="caption">
-										<h5>${b.name}</h5>
-										<p>${b.descriptions}</p>
+									<li class="span3">
+										<div class="thumbnail">
+											<c:forEach var="i" items="${b.sem_images}">
+												<c:if test="${i.isdefault}">
+													<img src="<c:url value="resources"/>/images/${i.path}"
+														width="100px" height="70px" />
+												</c:if>
+											</c:forEach>
+											<div class="caption">
+												<h5>${b.name}</h5>
+												<p>${b.descriptions}</p>
 
-										<h4 style="text-align: center">
-											<a class="btn" href="detailBook?id=${b.id}"> <i
-												class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to
-												<i class="icon-shopping-cart"></i>
-											</a>
-											<div class="btn btn-primary">${b.price}</div>
-										</h4>
-									</div>
+												<h4 style="text-align: center">
+													<a class="btn" href="detailBook?id=${b.id}"> <i
+														class="icon-zoom-in"></i></a> <a class="btn"
+														href="add-to-cart?bookid=${b.id}">Thêm vào giỏ hàng<i
+														class="icon-shopping-cart"></i>
+													</a>
+													<div class="btn btn-primary">${b.price}</div>
+												</h4>
+											</div>
 
-								</div>
-							</li>
-						</c:forEach>
+										</div>
+									</li>
+								</c:forEach>
 							</div>
 							<hr class="soft" />
 						</div>
@@ -151,6 +152,5 @@
 	</div>
 	<!-- MainBody End ============================= -->
 	<jsp:include page="/WEB-INF/jsp/footerClient.jsp" flush="false"></jsp:include>
-	<span id="themesBtn"></span>
 </body>
 </html>

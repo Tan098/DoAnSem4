@@ -159,8 +159,7 @@
 				<div class="span9">
 					<div class="well well-small">
 						<h4>
-							Featured Books <small class="pull-right">20+ featured
-								books</small>
+							Đặc sắc <small class="pull-right"></small>
 						</h4>
 						<div class="row-fluid">
 							<div id="featured">
@@ -181,8 +180,8 @@
 														<div class="caption">
 															<h5 style="height: 40px">${b.name}</h5>
 															<h4>
-																<a class="btn" href="detailBook?id=${b.id}">VIEW</a> <span
-																	class="pull-right">${b.price}</span>
+																<a class="btn" href="detailBook?id=${b.id}">Chi tiết</a>
+																<span class="pull-right">${b.price}</span>
 															</h4>
 														</div>
 
@@ -202,7 +201,7 @@
 							</div>
 						</div>
 					</div>
-					<h4>Latest Books</h4>
+					<h4>Sách mới nhất</h4>
 					<ul class="thumbnails">
 						<c:forEach var="b" items="${list}">
 							<li class="span3">
@@ -219,8 +218,9 @@
 
 										<h4 style="text-align: center">
 											<a class="btn" href="detailBook?id=${b.id}"> <i
-												class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to
-												<i class="icon-shopping-cart"></i>
+												class="icon-zoom-in"></i></a> <a class="btn"
+												href="add-to-cart?bookid=${b.id}">Thêm vào giỏ hàng <i
+												class="icon-shopping-cart"></i>
 											</a>
 											<div class="btn btn-primary">${b.price}</div>
 										</h4>

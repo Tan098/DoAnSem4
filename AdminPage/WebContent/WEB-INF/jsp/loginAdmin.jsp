@@ -52,7 +52,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="input-group mb-3">
+					<div class="input-group mb-3" style="color:red; text-align: center !important;">
 						<c:out value="${err}"></c:out>
 					</div>
 					<div class="row">

@@ -107,7 +107,7 @@
 			  -->
 						</div>
 
-						
+
 					</div>
 					<div class="span6">
 						<h3>${b.name}</h3>
@@ -117,11 +117,10 @@
 							<div class="control-group">
 								<label class="control-label"><span>${b.price }</span></label>
 								<div class="controls">
-									<input type="number" class="span1" placeholder="Qnt." />
-									<button type="submit"
-										class="btn btn-large btn-primary pull-right">
-										Add to cart <i class=" icon-shopping-cart"></i>
-									</button>
+									<input type="number" class="span1" placeholder="0" /> <a
+										href="add-to-cart?bookid=${b.id}">Thêm vào giỏ hàng<i
+										class=" icon-shopping-cart"></i>
+									</a>
 								</div>
 							</div>
 						</form>
@@ -163,7 +162,7 @@
 									</tr>
 									<tr class="techSpecRow">
 										<td class="techSpecTD1">Status:</td>
-										<td class="techSpecTD2">${b.status}</td>
+										<td class="techSpecTD2">${b.status ? 'Còn hàng' : 'Hết hàng'}</td>
 									</tr>
 									<tr class="techSpecRow">
 										<td class="techSpecTD1">Publisher:</td>

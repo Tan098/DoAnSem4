@@ -83,7 +83,7 @@ public class AdminController {
 		return "listCategories";
 	}
 
-	@RequestMapping("/initInsertCategory")
+	@RequestMapping(value = "/initInsertCategory")
 	public String initInsertCategory(Model model) {
 		sem_category c = new sem_category();
 		model.addAttribute("c", c);
@@ -91,7 +91,7 @@ public class AdminController {
 		return "insertCategory";
 	}
 
-	@RequestMapping("/insertCategory")
+	@RequestMapping(value = "/insertCategory")
 	public String insertCategory(@ModelAttribute("c") sem_category c, Model model) {
 		boolean bl = categoryDAO.insertCategory(c);
 		if (bl) {
@@ -104,7 +104,7 @@ public class AdminController {
 		}
 	}
 
-	@RequestMapping("/initUpdateCategory")
+	@RequestMapping(value = "/initUpdateCategory")
 	public String initUpdateCategory(@RequestParam("id") Integer id, Model model) {
 		sem_category categoryById = categoryDAO.getCategoryById(id);
 		model.addAttribute("c", categoryById);
@@ -112,7 +112,7 @@ public class AdminController {
 		return "updateCategory";
 	}
 
-	@RequestMapping("/updateCategory")
+	@RequestMapping(value = "/updateCategory")
 	public String updateCategory(@ModelAttribute("c") sem_category c, Model model) {
 		boolean bl = categoryDAO.updateCategory(c);
 		if (bl) {
@@ -126,7 +126,7 @@ public class AdminController {
 		}
 	}
 
-	@RequestMapping("/detailCategory")
+	@RequestMapping(value = "/detailCategory")
 	public String detailCategory(@RequestParam("id") Integer id, Model model) {
 		sem_category categoryById = categoryDAO.getCategoryById(id);
 		model.addAttribute("c", categoryById);
@@ -145,7 +145,7 @@ public class AdminController {
 		return "listCustomers";
 	}
 
-	@RequestMapping("/initInsertCustomer")
+	@RequestMapping(value = "/initInsertCustomer")
 	public String initInsertCustomer(Model model) {
 		sem_customer c = new sem_customer();
 		model.addAttribute("c", c);
@@ -153,7 +153,7 @@ public class AdminController {
 		return "insertCustomer";
 	}
 
-	@RequestMapping("/insertCustomer")
+	@RequestMapping(value = "/insertCustomer")
 	public String insertCustomer(@ModelAttribute("c") sem_customer c, Model model) {
 		boolean bl = customerDAO.insertCustomer(c);
 		if (bl) {
@@ -166,7 +166,7 @@ public class AdminController {
 		}
 	}
 
-	@RequestMapping("/initUpdateCustomer")
+	@RequestMapping(value = "/initUpdateCustomer")
 	public String initUpdateCustomer(@RequestParam("id") Integer id, Model model) {
 		sem_customer customerById = customerDAO.getCustomerById(id);
 		model.addAttribute("c", customerById);
@@ -174,7 +174,7 @@ public class AdminController {
 		return "updateCustomer";
 	}
 
-	@RequestMapping("/updateCustomer")
+	@RequestMapping(value = "/updateCustomer")
 	public String updateCustomer(@ModelAttribute("c") sem_customer c, Model model) {
 		boolean bl = customerDAO.updateCustomer(c);
 		if (bl) {
@@ -188,7 +188,7 @@ public class AdminController {
 		}
 	}
 
-	@RequestMapping("/detailCustomer")
+	@RequestMapping(value = "/detailCustomer")
 	public String detailCustomer(@RequestParam("id") Integer id, Model model) {
 		sem_customer customerById = customerDAO.getCustomerById(id);
 		model.addAttribute("c", customerById);
@@ -196,7 +196,7 @@ public class AdminController {
 		return "detailCustomer";
 	}
 
-	@RequestMapping("/deleteCustomer")
+	@RequestMapping(value = "/deleteCustomer")
 	public String deleteCustomer(@RequestParam("id") Integer id, Model model) {
 		boolean bl = customerDAO.deleteCustomer(id);
 		if (bl) {
@@ -219,7 +219,7 @@ public class AdminController {
 		return "listImages";
 	}
 
-	@RequestMapping("/initInsertImage")
+	@RequestMapping(value = "/initInsertImage")
 	public String initInsertImage(@RequestParam("book") Integer book, Model model) {
 		sem_image i = new sem_image();
 		sem_book b = new sem_book(book);
@@ -228,7 +228,7 @@ public class AdminController {
 		return "insertImage";
 	}
 
-	@RequestMapping("/insertImage")
+	@RequestMapping(value = "/insertImage")
 	public String insertImage(@ModelAttribute("i") sem_image i, @RequestParam("pathImage") MultipartFile multipartFile,
 			HttpServletRequest request, Model model) throws IOException {
 		String path = request.getServletContext().getRealPath("resources/images");
@@ -249,7 +249,7 @@ public class AdminController {
 		}
 	}
 
-	@RequestMapping("/deleteImage")
+	@RequestMapping(value = "/deleteImage")
 	public String deleteImage(@RequestParam("id") Integer id, Integer book, Model model) {
 		boolean bl = imageDAO.deleteImage(id);
 		if (bl) {
@@ -272,7 +272,7 @@ public class AdminController {
 		return "listAuthors";
 	}
 
-	@RequestMapping("/initInsertAuthor")
+	@RequestMapping(value = "/initInsertAuthor")
 	public String initInsertAuthor(Model model) {
 		sem_author a = new sem_author();
 		model.addAttribute("a", a);
@@ -280,7 +280,7 @@ public class AdminController {
 		return "insertAccount";
 	}
 
-	@RequestMapping("/insertAuthor")
+	@RequestMapping(value = "/insertAuthor")
 	public String insertAuthor(@ModelAttribute("a") sem_author a, Model model) {
 		boolean bl = authorDao.insertAuthor(a);
 		if (bl) {
@@ -293,7 +293,7 @@ public class AdminController {
 		}
 	}
 
-	@RequestMapping("/initUpdateAuthor")
+	@RequestMapping(value = "/initUpdateAuthor")
 	public String initUpdate(@RequestParam("id") Integer id, Model model) {
 		sem_author authorById = authorDao.getAuthorById(id);
 		model.addAttribute("a", authorById);
@@ -301,7 +301,7 @@ public class AdminController {
 		return "updateAuthor";
 	}
 
-	@RequestMapping("/updateAuthor")
+	@RequestMapping(value = "/updateAuthor")
 	public String updateAuthor(@ModelAttribute("a") sem_author a, Model model) {
 		boolean bl = authorDao.updateAuthor(a);
 		if (bl) {
@@ -315,7 +315,7 @@ public class AdminController {
 		}
 	}
 
-	@RequestMapping("/detailAuthor")
+	@RequestMapping(value = "/detailAuthor")
 	public String detailAuthor(@RequestParam("id") Integer id, Model model) {
 		sem_author authorById = authorDao.getAuthorById(id);
 		model.addAttribute("a", authorById);
@@ -323,7 +323,7 @@ public class AdminController {
 		return "detailAuthor";
 	}
 
-	@RequestMapping("/deleteAuthor")
+	@RequestMapping(value = "/deleteAuthor")
 	public String deleteAuthor(@RequestParam("id") Integer id, Model model, Integer offset, Integer maxResult) {
 		boolean bl = authorDao.deleteAuthor(id);
 		if (bl) {
@@ -346,7 +346,7 @@ public class AdminController {
 		return "listPublishers";
 	}
 
-	@RequestMapping("/initInsertPublisher")
+	@RequestMapping(value = "/initInsertPublisher")
 	public String initInsertPublisher(Model model) {
 		sem_publisher p = new sem_publisher();
 		model.addAttribute("p", p);
@@ -354,7 +354,7 @@ public class AdminController {
 		return "insertPublisher";
 	}
 
-	@RequestMapping("/insertPublisher")
+	@RequestMapping(value = "/insertPublisher")
 	public String insertPublisher(@ModelAttribute("p") sem_publisher p, Model model) {
 		boolean bl = publisherDAO.insertPublisher(p);
 		if (bl) {
@@ -367,7 +367,7 @@ public class AdminController {
 		}
 	}
 
-	@RequestMapping("/initUpdatePublisher")
+	@RequestMapping(value = "/initUpdatePublisher")
 	public String initUpdatePublisher(@RequestParam("id") Integer id, Model model) {
 		sem_publisher publisherById = publisherDAO.getPublisherById(id);
 		model.addAttribute("p", publisherById);
@@ -389,7 +389,7 @@ public class AdminController {
 		}
 	}
 
-	@RequestMapping("/detailPublisher")
+	@RequestMapping(value = "/detailPublisher")
 	public String detailPublisher(@RequestParam("id") Integer id, Model model) {
 		sem_publisher publisherById = publisherDAO.getPublisherById(id);
 		model.addAttribute("p", publisherById);
@@ -419,7 +419,7 @@ public class AdminController {
 		return "insertCategoryBook";
 	}
 
-	@RequestMapping("/insertCategoryBook")
+	@RequestMapping(value = "/insertCategoryBook")
 	public String insertCategoryBook(@ModelAttribute("cb") sem_category_book cb, HttpServletRequest request,
 			Model model) throws IOException {
 		sem_category_book_pk objPK = new sem_category_book_pk();
@@ -439,7 +439,7 @@ public class AdminController {
 		}
 	}
 
-	@RequestMapping("/deleteCategoryBook")
+	@RequestMapping(value = "/deleteCategoryBook")
 	public String deleteCategoryBook(@RequestParam("alias") String alias, Model model) {
 		boolean bl = categoryAndBookDAO.deleteCategoryBook(alias);
 		if (bl) {
@@ -462,7 +462,7 @@ public class AdminController {
 		return "listAuthorBooks";
 	}
 
-	@RequestMapping("/initInsertAuthorBook")
+	@RequestMapping(value = "/initInsertAuthorBook")
 	public String initInsertAuthorBook(@RequestParam("book") Integer book, Model model) {
 		sem_author_book ab = new sem_author_book();
 		sem_book b = new sem_book(book);
@@ -474,7 +474,7 @@ public class AdminController {
 		return "insertAuthorBook";
 	}
 
-	@RequestMapping("/insertAuthorBook")
+	@RequestMapping(value = "/insertAuthorBook")
 	public String insertAuthorBook(@ModelAttribute("ab") sem_author_book ab, HttpServletRequest request, Model model)
 			throws IOException {
 		sem_author_book_pk objPK = new sem_author_book_pk();
@@ -494,7 +494,7 @@ public class AdminController {
 		}
 	}
 
-	@RequestMapping("/deleteAuthorBook")
+	@RequestMapping(value = "/deleteAuthorBook")
 	public String deleteAuthorBook(@RequestParam("alias") String alias, Model model) {
 		boolean bl = authorAndBookDAO.deleteAuthorBook(alias);
 		if (bl) {

@@ -70,12 +70,12 @@
 										<div class="form-group">
 											<label>Tên sách</label>
 											<form:input path="name" name="name" class="form-control"
-												placeholder="Nhập tên danh mục" />
+												placeholder="Nhập tên sách" />
 										</div>
 										<div class="form-group">
 											<label>Mô tả</label>
 											<form:textarea path="descriptions" name="descriptions"
-												class="form-control" placeholder="Nhập mô tả cho danh mục"></form:textarea>
+												class="form-control" placeholder="Nhập mô tả cho Sách"></form:textarea>
 										</div>
 										<div class="form-group">
 											<label>Số lượng</label>
