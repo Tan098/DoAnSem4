@@ -25,7 +25,7 @@
 					class="img-circle elevation-2" alt="User Image">
 			</div>
 			<div class="info">
-				<a href="#" class="d-block">Admin</a>
+				<a href="home" class="d-block">${sessionScope.username}</a>
 			</div>
 		</div>
 

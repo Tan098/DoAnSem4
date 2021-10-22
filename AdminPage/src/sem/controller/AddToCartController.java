@@ -1,7 +1,10 @@
 package sem.controller;
 
+import java.awt.print.Book;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -12,55 +15,75 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.sun.xml.bind.v2.model.core.ID;
+
 import sem.dao.BookDAO;
 import sem.dao.impl.BookDAOimpl;
 import sem.entities.sem_book;
+import sem.entities.sem_cart;
 import sem.entities.sem_cart_book;
 
-@WebServlet(urlPatterns = "/add-to-cart") // ?bookid=?
-public class AddToCartController extends HttpServlet {
+@Controller
+public class AddToCartController {
 
 	@Autowired
-	private BookDAO book;
+	private BookDAO bookDao;
 
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String bookid = req.getParameter("bookid");
-		sem_book b = book.getBookById(Integer.parseInt(bookid));
-
-		HttpSession session = req.getSession();
-		Object obj = session.getAttribute("cart");// luu tam vao session
-		if (obj == null) {// tao moi
-			// Tao mot hang
-			sem_cart_book cartbook = new sem_cart_book();
-			cartbook.setBook(b);
-			cartbook.setQuantity(1);
-			cartbook.setPrice(b.getPrice());
-			// gio hang co nhieu mat hang
-			Map<String, sem_cart_book> map = new HashMap<>();
-			map.put(bookid, cartbook);// them mat hang vao ds
-
-			session.setAttribute("cart", map);// luu tam vao session
-		} else {
-			Map<String, sem_cart_book> map = (Map<String, sem_cart_book>) obj;
-
-			sem_cart_book cartbook = map.get(bookid);
-
-			if (cartbook == null) {
-				cartbook = new sem_cart_book();
-				cartbook.setBook(b);
-				cartbook.setQuantity(1);
-				cartbook.setPrice(b.getPrice());
-
-				map.put(bookid, cartbook);
+	@RequestMapping(value = "/add-to-cart")
+	public String addToCart(HttpSession session, HttpServletRequest request, HttpServletResponse response)
+//			throws ServletException, IOException 
+	{
+		// Khai báo id
+		int id;
+		// Lấy id của quyến sách
+		String bookId = request.getParameter("bookId");
+		// Ép kiểu cho id
+		id = Integer.parseInt(bookId);
+		// Lấy giả trị của quyển sách theo id
+		sem_book book = bookDao.getBookById(id);
+		// Lưu tạm vào session có tên là cart
+		Object object = session.getAttribute("cart");
+		// Kiểm tra nếu đối tượng ở trong session này chưa tồn tại
+		if (object == null) { // Tạo mới giỏ hàng
+			// Tạo mặt hàng đưa vào giỏ hàng
+			sem_cart_book cart_book = new sem_cart_book();
+			// Lấy từng giá trị để đưa vào mặt hàng
+			cart_book.setBook(book);
+			cart_book.setPrice(book.getPrice());
+			cart_book.setQuantity(1);
+			// Nếu giỏ hàng có nhiều mặt hàng
+			Map<Integer, sem_cart_book> map = new HashMap<>();
+			// Đưa mặt hàng đó vào danh sách
+			map.put(id, cart_book);
+			// Lưu danh sách này vào session
+			session.setAttribute("cart", map);
+		} else { 
+			// Lấy danh sách đã đưa vào session trước đó
+			Map<Integer, sem_cart_book> map = (HashMap<Integer, sem_cart_book>) object;
+			// Lấy mặt hàng từ trong danh sách
+			sem_cart_book cart_book = map.get(id);
+			// Nếu mặt hàng đó chưa có trong giỏ
+			if (cart_book == null) { 
+				// Khởi tạo đối tượng để thêm vào danh sách
+				cart_book = new sem_cart_book();
+				// Lấy từng giá trị để đưa vào mặt hàng, đấy em chạy đi.
+				cart_book.setBook(book);
+				cart_book.setPrice(book.getPrice());
+				cart_book.setQuantity(1);
+				// Đưa mặt hàng đó vào danh sách
+				map.put(id, cart_book);
 			} else {
-
-				cartbook.setQuantity(cartbook.getQuantity() + 1);
+				// Tăng thêm một đơn vị cho mặt hàng
+				cart_book.setQuantity(cart_book.getQuantity() + 1);
 			}
-
-			session.setAttribute("cart", map);// luu tam vao session
+			// Lưu danh sách này vào session
+			session.setAttribute("cart", map);
 		}
-
-		resp.sendRedirect(req.getContextPath() + "/cart");
+		// Trả về trang cart-list.jsp
+		return "cart-list";
 	}
 }

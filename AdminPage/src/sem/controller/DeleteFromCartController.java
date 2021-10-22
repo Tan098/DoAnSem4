@@ -10,18 +10,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import sem.entities.sem_book;
 import sem.entities.sem_cart_book;
 
-@WebServlet(urlPatterns = "/delete-from-cart") // ?key=1
-public class DeleteFromCartController extends HttpServlet {
+@Controller
+public class DeleteFromCartController {
 
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String key = req.getParameter("key");
+	@RequestMapping(value = "/delete-from-cart")
+	protected void doGet(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String key = request.getParameter("key");
 
 		// gio hang co nhieu mat hang
-		HttpSession session = req.getSession();
 		Object obj = session.getAttribute("cart");// luu tam vao session
 
 		if (obj != null) {
@@ -31,7 +33,6 @@ public class DeleteFromCartController extends HttpServlet {
 			session.setAttribute("cart", map);
 		}
 		// chuyen ve trang gio hang
-		resp.sendRedirect(req.getContextPath() + "/cart");
+		response.sendRedirect(request.getContextPath() + "/cart");
 	}
-
 }

@@ -106,7 +106,6 @@
 						<thead>
 							<tr>
 								<th>Mã sách</th>
-								<th>Ảnh</th>
 								<th>Tên sách</th>
 								<th>Số lượng/Cập nhập</th>
 								<th>Giá</th>
@@ -118,8 +117,6 @@
 							<c:forEach items="${sessionScope.cart}" var="entry">
 								<tr>
 									<td>${entry.value.book.id}</td>
-									<td><img width="60" src="themes/images/products/4.jpg"
-										alt="" /></td>
 									<td>${entry.value.book.name}</td>
 									<td>
 										<div class="input-append">

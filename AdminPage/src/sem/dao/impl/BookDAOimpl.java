@@ -18,7 +18,7 @@ public class BookDAOimpl implements BookDAO {
 	/**
 	 * Nhớ copy cái đoạn ở dưới này rồi pase vô tất cả cái DAOImpl nào có
 	 * sessionFactory
-	 **/
+	 **/	
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}

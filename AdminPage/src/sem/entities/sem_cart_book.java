@@ -7,6 +7,7 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -40,17 +41,6 @@ public class sem_cart_book  implements Serializable{
 
 	public sem_cart_book() {
 		super();
-	}
-
-	public sem_cart_book(sem.entities.sem_cart_book_pk sem_cart_book_pk, sem_cart cart, sem_book book, sem_order order,
-			int quantity, float price) {
-		super();
-		this.sem_cart_book_pk = sem_cart_book_pk;
-		this.cart = cart;
-		this.book = book;
-		this.order = order;
-		this.quantity = quantity;
-		this.price = price;
 	}
 
 	/**

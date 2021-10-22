@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -54,7 +55,7 @@ public class sem_book  implements Serializable{
 	@ManyToOne
 	private sem_publisher publicsher;
 
-	@OneToMany(mappedBy = "book",fetch = FetchType.EAGER)	
+	@OneToMany(mappedBy = "book",fetch = FetchType.EAGER)		
 	private Set<sem_image> sem_images;
 	
 	@OneToMany(mappedBy = "book")
