@@ -138,32 +138,10 @@ public class AdminController {
 	// Customer
 	@RequestMapping(value = "/listCustomers")
 	public String listCustomers(Model model) {
-		List<sem_customer> list = customerDAO.getCustomers(pageSize == null ? 0 : pageSize,
-				pageIndex == null ? 15 : pageIndex);
+		List<sem_customer> list = customerDAO.getCustomers();
 		model.addAttribute("list", list);
 
 		return "listCustomers";
-	}
-
-	@RequestMapping(value = "/initInsertCustomer")
-	public String initInsertCustomer(Model model) {
-		sem_customer c = new sem_customer();
-		model.addAttribute("c", c);
-
-		return "insertCustomer";
-	}
-
-	@RequestMapping(value = "/insertCustomer")
-	public String insertCustomer(@ModelAttribute("c") sem_customer c, Model model) {
-		boolean bl = customerDAO.insertCustomer(c);
-		if (bl) {
-			return "redirect:/listCustomers";
-		} else {
-			model.addAttribute("err", "Insert Failed !");
-			model.addAttribute("c", c);
-
-			return "insertCustomer";
-		}
 	}
 
 	@RequestMapping(value = "/initUpdateCustomer")
@@ -204,8 +182,7 @@ public class AdminController {
 		} else {
 			model.addAttribute("err", "Delete failed !");
 		}
-		List<sem_customer> list = customerDAO.getCustomers(pageSize == null ? 0 : pageSize,
-				pageIndex == null ? 15 : pageIndex);
+		List<sem_customer> list = customerDAO.getCustomers();
 		model.addAttribute("list", list);
 		return "listCustomers";
 	}

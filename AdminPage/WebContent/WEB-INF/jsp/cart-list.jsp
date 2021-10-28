@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,7 +53,28 @@
 	<div id="mainBody">
 		<div class="container">
 			<div class="row">
-				<jsp:include page="/WEB-INF/jsp/siderbarClient.jsp" flush="true"></jsp:include>
+				<!-- Sidebar ================================================== -->
+				<div id="sidebar" class="span3">
+					<c:forEach items="${listc}" var="d">
+						<ul id="sideManu" class="nav nav-tabs nav-stacked">
+
+							<li><a class="active" href="product?id=${d.id }"><i
+									class="icon-chevron-right"></i>${d.name}</a></li>
+
+						</ul>
+					</c:forEach>
+					<br />
+
+					<div class="thumbnail">
+						<img
+							src="<c:url value="/resources/themes/images/payment_methods.png"/>"
+							title="Bootshop Payment Methods" alt="Payments Methods">
+						<div class="caption">
+							<h5>Phương thức thanh toán</h5>
+						</div>
+					</div>
+				</div>
+				<!-- Sidebar end=============================================== -->
 				<div class="span9">
 					<ul class="breadcrumb">
 						<li><a href="index.html">Trang chủ</a> <span class="divider">/</span></li>
@@ -71,30 +93,9 @@
 							<td>
 								<form class="form-horizontal">
 									<div class="control-group">
-										<label class="control-label" for="inputUsername">Tài
-											khoản</label>
 										<div class="controls">
-											<input type="text" id="inputUsername" placeholder="Tài khoản">
-										</div>
-									</div>
-									<div class="control-group">
-										<label class="control-label" for="inputPassword1">Mật
-											khẩu</label>
-										<div class="controls">
-											<input type="password" id="inputPassword1"
-												placeholder="Mật khẩu">
-										</div>
-									</div>
-									<div class="control-group">
-										<div class="controls">
-											<button type="submit" class="btn">Đăng nhập</button>
-											HOẶC <a href="register.html" class="btn">Đăng ký ngay!</a>
-										</div>
-									</div>
-									<div class="control-group">
-										<div class="controls">
-											<a href="forgetpass.html" style="text-decoration: underline">Quên
-												mật khẩu ?</a>
+											<a href="loginClient" class="btn">Đăng nhập</a>
+											HOẶC <a href="registerCustomer" class="btn">Đăng ký ngay!</a>
 										</div>
 									</div>
 								</form>
@@ -123,18 +124,11 @@
 											<input class="span1" style="max-width: 34px"
 												placeholder="${entry.value.quantity}"
 												id="appendedInputButtons" size="16" type="text">
-											<button class="btn" type="button">
-												<i class="icon-minus"></i>
-											</button>
-											<button class="btn" type="button">
-												<i class="icon-plus"></i>
-											</button>
 										</div>
 									</td>
 									<td>${entry.value.price}</td>
 									<td><strong> ${entry.value.quantity * entry.value.price}</strong></td>
-									<td><a
-										href="/finalweb10/delete-from-cart?key=${entry.value.book.id}">Xóa</a></td>
+									<td><a href="deletefromcart?key=${entry.value.book.id}">Xóa</a></td>
 								</tr>
 							</c:forEach>
 						</tbody>

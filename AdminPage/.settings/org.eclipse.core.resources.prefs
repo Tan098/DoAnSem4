@@ -1,10 +1,10 @@
 eclipse.preferences.version=1
-encoding//src/sem/controller/AddToCartController.java=UTF-8
 encoding//src/sem/controller/AdminController.java=UTF-8
 encoding//src/sem/controller/BookController.java=UTF-8
 encoding//src/sem/controller/CartController.java=UTF-8
 encoding//src/sem/controller/ClientController.java=UTF-8
 encoding//src/sem/controller/LoginController.java=UTF-8
+encoding//src/sem/controller/OrderController.java=UTF-8
 encoding//src/sem/dao/impl/AccountDAOImpl.java=UTF-8
 encoding//src/sem/dao/impl/AuthorAndBookDAOImpl.java=UTF-8
 encoding//src/sem/dao/impl/AuthorDAOImpl.java=UTF-8

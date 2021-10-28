@@ -6,43 +6,46 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "sem_customer")
-public class sem_customer implements Serializable{
+public class sem_customer implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private int id;
-	
-	@Column(name = "name")
+
+	@Column(name = "name", length = 100)
 	private String name;
-	
-	@Column(name = "address")
+
+	@Column(name = "address", length = 200)
 	private String address;
-	
-	@Column(name = "phonenumbers")
+
+	@Column(name = "phonenumbers", length = 10)
 	private String phonenumbers;
-	
+
 	@Column(name = "birthday")
 	private Date birthday;
-	
-	@Column(name = "username")
+
+	@Column(name = "username", length = 15)
 	private String username;
-	
-	@Column(name = "password")
+
+	@Column(name = "password", length = 16)
 	private String password;
-	
+
 	@OneToMany(mappedBy = "customer")
 	private List<sem_cart> sem_carts;
-	
+
 	@OneToMany(mappedBy = "customer")
 	private List<sem_order> sem_orders;
 

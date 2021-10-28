@@ -219,7 +219,7 @@
 										<h4 style="text-align: center">
 											<a class="btn" href="detailBook?id=${b.id}"> <i
 												class="icon-zoom-in"></i></a> <a class="btn"
-												href="add-to-cart?bookId=${b.id}">Thêm vào giỏ hàng<i
+												href="addtocart?bookId=${b.id}">Thêm vào giỏ hàng<i
 												class="icon-shopping-cart"></i>
 											</a>
 											<div class="btn btn-primary">${b.price}</div>

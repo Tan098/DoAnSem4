@@ -116,9 +116,8 @@
 						<form class="form-horizontal qtyFrm">
 							<div class="control-group">
 								<label class="control-label"><span>${b.price }</span></label>
-								<div class="controls">
-									<input type="number" class="span1" placeholder="0" /> <a
-										href="add-to-cart?bookid=${b.id}">Thêm vào giỏ hàng<i
+								<div class="controls"><a
+										href="addtocart?bookId=${b.id}">Thêm vào giỏ hàng<i
 										class=" icon-shopping-cart"></i>
 									</a>
 								</div>

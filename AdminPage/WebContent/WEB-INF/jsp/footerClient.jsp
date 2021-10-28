@@ -50,7 +50,10 @@
 
 <script src="<c:url value="/resources/themes/js/bootshop.js"/>"></script>
 <script
-	src="<c:url value="/resources/themes/js/jquery.lightbox-0.5.js"/>"></script>
+	src="<c:url value="/resources/themes/js/jquery.lightbox-0.5.js"/>">
+<!-- Script xử lý phần đăng nhập session =============================================================== -->
+	
+</script>
 
 <!-- Themes switcher section ============================================================================================= -->
 <div id="secectionBox">
