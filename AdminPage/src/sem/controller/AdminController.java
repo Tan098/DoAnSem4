@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -70,25 +71,42 @@ public class AdminController {
 
 	// Home
 	@RequestMapping(value = "/home")
-	public String HomePage() {
-		return "home";
+	public String HomePage(HttpSession session) {
+		Object object = session.getAttribute("admin");
+		if (object != null) {
+			return "home";
+		} else {
+			return "loginAdmin";
+		}
+
 	}
 	// End
 
 	// Catergory
 	@RequestMapping(value = "/listCategories")
-	public String listCategories(Model model) {
-		List<sem_category> list = categoryDAO.getCategories();
-		model.addAttribute("list", list);
-		return "listCategories";
+	public String listCategories(Model model, HttpSession session) {
+		Object object = session.getAttribute("admin");
+		if (object != null) {
+			List<sem_category> list = categoryDAO.getCategories();
+			model.addAttribute("list", list);
+			return "listCategories";
+		} else {
+			return "loginAdmin";
+		}
+
 	}
 
 	@RequestMapping(value = "/initInsertCategory")
-	public String initInsertCategory(Model model) {
-		sem_category c = new sem_category();
-		model.addAttribute("c", c);
+	public String initInsertCategory(Model model, HttpSession session) {
+		Object object = session.getAttribute("admin");
+		if (object != null) {
+			sem_category c = new sem_category();
+			model.addAttribute("c", c);
+			return "insertCategory";
+		} else {
+			return "loginAdmin";
+		}
 
-		return "insertCategory";
 	}
 
 	@RequestMapping(value = "/insertCategory")
@@ -105,11 +123,15 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/initUpdateCategory")
-	public String initUpdateCategory(@RequestParam("id") Integer id, Model model) {
-		sem_category categoryById = categoryDAO.getCategoryById(id);
-		model.addAttribute("c", categoryById);
-
-		return "updateCategory";
+	public String initUpdateCategory(@RequestParam("id") Integer id, Model model, HttpSession session) {
+		Object object = session.getAttribute("admin");
+		if (object != null) {
+			sem_category categoryById = categoryDAO.getCategoryById(id);
+			model.addAttribute("c", categoryById);
+			return "updateCategory";
+		} else {
+			return "loginAdmin";
+		}
 	}
 
 	@RequestMapping(value = "/updateCategory")
@@ -127,29 +149,41 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/detailCategory")
-	public String detailCategory(@RequestParam("id") Integer id, Model model) {
-		sem_category categoryById = categoryDAO.getCategoryById(id);
-		model.addAttribute("c", categoryById);
-
-		return "detailCategory";
+	public String detailCategory(@RequestParam("id") Integer id, Model model, HttpSession session) {
+		Object object = session.getAttribute("admin");
+		if (object != null) {
+			sem_category categoryById = categoryDAO.getCategoryById(id);
+			model.addAttribute("c", categoryById);
+			return "detailCategory";
+		} else {
+			return "loginAdmin";
+		}
 	}
 	// End
 
 	// Customer
 	@RequestMapping(value = "/listCustomers")
-	public String listCustomers(Model model) {
-		List<sem_customer> list = customerDAO.getCustomers();
-		model.addAttribute("list", list);
-
-		return "listCustomers";
+	public String listCustomers(Model model, HttpSession session) {
+		Object object = session.getAttribute("admin");
+		if (object != null) {
+			List<sem_customer> list = customerDAO.getCustomers();
+			model.addAttribute("list", list);
+			return "listCustomers";
+		} else {
+			return "loginAdmin";
+		}
 	}
 
 	@RequestMapping(value = "/initUpdateCustomer")
-	public String initUpdateCustomer(@RequestParam("id") Integer id, Model model) {
-		sem_customer customerById = customerDAO.getCustomerById(id);
-		model.addAttribute("c", customerById);
-
-		return "updateCustomer";
+	public String initUpdateCustomer(@RequestParam("id") Integer id, Model model, HttpSession session) {
+		Object object = session.getAttribute("admin");
+		if (object != null) {
+			sem_customer customerById = customerDAO.getCustomerById(id);
+			model.addAttribute("c", customerById);
+			return "updateCustomer";
+		} else {
+			return "loginAdmin";
+		}
 	}
 
 	@RequestMapping(value = "/updateCustomer")
@@ -167,42 +201,43 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/detailCustomer")
-	public String detailCustomer(@RequestParam("id") Integer id, Model model) {
-		sem_customer customerById = customerDAO.getCustomerById(id);
-		model.addAttribute("c", customerById);
-
-		return "detailCustomer";
-	}
-
-	@RequestMapping(value = "/deleteCustomer")
-	public String deleteCustomer(@RequestParam("id") Integer id, Model model) {
-		boolean bl = customerDAO.deleteCustomer(id);
-		if (bl) {
-			model.addAttribute("success", "Delete success !");
+	public String detailCustomer(@RequestParam("id") Integer id, Model model, HttpSession session) {
+		Object object = session.getAttribute("admin");
+		if (object != null) {
+			sem_customer customerById = customerDAO.getCustomerById(id);
+			model.addAttribute("c", customerById);
+			return "detailCustomer";
 		} else {
-			model.addAttribute("err", "Delete failed !");
+			return "loginAdmin";
 		}
-		List<sem_customer> list = customerDAO.getCustomers();
-		model.addAttribute("list", list);
-		return "listCustomers";
 	}
 	// End
 
 	// Image
 	@RequestMapping(value = "/listImages")
-	public String listImages(Model model) {
-		List<sem_image> list = imageDAO.getImages();
-		model.addAttribute("list", list);
-		return "listImages";
+	public String listImages(Model model, HttpSession session) {
+		Object object = session.getAttribute("admin");
+		if (object != null) {
+			List<sem_image> list = imageDAO.getImages();
+			model.addAttribute("list", list);
+			return "listImages";
+		} else {
+			return "loginAdmin";
+		}
 	}
 
 	@RequestMapping(value = "/initInsertImage")
-	public String initInsertImage(@RequestParam("book") Integer book, Model model) {
-		sem_image i = new sem_image();
-		sem_book b = new sem_book(book);
-		i.setBook(b);
-		model.addAttribute("i", i);
-		return "insertImage";
+	public String initInsertImage(@RequestParam("book") Integer book, Model model, HttpSession session) {
+		Object object = session.getAttribute("admin");
+		if (object != null) {
+			sem_image i = new sem_image();
+			sem_book b = new sem_book(book);
+			i.setBook(b);
+			model.addAttribute("i", i);
+			return "insertImage";
+		} else {
+			return "loginAdmin";
+		}
 	}
 
 	@RequestMapping(value = "/insertImage")
@@ -227,34 +262,47 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/deleteImage")
-	public String deleteImage(@RequestParam("id") Integer id, Integer book, Model model) {
-		boolean bl = imageDAO.deleteImage(id);
-		if (bl) {
-			model.addAttribute("success", "Delete success !");
+	public String deleteImage(@RequestParam("id") Integer id, Integer book, Model model, HttpSession session) {
+		Object object = session.getAttribute("admin");
+		if (object != null) {
+			boolean bl = imageDAO.deleteImage(id);
+			if (bl) {
+				model.addAttribute("success", "Delete success !");
+			} else {
+				model.addAttribute("err", "Delete failed !");
+			}
+			List<sem_image> list = imageDAO.getImages();
+			model.addAttribute("list", list);
+			return "deleteImage";
 		} else {
-			model.addAttribute("err", "Delete failed !");
+			return "loginAdmin";
 		}
-		List<sem_image> list = imageDAO.getImages();
-		model.addAttribute("list", list);
-		return "deleteImage";
 	}
 	// End
 
 	// Author
 	@RequestMapping(value = "/listAuthors")
-	public String listAuthors(Model model, Integer offset, Integer maxResult) {
-		List<sem_author> list = authorDao.getAuthors();
-		model.addAttribute("list", list);
-
-		return "listAuthors";
+	public String listAuthors(Model model, Integer offset, Integer maxResult, HttpSession session) {
+		Object object = session.getAttribute("admin");
+		if (object != null) {
+			List<sem_author> list = authorDao.getAuthors();
+			model.addAttribute("list", list);
+			return "listAuthors";
+		} else {
+			return "loginAdmin";
+		}
 	}
 
 	@RequestMapping(value = "/initInsertAuthor")
-	public String initInsertAuthor(Model model) {
-		sem_author a = new sem_author();
-		model.addAttribute("a", a);
-
-		return "insertAccount";
+	public String initInsertAuthor(Model model, HttpSession session) {
+		Object object = session.getAttribute("admin");
+		if (object != null) {
+			sem_author a = new sem_author();
+			model.addAttribute("a", a);
+			return "insertAccount";
+		} else {
+			return "loginAdmin";
+		}
 	}
 
 	@RequestMapping(value = "/insertAuthor")
@@ -271,11 +319,15 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/initUpdateAuthor")
-	public String initUpdate(@RequestParam("id") Integer id, Model model) {
-		sem_author authorById = authorDao.getAuthorById(id);
-		model.addAttribute("a", authorById);
-
-		return "updateAuthor";
+	public String initUpdate(@RequestParam("id") Integer id, Model model, HttpSession session) {
+		Object object = session.getAttribute("admin");
+		if (object != null) {
+			sem_author authorById = authorDao.getAuthorById(id);
+			model.addAttribute("a", authorById);
+			return "updateAuthor";
+		} else {
+			return "loginAdmin";
+		}
 	}
 
 	@RequestMapping(value = "/updateAuthor")
@@ -293,42 +345,59 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/detailAuthor")
-	public String detailAuthor(@RequestParam("id") Integer id, Model model) {
-		sem_author authorById = authorDao.getAuthorById(id);
-		model.addAttribute("a", authorById);
-
-		return "detailAuthor";
+	public String detailAuthor(@RequestParam("id") Integer id, Model model, HttpSession session) {
+		Object object = session.getAttribute("admin");
+		if (object != null) {
+			sem_author authorById = authorDao.getAuthorById(id);
+			model.addAttribute("a", authorById);
+			return "detailAuthor";
+		} else {
+			return "loginAdmin";
+		}
 	}
 
 	@RequestMapping(value = "/deleteAuthor")
-	public String deleteAuthor(@RequestParam("id") Integer id, Model model, Integer offset, Integer maxResult) {
-		boolean bl = authorDao.deleteAuthor(id);
-		if (bl) {
-			model.addAttribute("success", "Delete success !");
+	public String deleteAuthor(@RequestParam("id") Integer id, Model model, HttpSession session) {
+		Object object = session.getAttribute("admin");
+		if (object != null) {
+			boolean bl = authorDao.deleteAuthor(id);
+			if (bl) {
+				model.addAttribute("success", "Delete success !");
+			} else {
+				model.addAttribute("err", "Delete failed !");
+			}
+			List<sem_author> list = authorDao.getAuthors();
+			model.addAttribute("list", list);
+			return "listAuthors";
 		} else {
-			model.addAttribute("err", "Delete failed !");
+			return "loginAdmin";
 		}
-		List<sem_author> list = authorDao.getAuthors();
-		model.addAttribute("list", list);
-		return "listAuthors";
 	}
 	// End
 
 	// Publisher
 	@RequestMapping(value = "/listPublishers")
-	public String listPublishers(Model model) {
-		List<sem_publisher> list = publisherDAO.getPublishers();
-		model.addAttribute("list", list);
-
-		return "listPublishers";
+	public String listPublishers(Model model, HttpSession session) {
+		Object object = session.getAttribute("admin");
+		if (object != null) {
+			List<sem_publisher> list = publisherDAO.getPublishers();
+			model.addAttribute("list", list);
+			return "listPublishers";
+		} else {
+			return "loginAdmin";
+		}
 	}
 
 	@RequestMapping(value = "/initInsertPublisher")
-	public String initInsertPublisher(Model model) {
-		sem_publisher p = new sem_publisher();
-		model.addAttribute("p", p);
-
-		return "insertPublisher";
+	public String initInsertPublisher(Model model, HttpSession session) {
+		Object object = session.getAttribute("admin");
+		if (object != null) {
+			sem_publisher p = new sem_publisher();
+			model.addAttribute("p", p);
+			return "insertPublisher";
+		} else {
+			return "loginAdmin";
+		}
 	}
 
 	@RequestMapping(value = "/insertPublisher")
@@ -345,11 +414,15 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/initUpdatePublisher")
-	public String initUpdatePublisher(@RequestParam("id") Integer id, Model model) {
-		sem_publisher publisherById = publisherDAO.getPublisherById(id);
-		model.addAttribute("p", publisherById);
-
-		return "updatePublisher";
+	public String initUpdatePublisher(@RequestParam("id") Integer id, Model model, HttpSession session) {
+		Object object = session.getAttribute("admin");
+		if (object != null) {
+			sem_publisher publisherById = publisherDAO.getPublisherById(id);
+			model.addAttribute("p", publisherById);
+			return "updatePublisher";
+		} else {
+			return "loginAdmin";
+		}
 	}
 
 	@RequestMapping("/updatePublisher")
@@ -367,38 +440,50 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/detailPublisher")
-	public String detailPublisher(@RequestParam("id") Integer id, Model model) {
-		sem_publisher publisherById = publisherDAO.getPublisherById(id);
-		model.addAttribute("p", publisherById);
-
-		return "detailPublisher";
+	public String detailPublisher(@RequestParam("id") Integer id, Model model, HttpSession session) {
+		Object object = session.getAttribute("admin");
+		if (object != null) {
+			sem_publisher publisherById = publisherDAO.getPublisherById(id);
+			model.addAttribute("p", publisherById);
+			return "detailPublisher";
+		} else {
+			return "loginAdmin";
+		}
 	}
 	// End
 
 	// CategoryBook
 	@RequestMapping(value = "/listCategoryBooks")
-	public String listCategoryBooks(Model model) {
-		List<sem_category_book> list = categoryAndBookDAO.getList();
-		model.addAttribute("list", list);
-
-		return "listCategoryBooks";
+	public String listCategoryBooks(Model model, HttpSession session) {
+		Object object = session.getAttribute("admin");
+		if (object != null) {
+			List<sem_category_book> list = categoryAndBookDAO.getList();
+			model.addAttribute("list", list);
+			return "listCategoryBooks";
+		} else {
+			return "loginAdmin";
+		}
 	}
 
 	@RequestMapping("/initInsertCategoryBook")
-	public String initInsertCategoryBook(@RequestParam("book") Integer book, Model model) {
-		sem_category_book cb = new sem_category_book();
-		sem_book b = new sem_book(book);
-		cb.setBook(b);
-		model.addAttribute("cb", cb);
-
-		List<sem_category> cate = categoryDAO.getCategories();
-		model.addAttribute("listc", cate);
-		return "insertCategoryBook";
+	public String initInsertCategoryBook(@RequestParam("book") Integer book, Model model, HttpSession session) {
+		Object object = session.getAttribute("admin");
+		if (object != null) {
+			sem_category_book cb = new sem_category_book();
+			sem_book b = new sem_book(book);
+			cb.setBook(b);
+			model.addAttribute("cb", cb);
+			List<sem_category> cate = categoryDAO.getCategories();
+			model.addAttribute("listc", cate);
+			return "insertCategoryBook";
+		} else {
+			return "loginAdmin";
+		}
 	}
 
 	@RequestMapping(value = "/insertCategoryBook")
 	public String insertCategoryBook(@ModelAttribute("cb") sem_category_book cb, HttpServletRequest request,
-			Model model) throws IOException {
+			Model model, HttpSession session) throws IOException {
 		sem_category_book_pk objPK = new sem_category_book_pk();
 		objPK.setBook(cb.getBook().getId());
 		objPK.setCategory(cb.getCategory().getId());
@@ -417,38 +502,51 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/deleteCategoryBook")
-	public String deleteCategoryBook(@RequestParam("alias") String alias, Model model) {
-		boolean bl = categoryAndBookDAO.deleteCategoryBook(alias);
-		if (bl) {
-			model.addAttribute("success", "Delete success !");
+	public String deleteCategoryBook(@RequestParam("alias") String alias, Model model, HttpSession session) {
+		Object object = session.getAttribute("admin");
+		if (object != null) {
+			boolean bl = categoryAndBookDAO.deleteCategoryBook(alias);
+			if (bl) {
+				model.addAttribute("success", "Delete success !");
+			} else {
+				model.addAttribute("err", "Delete failed !");
+			}
+			List<sem_category_book> list = categoryAndBookDAO.getList();
+			model.addAttribute("list", list);
+			return "listCategoryBooks";
 		} else {
-			model.addAttribute("err", "Delete failed !");
+			return "loginAdmin";
 		}
-		List<sem_category_book> list = categoryAndBookDAO.getList();
-		model.addAttribute("list", list);
-		return "listCategoryBooks";
 	}
 	// End
 
 	// AuthorBook
 	@RequestMapping(value = "/listAuthorBooks")
-	public String listAuthorBooks(Model model) {
-		List<sem_author_book> list = authorAndBookDAO.getList();
-		model.addAttribute("list", list);
-
-		return "listAuthorBooks";
+	public String listAuthorBooks(Model model, HttpSession session) {
+		Object object = session.getAttribute("admin");
+		if (object != null) {
+			List<sem_author_book> list = authorAndBookDAO.getList();
+			model.addAttribute("list", list);
+			return "listAuthorBooks";
+		} else {
+			return "loginAdmin";
+		}
 	}
 
 	@RequestMapping(value = "/initInsertAuthorBook")
-	public String initInsertAuthorBook(@RequestParam("book") Integer book, Model model) {
-		sem_author_book ab = new sem_author_book();
-		sem_book b = new sem_book(book);
-		ab.setBook(b);
-		model.addAttribute("ab", ab);
-
-		List<sem_author> au = authorDao.getAuthors();
-		model.addAttribute("lista", au);
-		return "insertAuthorBook";
+	public String initInsertAuthorBook(@RequestParam("book") Integer book, Model model, HttpSession session) {
+		Object object = session.getAttribute("admin");
+		if (object != null) {
+			sem_author_book ab = new sem_author_book();
+			sem_book b = new sem_book(book);
+			ab.setBook(b);
+			model.addAttribute("ab", ab);
+			List<sem_author> au = authorDao.getAuthors();
+			model.addAttribute("lista", au);
+			return "insertAuthorBook";
+		} else {
+			return "loginAdmin";
+		}
 	}
 
 	@RequestMapping(value = "/insertAuthorBook")
@@ -472,16 +570,21 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/deleteAuthorBook")
-	public String deleteAuthorBook(@RequestParam("alias") String alias, Model model) {
-		boolean bl = authorAndBookDAO.deleteAuthorBook(alias);
-		if (bl) {
-			model.addAttribute("success", "Delete success !");
+	public String deleteAuthorBook(@RequestParam("alias") String alias, Model model, HttpSession session) {
+		Object object = session.getAttribute("admin");
+		if (object != null) {
+			boolean bl = authorAndBookDAO.deleteAuthorBook(alias);
+			if (bl) {
+				model.addAttribute("success", "Delete success !");
+			} else {
+				model.addAttribute("err", "Delete failed !");
+			}
+			List<sem_author_book> list = authorAndBookDAO.getList();
+			model.addAttribute("list", list);
+			return "listAuthorBooks";
 		} else {
-			model.addAttribute("err", "Delete failed !");
+			return "loginAdmin";
 		}
-		List<sem_author_book> list = authorAndBookDAO.getList();
-		model.addAttribute("list", list);
-		return "listAuthorBooks";
 	}
 	// End
 }

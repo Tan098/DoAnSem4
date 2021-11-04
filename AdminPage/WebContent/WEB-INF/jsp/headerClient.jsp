@@ -37,10 +37,16 @@
 				<ul id="topMenu" class="nav pull-right">
 					<li class=""><a href="product" class="nav-link">Sản phẩm</a></li>
 					<li class=""><a href="contact.html">Liên hệ</a></li>
-					<li id="loginButton"><a href="loginClient" style="padding-right: 0"><span
-							class="btn btn-large btn-success">Đăng nhập</span></a></li>
-					<li id="logoutButton" hidden><a href="logoutClient" style="padding-right: 0"><span
-							class="btn btn-large btn-danger">Đăng xuất</span></a></li>
+					<c:if test="${empty client }">
+						<li id="loginButton"><a href="loginClient"
+							style="padding-right: 0"><span
+								class="btn btn-large btn-success">Đăng nhập</span></a></li>
+					</c:if>
+					<c:if test="${not empty client }">
+						<li id="logoutButton"><a href="logoutClient"
+							style="padding-right: 0"><span
+								class="btn btn-large btn-danger">Đăng xuất</span></a></li>
+					</c:if>
 				</ul>
 			</div>
 		</div>

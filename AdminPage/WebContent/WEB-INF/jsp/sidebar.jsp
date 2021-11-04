@@ -25,7 +25,7 @@
 					class="img-circle elevation-2" alt="User Image">
 			</div>
 			<div class="info">
-				<a href="home" class="d-block">${sessionScope.username}</a>
+				<a href="home" class="d-block">${sessionScope.admin.name}</a>
 			</div>
 		</div>
 
@@ -89,7 +89,7 @@
 								<p>Ảnh</p>
 						</a></li>
 					</ul></li>
-				<li class="nav-item"><a href="loginAdmin" class="nav-link">
+				<li class="nav-item"><a href="logoutAdmin" class="nav-link">
 						<i class="nav-icon fas fa-sign-out-alt"></i>
 						<p>Đăng xuất</p>
 				</a></li>

@@ -158,7 +158,7 @@
 
 					<a href="homeClient" class="btn btn-large"><i
 						class="icon-arrow-left"></i> Tiệp tục mua hàng </a> <a
-						href="login.html" class="btn btn-large pull-right">Tiếp <i
+						href="order" class="btn btn-large pull-right">Đặt hàng <i
 						class="icon-arrow-right"></i></a>
 
 				</div>

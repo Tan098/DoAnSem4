@@ -17,6 +17,7 @@ import sem.dao.CategoryDAO;
 import sem.dao.CustomerDAO;
 import sem.dao.impl.AccountDAOImpl;
 import sem.entities.sem_account;
+import sem.entities.sem_cart;
 import sem.entities.sem_category;
 import sem.entities.sem_customer;
 import sem.entities.sem_order;
@@ -45,15 +46,36 @@ public class LoginController {
 		String err = "";
 		// Trả về đối tượng người dùng đã đăng nhập
 		sem_account account = accountDAO.loginAccount(username, password);
-		// Kiểm tra đăng nhập
+		// Khai báo session có tên là admin
+		Object object = session.getAttribute("admin");
 		// Nếu tài khoàn tồn tại
 		if (account != null) {
-			session.setAttribute("username", account.getName());
-			return "home";
+			// Lấy thông tin người dùng đẩy vào account
+			sem_account acc = new sem_account();
+			acc.setUsername(account.getUsername());
+			acc.setPassword(account.getPassword());
+			acc.setName(account.getName());
+			// Lưu thông tin vào session
+			session.setAttribute("admin", acc);
+			return "redirect:/home";
 		} else {
 			err = "Tài khoản hoặc mật khẩu không đúng!";
 			request.setAttribute("err", err);
 			return "loginAdmin";
+		}
+	}
+
+	@RequestMapping(value = "/logoutAdmin")
+	public String logoutAdmin(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+		// Gọi session client
+		Object object = session.getAttribute("admin");
+		// Nếu session tồn tại
+		if (object != null) {
+			// Xóa toàn thông tin khỏi session client
+			session.removeAttribute("admin");
+			return "redirect:/loginAdmin";
+		} else {
+			return "home";
 		}
 	}
 
@@ -88,6 +110,9 @@ public class LoginController {
 			order.setPhonenumbers(customer.getPhonenumbers());
 			// Lưu vào session
 			session.setAttribute("client", order);
+			// Lấy id người dùng đăng nhập để đẩy vào session
+			int cusid = customer.getId();
+			session.setAttribute("cusid", cusid);
 			// Trả về trang home
 			return "redirect:/homeClient";
 		} else {
@@ -95,6 +120,20 @@ public class LoginController {
 			err = "Tài khoản hoặc mật khẩu không đúng!";
 			request.setAttribute("err", err);
 			return "loginClient";
+		}
+	}
+
+	@RequestMapping(value = "/logoutClient")
+	public String logoutClient(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+		// Gọi session client
+		Object object = session.getAttribute("client");
+		// Nếu session tồn tại
+		if (object != null) {
+			// Xóa toàn thông tin khỏi session client
+			session.removeAttribute("client");
+			return "redirect:/loginClient";
+		} else {
+			return "homeClient";
 		}
 	}
 }

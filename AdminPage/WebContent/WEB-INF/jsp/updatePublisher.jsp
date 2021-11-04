@@ -121,7 +121,7 @@
 				},
 				messages : {
 					name : {
-						required : "Không được bỏ chống",
+						required : "Không được bỏ trống",
 						maxlength : "Tên nhà xuất bản không được dài hơn 100 ký tự"
 					}
 				},

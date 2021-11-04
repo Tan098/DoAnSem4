@@ -127,7 +127,7 @@
 				},
 				messages : {
 					alias : {
-						required : "Không được bỏ chống",
+						required : "Không được bỏ trống",
 						maxlength : "Bí danh không được dài hơn 100 ký tự"
 					}
 				},

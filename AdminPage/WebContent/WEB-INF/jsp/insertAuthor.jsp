@@ -117,7 +117,7 @@
 								},
 								messages : {
 									name : {
-										required : "Không được bỏ chống",
+										required : "Không được bỏ trống",
 										maxlength : "Tên tác giả không được dài hơn 50 ký tự"
 									}
 								},

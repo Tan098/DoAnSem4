@@ -111,7 +111,7 @@ public class ClientController {
 			// Kiểm tra nếu tên đăng nhập đã tồn tại
 			if (customer != null)
 				errorUsername = "Tên đăng nhập đã tồn tại";
-		}			
+		}
 		if (password.isEmpty())
 			errorPassword = "Mật khẩu không được để chống";
 		// Thông báo lỗi

@@ -142,15 +142,15 @@
 								},
 								messages : {
 									name : {
-										required : "Không được bỏ chống",
+										required : "Không được bỏ trống",
 										maxlength : "Tên danh mục không được dài hơn 30 ký tự"
 									},
 									alias : {
-										required : "Không được bỏ chống",
+										required : "Không được bỏ trống",
 										maxlength : "Bí danh không được dài hơn 30 ký tự"
 									},
 									descriptions : {
-										required : "Không được bỏ chống",
+										required : "Không được bỏ trống",
 										maxlength : "Mô tả danh mục không được dài hơn 200 ký tự"
 									}
 								},

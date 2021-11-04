@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import sem.dao.BookDAO;
 import sem.dao.PublisherDAO;
+import sem.entities.sem_author_book;
 import sem.entities.sem_book;
 import sem.entities.sem_publisher;
 
@@ -25,34 +28,42 @@ public class BookController {
 	private BookDAO bookDao;
 	@Autowired
 	private PublisherDAO pubDao;
-	
+
 	@InitBinder
 	public void initBinder(WebDataBinder data) {
 		SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
 		s.setLenient(false);
 		data.registerCustomEditor(Date.class, new CustomDateEditor(s, true));
 	}
-	
+
 	/** Nhớ Declarce bean của nó ở file spring-config.xml **/
-	
+
 	@RequestMapping(value = "/listBooks")
-	public String listBooks(Model model) {
-		List<sem_book> list = bookDao.getBooks();
-		model.addAttribute("list", list);
-		
-		
-		return "listBooks";
+	public String listBooks(Model model, HttpSession session) {
+		Object object = session.getAttribute("admin");
+		if (object != null) {
+			List<sem_book> list = bookDao.getBooks();
+			model.addAttribute("list", list);
+			return "listBooks";
+		} else {
+			return "loginAdmin";
+		}
 	}
 
 	@RequestMapping("/initInsertBook")
-	public String initInsertBook(Model model) {
-		sem_book b = new sem_book();
-		model.addAttribute("b", b);
+	public String initInsertBook(Model model, HttpSession session) {
+		Object object = session.getAttribute("admin");
+		if (object != null) {
+			sem_book b = new sem_book();
+			model.addAttribute("b", b);
 
-		List<sem_publisher> pub = pubDao.getPublishers();
-		model.addAttribute("listp", pub);
+			List<sem_publisher> pub = pubDao.getPublishers();
+			model.addAttribute("listp", pub);
 
-		return "insertBook";
+			return "insertBook";
+		} else {
+			return "loginAdmin";
+		}
 	}
 
 	@RequestMapping("/insertBook")
@@ -71,13 +82,18 @@ public class BookController {
 	}
 
 	@RequestMapping("/initUpdateBook")
-	public String initUpdate(@RequestParam("id") Integer id, Model model) {
-		sem_book bookById = bookDao.getBookById(id);
-		model.addAttribute("b", bookById);
+	public String initUpdate(@RequestParam("id") Integer id, Model model, HttpSession session) {
+		Object object = session.getAttribute("admin");
+		if (object != null) {
+			sem_book bookById = bookDao.getBookById(id);
+			model.addAttribute("b", bookById);
 
-		List<sem_publisher> pub = pubDao.getPublishers();
-		model.addAttribute("listp", pub);
-		return "updateBook";
+			List<sem_publisher> pub = pubDao.getPublishers();
+			model.addAttribute("listp", pub);
+			return "updateBook";
+		} else {
+			return "loginAdmin";
+		}
 	}
 
 	@RequestMapping("/updateBook")
@@ -98,16 +114,21 @@ public class BookController {
 	}
 
 	@RequestMapping("/deleteBook")
-	public String deleteBook(@RequestParam("id") Integer id, Model model) {
-		boolean bl = bookDao.deleteBook(id);
-		if (bl) {
-			model.addAttribute("success", "Delete success !");
-		}else {
-			model.addAttribute("err", "Delete failed !");
+	public String deleteBook(@RequestParam("id") Integer id, Model model, HttpSession session) {
+		Object object = session.getAttribute("admin");
+		if (object != null) {
+			boolean bl = bookDao.deleteBook(id);
+			if (bl) {
+				model.addAttribute("success", "Delete success !");
+			} else {
+				model.addAttribute("err", "Delete failed !");
+			}
+			List<sem_book> list = bookDao.getBooks();
+			model.addAttribute("list", list);
+			return "listBooks";
+		} else {
+			return "loginAdmin";
 		}
-		List<sem_book> list = bookDao.getBooks();
-		model.addAttribute("list", list);
-		return "listBooks";
 	}
 
 }
