@@ -12,11 +12,14 @@ import sem.entities.sem_category;
 import sem.entities.sem_order;
 
 @Repository
-public class OrderDAOImpl implements OrderDAO{
+public class OrderDAOImpl implements OrderDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
-	
-	/** Nhớ copy cái đoạn ở dưới này rồi pase vô tất cả cái DAOImpl nào có sessionFactory **/
+
+	/**
+	 * Nhớ copy cái đoạn ở dưới này rồi pase vô tất cả cái DAOImpl nào có
+	 * sessionFactory
+	 **/
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
@@ -27,10 +30,7 @@ public class OrderDAOImpl implements OrderDAO{
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			List list = session.createQuery("from sem_order")
-					.setFirstResult(pageIndex)
-					.setMaxResults(pageSize)
-					.list();
+			List list = session.createQuery("from sem_order").setFirstResult(pageIndex).setMaxResults(pageSize).list();
 			session.getTransaction().commit();
 			session.close();
 			return list;
@@ -44,12 +44,12 @@ public class OrderDAOImpl implements OrderDAO{
 	}
 
 	@Override
-	public boolean insertOrder(sem_order c) {
+	public boolean insertOrder(sem_order o) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			session.save(c);
+			session.save(o);
 			session.getTransaction().commit();
 			session.close();
 			return true;
@@ -63,12 +63,12 @@ public class OrderDAOImpl implements OrderDAO{
 	}
 
 	@Override
-	public boolean updateOrder(sem_order c) {
+	public boolean updateOrder(sem_order o) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			session.update(c);
+			session.update(o);
 			session.getTransaction().commit();
 			session.close();
 			return true;
@@ -87,9 +87,8 @@ public class OrderDAOImpl implements OrderDAO{
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			sem_order o = (sem_order) session.createQuery("from sem_order where id = :id")
-			.setParameter("id", id)
-			.uniqueResult();
+			sem_order o = (sem_order) session.createQuery("from sem_order where id = :id").setParameter("id", id)
+					.uniqueResult();
 			session.getTransaction().commit();
 			session.close();
 			return o;

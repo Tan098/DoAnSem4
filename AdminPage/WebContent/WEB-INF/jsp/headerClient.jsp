@@ -1,11 +1,18 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
 
 <div id="header">
 	<div class="container">
 		<div id="welcomeLine" class="row">
 			<div class="span6">
-				Xin chào! <strong>${sessionScope.client.name}</strong>
+				<c:if test="${not empty client }">
+					<b>Xin chào!</b>
+					<strong>${sessionScope.client.name}</strong>
+					<a href="updateProfile?id=${sessionScope.cusid}"> <span
+						class="btn btn-mini">Cập nhật thông tin</span></a>
+				</c:if>
 			</div>
 			<div class="span6">
 				<div class="pull-right">
@@ -24,16 +31,12 @@
 				<a class="brand" href="homeClient"><img
 					src="<c:url value="/resources/themes/images/logo.png"/>"
 					alt="Bootsshop" /></a>
-				<form class="form-inline navbar-search" method="post"
-					action="products.html">
-					<input class="srchTxt" type="text" /> <select class="srchTxt">
-						<option>TẤT CẢ</option>
-						<option>TÁC GIẢ</option>
-						<option>TÊN SÁCH</option>
-						<option>NHÀ XUẤT BẢN</option>
-					</select>
-					<button type="submit" id="submitButton" class="btn btn-primary">Tìm</button>
-				</form>
+				<form:form class="form-inline navbar-search" role="search"
+					action="searchBook">
+					<input class="srchTxt" type="text" placeholder="Search ..."
+						name="name" />
+					<input type="submit" class="btn btn-primary" />
+				</form:form>
 				<ul id="topMenu" class="nav pull-right">
 					<li class=""><a href="product" class="nav-link">Sản phẩm</a></li>
 					<li class=""><a href="contact.html">Liên hệ</a></li>

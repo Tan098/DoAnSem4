@@ -1,5 +1,6 @@
 package sem.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,6 +54,7 @@ public class CartController {
 			map.put(id, cart_book);
 			// Lưu danh sách này vào session
 			session.setAttribute("cart", map);
+			session.setAttribute("customerCartTotalPrice", totalPrice(map));
 		} else {
 			// Lấy danh sách đã đưa vào session trước đó
 			Map<Integer, sem_cart_book> map = (HashMap<Integer, sem_cart_book>) object;
@@ -74,14 +76,14 @@ public class CartController {
 			}
 			// Lưu danh sách này vào session
 			session.setAttribute("cart", map);
+			session.setAttribute("customerCartTotalPrice", totalPrice(map));
 		}
 		// Trả về trang cart-list.jsp
 		return "cart-list";
 	}
 
 	@RequestMapping(value = "/cart")
-	public String cartList(HttpSession session, HttpServletRequest request, HttpServletResponse response,
-			Model model) {
+	public String cartList(HttpSession session, HttpServletRequest request, HttpServletResponse response, Model model) {
 		List<sem_category> listc = categoryDAO.getCategories();
 		model.addAttribute("listc", listc);
 		return "cart-list";
@@ -119,4 +121,13 @@ public class CartController {
 		// Chuyển về giỏ hàng
 		return "cart-list";
 	}
+	
+	public double totalPrice(Map<Integer, sem_cart_book> map) {
+        int count = 0;
+        for (Map.Entry<Integer, sem_cart_book> list : map.entrySet()) {
+        	// Tính tổng giá đơn hàng
+            count += list.getValue().getBook().getPrice() * list.getValue().getQuantity();            
+        }
+        return count;
+    }
 }

@@ -1,5 +1,6 @@
 package sem.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -41,23 +42,21 @@ public class ClientController {
 	@Autowired
 	private CustomerDAO customerDAO;
 
-	@RequestMapping(value = "/homeClient")
-	public String HomeClient(Model model) {
-		List<sem_book> list = bookDao.getBooks();
-		List<sem_category> listc = categoryDAO.getCategories();
-		// List<sem_image> listi = imageDAO.getImages();
-		model.addAttribute("listc", listc);
-		// model.addAttribute("listi", listi);
-		model.addAttribute("list", list);
-
-		return "homeClient";
-	}
-
 	@InitBinder
 	public void initBinder(WebDataBinder data) {
 		SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
 		s.setLenient(false);
 		data.registerCustomEditor(Date.class, new CustomDateEditor(s, true));
+	}
+
+	@RequestMapping(value = "/homeClient")
+	public String HomeClient(Model model, Integer offset, Integer maxResults) {
+		List<sem_book> list = bookDao.getBooks(offset, maxResults);
+		List<sem_category> listc = categoryDAO.getCategories();
+		model.addAttribute("listc", listc);
+		model.addAttribute("list", list);
+
+		return "homeClient";
 	}
 
 	@RequestMapping(value = "/detailBook")
@@ -68,6 +67,27 @@ public class ClientController {
 		return "detailBook";
 	}
 
+	@RequestMapping("/searchBook")
+	public String searchBook(HttpServletRequest request, Model model, String name) {
+		try {
+			request.setCharacterEncoding("UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		name = request.getParameter("name");
+		if (name.length() == 0) {
+			name = "%";
+		}
+		List<sem_category> listc = categoryDAO.getCategories();
+		model.addAttribute("listc", listc);
+		List<sem_book> list = bookDao.searchBook(name);
+		model.addAttribute("list", list);
+		model.addAttribute("name", name);
+		return "product";
+	}
+
+	// Customer
 	@RequestMapping(value = "/initRegisterCustomer")
 	public String initRegisterCustomer(Model model) {
 		sem_customer c = new sem_customer();
@@ -78,8 +98,7 @@ public class ClientController {
 	}
 
 	@RequestMapping(value = "/registerCustomer")
-	public String registerCustomer(@ModelAttribute("c") sem_customer c, Model model, HttpServletRequest request,
-			HttpServletResponse response) {
+	public String registerCustomer(@ModelAttribute("c") sem_customer c, Model model, HttpServletRequest request) {
 		// Khởi tạo các giá trị tương ứng với bảng sem_customer
 		String name = request.getParameter("name");
 		String address = request.getParameter("address");
@@ -134,6 +153,57 @@ public class ClientController {
 			}
 		} else {
 			return "registerCustomer";
+		}
+	}
+
+	@RequestMapping(value = "updateProfile", method = RequestMethod.GET)
+	public String updateProfile(@RequestParam("id") Integer id, Model model) {
+		List<sem_category> listc = categoryDAO.getCategories();
+		model.addAttribute("listc", listc);
+		sem_customer getCusId = customerDAO.getCustomerById(id);
+		model.addAttribute("c", getCusId);
+		return "updateProfile";
+	}
+
+	@RequestMapping(value = "updateProfile", method = RequestMethod.POST)
+	public String updateProfile(@ModelAttribute("c") sem_customer c, HttpServletRequest request, Model model) {
+		// Khởi tạo các giá trị tương ứng với bảng sem_customer
+		String name = request.getParameter("name");
+		String address = request.getParameter("address");
+		String phonenumbers = request.getParameter("phonenumbers");
+		String password = request.getParameter("password");
+		// Khởi tạo đối tượng bắt lỗi và validate form
+		String errorName = "";
+		String errorAddress = "";
+		String errorPhonenumbers = "";
+		String errorPassword = "";
+		// Kiểm tra trống
+		if (name.isEmpty())
+			errorName = "Tên không được để chống";
+		if (address.isEmpty())
+			errorAddress = "Địa chỉ không được để chống";
+		if (phonenumbers.isEmpty())
+			errorPhonenumbers = "Điện thoại không được để chống";
+		if (password.isEmpty())
+			errorPassword = "Mật khẩu không được để chống";
+		// Thông báo lỗi
+		request.setAttribute("errorName", errorName);
+		request.setAttribute("errorAddress", errorAddress);
+		request.setAttribute("errorPhonenumbers", errorPhonenumbers);
+		request.setAttribute("errorPassword", errorPassword);
+		// Nếu người dùng không mắc lỗi nào
+		if ("".equals(errorName) && "".equals(errorAddress) && "".equals(errorPhonenumbers)
+				&& "".equals(errorPassword)) {
+			// Gọi tới phương thức updateCustomer
+			boolean bl = customerDAO.updateCustomer(c);
+			if (bl) { // Nếu thành công
+				return "redirect:/homeClient";
+			} else { // Nếu thất bại
+				model.addAttribute("c", c);
+				return "updateProfile";
+			}
+		} else {
+			return "updateProfile";
 		}
 	}
 }

@@ -101,4 +101,46 @@ public class CategoryAndBookDAOImpl implements CategoryAndBookDAO {
 		return null;
 	}
 
+	@Override
+	public List<sem_category_book> getListBycategory(Integer id, Integer offset, Integer maxResults) {
+		Session session = sessionFactory.openSession();
+		try {
+			session.beginTransaction();
+			List list = (List) session.createQuery("from sem_category_book where category.id = :id")
+					.setParameter("id", id)
+					.setFirstResult(offset == null ? 0 : offset )
+					.setMaxResults(maxResults == null ? 10 : maxResults)
+					.list();
+			session.getTransaction().commit();
+			session.close();
+			return list;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			session.getTransaction().rollback();
+			session.close();
+		}
+		return null;
+	}
+
+	@Override
+	public Long getTotal(Integer id) {
+		Session session = sessionFactory.openSession();
+		try {
+			session.beginTransaction();
+			List list = (List) session.createQuery("from sem_category_book where category.id = :id")
+					.setParameter("id", id)
+					.list();
+			session.getTransaction().commit();
+			session.close();
+			return (long) list.size();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			session.getTransaction().rollback();
+			session.close();
+		}
+		return null;
+	}
+
 }

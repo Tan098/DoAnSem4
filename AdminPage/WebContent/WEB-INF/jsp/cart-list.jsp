@@ -58,7 +58,7 @@
 					<c:forEach items="${listc}" var="d">
 						<ul id="sideManu" class="nav nav-tabs nav-stacked">
 
-							<li><a class="active" href="product?id=${d.id }"><i
+							<li><a class="active" href="productByCate?id=${d.id}"><i
 									class="icon-chevron-right"></i>${d.name}</a></li>
 
 						</ul>
@@ -89,18 +89,21 @@
 						<tr>
 							<th>THÔNG TIN GIỎ HÀNG</th>
 						</tr>
-						<tr>
-							<td>
-								<form class="form-horizontal">
-									<div class="control-group">
-										<div class="controls">
-											<a href="loginClient" class="btn">Đăng nhập</a>
-											HOẶC <a href="registerCustomer" class="btn">Đăng ký ngay!</a>
+						<c:if test="${empty client}">
+							<tr>
+								<td>
+									<form class="form-horizontal">
+										<div class="control-group">
+											<div class="controls">
+												<a href="loginClient" class="btn">Đăng nhập</a> HOẶC <a
+													href="initRegisterCustomer" class="btn">Đăng ký ngay!</a>
+											</div>
 										</div>
-									</div>
-								</form>
-							</td>
-						</tr>
+									</form>
+								</td>
+							</tr>
+						</c:if>
+
 					</table>
 
 					<table class="table table-bordered">
@@ -108,10 +111,10 @@
 							<tr>
 								<th>Mã sách</th>
 								<th>Tên sách</th>
-								<th>Số lượng/Cập nhập</th>
+								<th>Số lượng</th>
 								<th>Giá</th>
 								<td><strong>Tổng giá</strong></td>
-								<td>Lựa chọn</td>
+								<td></td>
 							</tr>
 						</thead>
 						<tbody>
@@ -119,16 +122,11 @@
 								<tr>
 									<td>${entry.value.book.id}</td>
 									<td>${entry.value.book.name}</td>
-									<td>
-										<div class="input-append">
-											<input class="span1" style="max-width: 34px"
-												placeholder="${entry.value.quantity}"
-												id="appendedInputButtons" size="16" type="text">
-										</div>
-									</td>
+									<td>${entry.value.quantity}</td>
 									<td>${entry.value.price}</td>
 									<td><strong> ${entry.value.quantity * entry.value.price}</strong></td>
-									<td><a href="deletefromcart?key=${entry.value.book.id}">Xóa</a></td>
+									<td><a href="deletefromcart?key=${entry.value.book.id}"
+										style="color: #ff0700;">Xóa</a></td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -158,7 +156,7 @@
 
 					<a href="homeClient" class="btn btn-large"><i
 						class="icon-arrow-left"></i> Tiệp tục mua hàng </a> <a
-						href="order" class="btn btn-large pull-right">Đặt hàng <i
+						href="pre-order" class="btn btn-large pull-right">Đặt hàng <i
 						class="icon-arrow-right"></i></a>
 
 				</div>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="tag" uri="/WEB-INF/tag_library.tld"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,7 +52,7 @@
 					<c:forEach items="${listc}" var="d">
 						<ul id="sideManu" class="nav nav-tabs nav-stacked">
 
-							<li><a class="active" href="product?id=${d.id }"><i
+							<li><a class="active" href="productByCate?id=${d.id}"><i
 									class="icon-chevron-right"></i>${d.name}</a></li>
 
 						</ul>
@@ -63,7 +64,7 @@
 							src="<c:url value="/resources/themes/images/payment_methods.png"/>"
 							title="Bootshop Payment Methods" alt="Payments Methods">
 						<div class="caption">
-							<h5>Payment Methods</h5>
+							<h5>Phương thức thanh toán</h5>
 						</div>
 					</div>
 				</div>
@@ -77,13 +78,13 @@
 						Products Name <small class="pull-right"> 40 products are
 							available </small>
 					</h3>
-					<hr class="soft" />
+					<!-- <hr class="soft" />
 					<p>Nowadays the lingerie industry is one of the most successful
 						business spheres.We always stay in touch with the latest fashion
 						tendencies - that is why our goods are so popular and we have a
 						great number of faithful customers all over the country.</p>
-					<hr class="soft" />
-					<form class="form-horizontal span6">
+					<hr class="soft" /> -->
+					<!-- <form class="form-horizontal span6">
 						<div class="control-group">
 							<label class="control-label alignL">Sort By </label> <select>
 								<option>Priduct name A - Z</option>
@@ -92,7 +93,7 @@
 								<option>Price Lowest first</option>
 							</select>
 						</div>
-					</form>
+					</form> -->
 
 
 					<br class="clr" />
@@ -100,7 +101,7 @@
 
 
 						<div class="tab-pane  active" id="blockView">
-							<div class="thumbnail">
+							<div class="thumbnails">
 								<c:forEach var="b" items="${list}">
 									<li class="span3">
 										<div class="thumbnail">
@@ -132,18 +133,9 @@
 						</div>
 					</div>
 
-					<a href="compair.html" class="btn btn-large pull-right">Compair
-						Product</a>
 					<div class="pagination">
-						<ul>
-							<li><a href="#">&lsaquo;</a></li>
-							<li><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">...</a></li>
-							<li><a href="#">&rsaquo;</a></li>
-						</ul>
+						<tag:tag_library steps="10" offset="${offset}" count="${total}"
+							uri="product" next="&raquo;" previous="&laquo;" />
 					</div>
 					<br class="clr" />
 				</div>

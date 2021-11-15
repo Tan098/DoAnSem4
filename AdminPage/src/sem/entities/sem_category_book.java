@@ -21,11 +21,11 @@ public class sem_category_book implements Serializable {
 	@EmbeddedId
 	private sem_category_book_pk category_book_pk;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name = "book", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
 	private sem_book book;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name = "category", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
 	private sem_category category;
 

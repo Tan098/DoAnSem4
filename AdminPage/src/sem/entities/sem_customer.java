@@ -25,22 +25,22 @@ public class sem_customer implements Serializable {
 	@Column(name = "id")
 	private int id;
 
-	@Column(name = "name", length = 100)
+	@Column(name = "name")
 	private String name;
 
-	@Column(name = "address", length = 200)
+	@Column(name = "address")
 	private String address;
 
-	@Column(name = "phonenumbers", length = 10)
+	@Column(name = "phonenumbers")
 	private String phonenumbers;
 
 	@Column(name = "birthday")
 	private Date birthday;
 
-	@Column(name = "username", length = 15)
+	@Column(name = "username")
 	private String username;
 
-	@Column(name = "password", length = 16)
+	@Column(name = "password")
 	private String password;
 
 	@OneToMany(mappedBy = "customer")
@@ -65,6 +65,18 @@ public class sem_customer implements Serializable {
 		this.password = password;
 		this.sem_carts = sem_carts;
 		this.sem_orders = sem_orders;
+	}	
+	
+	public sem_customer(int id, String name, String address, String phonenumbers, Date birthday, String username,
+			String password) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.address = address;
+		this.phonenumbers = phonenumbers;
+		this.birthday = birthday;
+		this.username = username;
+		this.password = password;
 	}
 
 	/**

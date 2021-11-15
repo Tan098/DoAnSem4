@@ -18,18 +18,19 @@ public class BookDAOimpl implements BookDAO {
 	/**
 	 * Nhớ copy cái đoạn ở dưới này rồi pase vô tất cả cái DAOImpl nào có
 	 * sessionFactory
-	 **/	
+	 **/
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
 
 	@Override
-	public List<sem_book> getBooks() {
+	public List<sem_book> getBooks(Integer offset, Integer maxResults) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			List list = session.createQuery("from sem_book").list();
+			List list = session.createQuery("from sem_book").setFirstResult(offset == null ? 0 : offset)
+					.setMaxResults(maxResults == null ? 10 : maxResults).list();
 			session.getTransaction().commit();
 			session.close();
 			return list;
@@ -116,5 +117,43 @@ public class BookDAOimpl implements BookDAO {
 			session.close();
 		}
 		return false;
+	}
+
+	@Override
+	public List<sem_book> searchBook(String name) {
+		Session session = sessionFactory.openSession();
+		try {
+			session.beginTransaction();
+			List list = session.createQuery("from sem_book where name like :name")
+					.setParameter("name", "%" + name + "%").list();
+			session.getTransaction().commit();
+			session.close();
+			return list;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			session.getTransaction().rollback();
+			session.close();
+		}
+		return null;
+	}
+
+	@Override
+	public Long getTotal() {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.openSession();
+		try {
+			session.beginTransaction();
+			List list = session.createQuery("from sem_book").list();
+			session.getTransaction().commit();
+			session.close();
+			return (long) list.size();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			session.getTransaction().rollback();
+			session.close();
+		}
+		return null;
 	}
 }

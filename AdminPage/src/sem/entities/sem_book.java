@@ -64,7 +64,7 @@ public class sem_book  implements Serializable{
 	@OneToMany(mappedBy = "book",fetch = FetchType.EAGER)
 	private Set<sem_author_book> sem_author_books;
 	
-	@OneToMany(mappedBy = "book")
+	@OneToMany(mappedBy = "book",fetch = FetchType.EAGER)
 	private Set<sem_category_book> sem_category_books;
 
 	public sem_book() {

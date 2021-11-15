@@ -143,7 +143,6 @@ public class AdminController {
 		} else {
 			model.addAttribute("err", "Update Failed !");
 			model.addAttribute("c", c);
-
 			return "updateCategory";
 		}
 	}

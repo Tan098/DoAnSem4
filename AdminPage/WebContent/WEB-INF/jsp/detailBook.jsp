@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,11 +40,6 @@
 <style type="text/css" id="enject"></style>
 </head>
 <body>
-	<ul class="breadcrumb">
-		<li><a href="index.html">Home</a> <span class="divider">/</span></li>
-		<li><a href="products.html">Products</a> <span class="divider">/</span></li>
-		<li class="active">product Details</li>
-	</ul>
 	<jsp:include page="/WEB-INF/jsp/headerClient.jsp" flush="false"></jsp:include>
 
 
@@ -52,12 +48,13 @@
 
 		<div class="container">
 			<div class="row">
+
 				<!-- Sidebar ================================================== -->
 				<div id="sidebar" class="span3">
 					<c:forEach items="${listc}" var="d">
 						<ul id="sideManu" class="nav nav-tabs nav-stacked">
 
-							<li><a class="active" href="products.html"><i
+							<li><a class="active" href="productByCate?id=${d.id}"><i
 									class="icon-chevron-right"></i>${d.name}</a></li>
 
 						</ul>
@@ -69,12 +66,23 @@
 							src="<c:url value="/resources/themes/images/payment_methods.png"/>"
 							title="Bootshop Payment Methods" alt="Payments Methods">
 						<div class="caption">
-							<h5>Payment Methods</h5>
+							<h5>Phương thức thanh toán</h5>
 						</div>
 					</div>
 				</div>
 				<!-- Sidebar end=============================================== -->
+
+				<div class="span9">
+
+					<ul class="breadcrumb">
+						<li><a href="home">Trang chủ</a> <span class="divider">/</span></li>
+						<li><a href="product">Sản phẩm</a> <span class="divider">/</span></li>
+						<li class="active">Chi tiết sản phẩm</li>
+					</ul>
+
+				</div>
 				<div class="row">
+
 					<div id="gallery" class="span3">
 						<c:forEach var="i" items="${b.sem_images}">
 							<c:if test="${i.isdefault}">
@@ -101,23 +109,17 @@
 									</c:if>
 								</c:forEach>
 							</div>
-							<!--  
-			  <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
-              <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a> 
-			  -->
 						</div>
-
-
 					</div>
 					<div class="span6">
 						<h3>${b.name}</h3>
-						<small>${b.alias }</small>
+						<small>Tên khác :${b.alias }</small>
 						<hr class="soft" />
 						<form class="form-horizontal qtyFrm">
 							<div class="control-group">
 								<label class="control-label"><span>${b.price }</span></label>
-								<div class="controls"><a
-										href="addtocart?bookId=${b.id}">Thêm vào giỏ hàng<i
+								<div class="controls">
+									<a href="addtocart?bookId=${b.id}">Thêm vào giỏ hàng<i
 										class=" icon-shopping-cart"></i>
 									</a>
 								</div>
@@ -125,12 +127,12 @@
 						</form>
 
 						<hr class="soft" />
-						<h4>100 items in stock</h4>
+						<h4>Còn ${b.quantity} sản phẩm</h4>
 
 						<hr class="soft clr" />
-						<p>${b.descriptions }</p>
-						<a class="btn btn-small pull-right" href="#detail">More
-							Details</a> <br class="clr" />
+						<p>
+							<b>Mô tả</b> : ${b.descriptions }
+						</p>
 
 						<hr class="soft" />
 					</div>
@@ -143,40 +145,48 @@
 				<div class="span3"></div>
 				<div class="span9">
 					<ul id="productDetail" class="nav nav-tabs">
-						<li class="active"><a href="#home" data-toggle="tab">Product
-								Details</a></li>
+						<li class="active"><a href="#home" data-toggle="tab">Chi
+								tiết sản phẩm</a></li>
 
 					</ul>
 					<div id="myTabContent" class="tab-content">
 						<div class="tab-pane fade active in" id="home">
-							<h4>Book Information</h4>
+							<h4>Thông tin chi tiết</h4>
 							<table class="table table-bordered">
 								<tbody>
 									<tr class="techSpecRow">
-										<th colspan="2">Book Details</th>
+										<th colspan="2">Thông tin sách</th>
 									</tr>
 									<tr class="techSpecRow">
-										<td class="techSpecTD1">Name:</td>
+										<td class="techSpecTD1">Tên sách:</td>
 										<td class="techSpecTD2">${b.name }</td>
 									</tr>
 									<tr class="techSpecRow">
-										<td class="techSpecTD1">Status:</td>
-										<td class="techSpecTD2">${b.status ? 'Còn hàng' : 'Hết hàng'}</td>
+										<td class="techSpecTD1">Danh mục:</td>
+										<td class="techSpecTD2"><c:forEach
+												items="${b.sem_category_books}" var="a">
+													${a.category.name},
+												</c:forEach></td>
 									</tr>
 									<tr class="techSpecRow">
-										<td class="techSpecTD1">Publisher:</td>
+										<td class="techSpecTD1">Trạng thái:</td>
+										<td class="techSpecTD2">${b.status?"Còn hàng" :"Hết hàng"}</td>
+									</tr>
+									<tr class="techSpecRow">
+										<td class="techSpecTD1">Nhà xuất bản:</td>
 										<td class="techSpecTD2">${b.publicsher.name}</td>
 									</tr>
 									<tr class="techSpecRow">
-										<td class="techSpecTD1">Author:</td>
+										<td class="techSpecTD1">Tác giả:</td>
 										<td class="techSpecTD2"><c:forEach
 												items="${b.sem_author_books}" var="a">
 													${a.author.name},
 												</c:forEach></td>
 									</tr>
 									<tr class="techSpecRow">
-										<td class="techSpecTD1">Release date :</td>
-										<td class="techSpecTD2">${b.yearofpublic}</td>
+										<td class="techSpecTD1">Ngày xuất bản :</td>
+										<td class="techSpecTD2"><fmt:formatDate
+												value="${b.yearofpublic}" pattern="dd-MM-yyyy" /></td>
 									</tr>
 								</tbody>
 							</table>

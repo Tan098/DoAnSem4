@@ -52,7 +52,7 @@
 					<c:forEach items="${listc}" var="d">
 						<ul id="sideManu" class="nav nav-tabs nav-stacked">
 
-							<li><a class="active" href="product?id=${d.id }"><i
+							<li><a class="active" href="productByCate?id=${d.id}"><i
 									class="icon-chevron-right"></i>${d.name}</a></li>
 
 						</ul>
@@ -82,8 +82,7 @@
 							<h4>Thông tin người dùng</h4>
 							<div class="control-group">
 								<label class="control-label">Họ và tên <sup
-									style="color: #ff0700;">*
-										${errorName }</sup>
+									style="color: #ff0700;">* ${errorName }</sup>
 								</label>
 								<div class="controls">
 									<form:input type="text" path="name" name="name"
@@ -92,8 +91,7 @@
 							</div>
 							<div class="control-group">
 								<label class="control-label">Tên đăng nhập <sup
-									style="color: #ff0700;">*
-										${errorUsername }</sup>
+									style="color: #ff0700;">* ${errorUsername }</sup>
 								</label>
 								<div class="controls">
 									<form:input type="text" path="username" name="username"
@@ -102,8 +100,7 @@
 							</div>
 							<div class="control-group">
 								<label class="control-label">Mật khẩu <sup
-									style="color: #ff0700;">*
-										${errorPassword }</sup>
+									style="color: #ff0700;">* ${errorPassword }</sup>
 								</label>
 								<div class="controls">
 									<form:input type="password" path="password" name="password"
@@ -112,8 +109,7 @@
 							</div>
 							<div class="control-group">
 								<label class="control-label">Ngày tháng năm sinh <sup
-									style="color: #ff0700;">*
-										${errorBirthday }</sup></label>
+									style="color: #ff0700;">* ${errorBirthday }</sup></label>
 								<div class="controls">
 									<form:input type="date" path="birthday" name="birthday"
 										placeholder="Nhập ngày tháng năm sinh" />
@@ -124,8 +120,7 @@
 
 							<div class="control-group">
 								<label class="control-label">Địa chỉ<sup
-									style="color: #ff0700;">*
-										${errorAddress }</sup></label>
+									style="color: #ff0700;">* ${errorAddress }</sup></label>
 								<div class="controls">
 									<form:input type="text" path="address" name="address"
 										placeholder="Số nhà, tên đường, phường/xã, quận/huyện, tỉnh/thành phố" />
@@ -134,8 +129,7 @@
 
 							<div class="control-group">
 								<label class="control-label">Điện thoại<sup
-									style="color: #ff0700;">*
-										${errorPhonenumbers }</sup></label>
+									style="color: #ff0700;">* ${errorPhonenumbers }</sup></label>
 								<div class="controls">
 									<form:input type="text" path="phonenumbers" name="phonenumbers"
 										placeholder="0123456789" />

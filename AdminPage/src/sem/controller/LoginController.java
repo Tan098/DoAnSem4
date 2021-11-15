@@ -102,14 +102,14 @@ public class LoginController {
 		Object object = session.getAttribute("client");
 		// Nếu tài khoàn tồn tại
 		if (customer != null) {
-			// Lấy thông tin người dùng đẩy vào order
-			sem_order order = new sem_order();
+			// Lấy thông tin người dùng đẩy vào customer
+			sem_customer cus = new sem_customer();
 			// Thêm từng giá trị vào order
-			order.setName(customer.getName());
-			order.setAddress(customer.getAddress());
-			order.setPhonenumbers(customer.getPhonenumbers());
+			cus.setName(customer.getName());
+			cus.setAddress(customer.getAddress());
+			cus.setPhonenumbers(customer.getPhonenumbers());
 			// Lưu vào session
-			session.setAttribute("client", order);
+			session.setAttribute("client", cus);
 			// Lấy id người dùng đăng nhập để đẩy vào session
 			int cusid = customer.getId();
 			session.setAttribute("cusid", cusid);

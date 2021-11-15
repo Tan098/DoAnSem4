@@ -1,6 +1,8 @@
 package sem.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,10 +14,13 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import sem.dao.CategoryDAO;
 import sem.dao.OrderDAO;
+import sem.entities.sem_cart_book;
 import sem.entities.sem_category;
+import sem.entities.sem_customer;
 import sem.entities.sem_order;
 
 @Controller
@@ -25,10 +30,11 @@ public class OrderController {
 	@Autowired
 	private CategoryDAO categoryDAO;
 
-	@RequestMapping("/order")
-	public String order(HttpSession session, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+	@RequestMapping(value = "pre-order", method = RequestMethod.GET)
+	public String preOrder(HttpSession session, Model model) {
 		List<sem_category> listc = categoryDAO.getCategories();
 		model.addAttribute("listc", listc);
+		sem_order o = new sem_order();
 		// Khai báo session có tên là client
 		Object objectCust = session.getAttribute("client");
 		Object objectCart = session.getAttribute("cart");
@@ -40,45 +46,47 @@ public class OrderController {
 			if (objectCart == null) {// Nếu giỏ hàng trống thì chả về trang home
 				return "homeClient";
 			} else {
+				model.addAttribute("o", o);
 				return "pre-order";
 			}
 		}
 	}
 
-	@RequestMapping("/pre-order")
-	public String preOrder(@ModelAttribute("c") sem_order c, HttpSession session, HttpServletRequest request,
-			HttpServletResponse response, Model model) {
+	@RequestMapping(value = "pre-order", method = RequestMethod.POST)
+	public String preOrder(@ModelAttribute("o") sem_order o, Model model, HttpServletRequest request,
+			HttpSession session) {
 		// Khởi tạo các giá trị tương ứng với bảng sem_order
 		String name = request.getParameter("name");
 		String address = request.getParameter("address");
 		String phonenumbers = request.getParameter("phonenumbers");
 		// Khởi tạo đối tượng bắt lỗi và validate form
-		String errorName = "";
-		String errorAddress = "";
-		String errorPhonenumbers = "";
+		String errName = "";
+		String errAddress = "";
+		String errPhonenumbers = "";
 		// Kiểm tra trống
 		if (name.isEmpty())
-			errorName = "Tên không được để chống";
+			errName = "Tên không được để chống";
 		if (address.isEmpty())
-			errorAddress = "Địa chỉ không được để chống";
+			errAddress = "Địa chỉ không được để chống";
 		if (phonenumbers.isEmpty())
-			errorPhonenumbers = "Điện thoại không được để chống";
+			errPhonenumbers = "Điện thoại không được để chống";
 		// Thông báo lỗi
-		request.setAttribute("errorName", errorName);
-		request.setAttribute("errorAddress", errorAddress);
-		request.setAttribute("errorPhonenumbers", errorPhonenumbers);
+		request.setAttribute("errName", errName);
+		request.setAttribute("errAddress", errAddress);
+		request.setAttribute("errPhonenumbers", errPhonenumbers);
 		// Nếu người dùng không mắc lỗi nào
-		if ("".equals(errorName) && "".equals(errorAddress) && "".equals(errorPhonenumbers)) {
-			// Gọi tới phương thức insertOrder
-			boolean bl = orderDAO.insertOrder(c);
+		if ("".equals(errName) && "".equals(errAddress) && "".equals(errPhonenumbers)) {
+			// Gọi tới phương thức insertCustomer
+			boolean bl = orderDAO.insertOrder(o);
 			if (bl) { // Nếu thành công
-				return "redirect:/orderSuccess";
+				return "redirect:/homeClient";
 			} else { // Nếu thất bại
-				model.addAttribute("c", c);
+				model.addAttribute("o", o);
 				return "pre-order";
 			}
 		} else {
 			return "pre-order";
 		}
+		// 
 	}
 }

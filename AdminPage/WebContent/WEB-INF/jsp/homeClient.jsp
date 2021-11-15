@@ -139,8 +139,8 @@
 					<c:forEach items="${listc}" var="d">
 						<ul id="sideManu" class="nav nav-tabs nav-stacked">
 
-							<li><a class="active" href="product?id=${d.id }"><i
-									class="icon-chevron-right"></i>${d.name}</a></li>
+							<li><a class="active" href="productByCate?id=${d.id}"><i
+										class="icon-chevron-right"></i>${d.name}</a></li>
 
 						</ul>
 					</c:forEach>
@@ -151,7 +151,7 @@
 							src="<c:url value="/resources/themes/images/payment_methods.png"/>"
 							title="Bootshop Payment Methods" alt="Payments Methods">
 						<div class="caption">
-							<h5>Payment Methods</h5>
+							<h5>Phương thức thanh toán</h5>
 						</div>
 					</div>
 				</div>
@@ -165,7 +165,6 @@
 							<div id="featured">
 								<div class="carousel-inner">
 									<div class="item active">
-
 										<ul class="thumbnails">
 											<c:forEach items="${list}" var="b">
 												<li class="span3">
@@ -184,20 +183,12 @@
 																<span class="pull-right">${b.price}</span>
 															</h4>
 														</div>
-
 													</div>
-
 												</li>
 											</c:forEach>
 										</ul>
-
-
 									</div>
-
 								</div>
-								<a class="left carousel-control" href="#featured"
-									data-slide="prev">‹</a> <a class="right carousel-control"
-									href="#featured" data-slide="next">›</a>
 							</div>
 						</div>
 					</div>

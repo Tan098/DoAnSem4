@@ -6,7 +6,7 @@
 	<c:forEach items="${listc}" var="d">
 		<ul id="sideManu" class="nav nav-tabs nav-stacked">
 
-			<li><a class="active" href="product?id=${d.id }"><i
+			<li><a class="active" href="productByCate?id=${d.id}"><i
 					class="icon-chevron-right"></i>${d.name}</a></li>
 
 		</ul>

@@ -39,10 +39,10 @@ public class BookController {
 	/** Nhớ Declarce bean của nó ở file spring-config.xml **/
 
 	@RequestMapping(value = "/listBooks")
-	public String listBooks(Model model, HttpSession session) {
+	public String listBooks(Model model, HttpSession session, Integer offset, Integer maxResults) {
 		Object object = session.getAttribute("admin");
 		if (object != null) {
-			List<sem_book> list = bookDao.getBooks();
+			List<sem_book> list = bookDao.getBooks(offset, maxResults);
 			model.addAttribute("list", list);
 			return "listBooks";
 		} else {
@@ -114,7 +114,7 @@ public class BookController {
 	}
 
 	@RequestMapping("/deleteBook")
-	public String deleteBook(@RequestParam("id") Integer id, Model model, HttpSession session) {
+	public String deleteBook(@RequestParam("id") Integer id, Model model, HttpSession session, Integer offset, Integer maxResults) {
 		Object object = session.getAttribute("admin");
 		if (object != null) {
 			boolean bl = bookDao.deleteBook(id);
@@ -123,7 +123,7 @@ public class BookController {
 			} else {
 				model.addAttribute("err", "Delete failed !");
 			}
-			List<sem_book> list = bookDao.getBooks();
+			List<sem_book> list = bookDao.getBooks(offset, maxResults);
 			model.addAttribute("list", list);
 			return "listBooks";
 		} else {

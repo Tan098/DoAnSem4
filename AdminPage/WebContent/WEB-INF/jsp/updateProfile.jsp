@@ -73,103 +73,82 @@
 				<div class="span9">
 					<ul class="breadcrumb">
 						<li><a href="homeClient">Trang chủ</a> <span class="divider">/</span></li>
-						<li class="active">Đặt hàng</li>
+						<li class="active">Cập nhập thông tin</li>
 					</ul>
-					<h3>Đặt hàng</h3>
+					<h3>Đăng ký</h3>
 					<div class="well">
-						<tr>
-							<h4>THÔNG TIN GIỎ HÀNG</h4>
-						</tr>
-
-						<table class="table table-bordered">
-							<thead>
-								<tr>
-									<th>Mã sách</th>
-									<th>Tên sách</th>
-									<th>Số lượng</th>
-									<th>Giá</th>
-									<td><strong>Tổng giá</strong></td>
-								</tr>
-							</thead>
-							<tbody>
-								<c:forEach items="${sessionScope.cart}" var="entry">
-									<tr>
-										<td>${entry.value.book.id}</td>
-										<td>${entry.value.book.name}</td>
-										<td>
-											<div class="input-append">
-												<input class="span1" style="max-width: 34px"
-													placeholder="${entry.value.quantity}"
-													id="appendedInputButtons" size="16" type="text"
-													readonly="true">
-											</div>
-										</td>
-										<td>${entry.value.price}</td>
-										<td><strong> ${entry.value.quantity * entry.value.price}</strong></td>
-									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
-						<form:form class="form-horizontal" action="pre-order"
-							modelAttribute="o" method="post">
-							<h4>Thông tin đơn hàng</h4>
-
+						<form:form class="form-horizontal" action="updateProfile"
+							modelAttribute="c" method="post">
+							<h4>Thông tin người dùng</h4>
 							<div class="control-group">
 								<label class="control-label">Mã khác hàng <sup>*</sup>
 								</label>
 								<div class="controls">
-									<form:input path="customer" readonly="true"
-										value="${sessionScope.cusid}" />
+									<form:input type="text" path="id" name="id" readonly="true" />
 									<span>* lưu ý không được để lộ mã khách hàng của bạn cho
 										người khác biết</span>
 								</div>
 							</div>
-
 							<div class="control-group">
-								<label class="control-label">Tên khách hàng <sup
-									style="color: #ff0700;">* ${sessionScope.errName} </sup>
+								<label class="control-label">Họ và tên <sup
+									style="color: #ff0700;">* ${errorName }</sup>
 								</label>
 								<div class="controls">
-									<form:input name="name" path="name"
-										placeholder="Tên khách hàng" value="${sessionScope.client.name}" />
+									<form:input type="text" path="name" name="name"
+										placeholder="Họ và tên" />
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">Tên đăng nhập <sup
+									style="color: #ff0700;">* </sup>
+								</label>
+								<div class="controls">
+									<form:input type="text" path="username" name="username"
+										placeholder="Tên đăng nhập tối đa 15 ký tự" readonly="true" />
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">Mật khẩu <sup
+									style="color: #ff0700;">* ${errorPassword }</sup>
+								</label>
+								<div class="controls">
+									<form:input type="text" path="password" name="password"
+										placeholder="Mật khẩu tối đa 16 ký tự" />
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">Ngày tháng năm sinh <sup
+									style="color: #ff0700;">* ${errorBirthday }</sup></label>
+								<div class="controls">
+									<form:input type="date" path="birthday" name="birthday"
+										placeholder="Nhập ngày tháng năm sinh" />
+								</div>
+							</div>
+
+							<h4>Địa chỉ và số điện thoại</h4>
+
+							<div class="control-group">
+								<label class="control-label">Địa chỉ<sup
+									style="color: #ff0700;">* ${errorAddress }</sup></label>
+								<div class="controls">
+									<form:input type="text" path="address" name="address"
+										placeholder="Số nhà, tên đường, phường/xã, quận/huyện, tỉnh/thành phố" />
 								</div>
 							</div>
 
 							<div class="control-group">
-								<label class="control-label">Địa chỉ <sup
-									style="color: #ff0700;">* ${sessionScope.errAddress}</sup>
-								</label>
+								<label class="control-label">Điện thoại<sup
+									style="color: #ff0700;">* ${errorPhonenumbers }</sup></label>
 								<div class="controls">
-									<form:input name="address" path="address" placeholder="Địa chỉ" value="${sessionScope.client.address}" />
-									<span>* Số nhà, tên đường, phường/xã, quận/huyện,
-										tỉnh/thành phố</span>
-								</div>
-							</div>
-
-							<div class="control-group">
-								<label class="control-label">Điện thoại <sup
-									style="color: #ff0700;">* ${sessionScope.errPhonenumbers}</sup>
-								</label>
-								<div class="controls">
-									<form:input name="phonenumbers" path="phonenumbers"
-										placeholder="Điện thoại" value="${sessionScope.client.phonenumbers}"/>
-									<span>* gồm 10 chữ số</span>
-								</div>
-							</div>
-
-							<div class="control-group">
-								<label class="control-label">Tổng tiền <sup>*</sup>
-								</label>
-								<div class="controls">
-									<form:input path="totalprice" readonly="true"
-										value="${sessionScope.customerCartTotalPrice}" />
-									<span>* đây là số tiền mà bạn phải thanh toán</span>
+									<form:input type="text" path="phonenumbers" name="phonenumbers"
+										placeholder="0123456789" />
+									<span>* Số điện thoại gồm 10 chữ số</span>
 								</div>
 							</div>
 
 							<div class="control-group">
 								<div class="controls">
-									<button type="submit" class="btn">Đặt hàng</button>
+									<button type="submit" class="btn">Xác nhận</button>
 								</div>
 							</div>
 						</form:form>
