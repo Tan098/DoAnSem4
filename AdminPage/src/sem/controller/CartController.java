@@ -14,10 +14,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import sem.dao.BookDAO;
+import sem.dao.CartDAO;
 import sem.dao.CategoryDAO;
 import sem.entities.sem_book;
+import sem.entities.sem_cart;
 import sem.entities.sem_cart_book;
 import sem.entities.sem_category;
 
@@ -29,7 +32,9 @@ public class CartController {
 	private CategoryDAO categoryDAO;
 
 	@RequestMapping(value = "/addtocart")
-	public String addToCart(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+	public String addToCart(HttpSession session, HttpServletRequest request, HttpServletResponse response, Model model) {
+		List<sem_category> listc = categoryDAO.getCategories();
+		model.addAttribute("listc", listc);
 		// Khai báo id
 		int id;
 		// Lấy id của quyến sách
@@ -83,7 +88,7 @@ public class CartController {
 	}
 
 	@RequestMapping(value = "/cart")
-	public String cartList(HttpSession session, HttpServletRequest request, HttpServletResponse response, Model model) {
+	public String cartList(Model model) {
 		List<sem_category> listc = categoryDAO.getCategories();
 		model.addAttribute("listc", listc);
 		return "cart-list";
@@ -121,13 +126,13 @@ public class CartController {
 		// Chuyển về giỏ hàng
 		return "cart-list";
 	}
-	
+
 	public double totalPrice(Map<Integer, sem_cart_book> map) {
-        int count = 0;
-        for (Map.Entry<Integer, sem_cart_book> list : map.entrySet()) {
-        	// Tính tổng giá đơn hàng
-            count += list.getValue().getBook().getPrice() * list.getValue().getQuantity();            
-        }
-        return count;
-    }
+		int count = 0;
+		for (Map.Entry<Integer, sem_cart_book> list : map.entrySet()) {
+			// Tính tổng giá đơn hàng
+			count += list.getValue().getBook().getPrice() * list.getValue().getQuantity();
+		}
+		return count;
+	}
 }

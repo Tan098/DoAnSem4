@@ -24,12 +24,13 @@ public class CartDAOImpl implements CartDAO {
 	}
 
 	@Override
-	public List<sem_cart> getCarts() {
+	public List<sem_cart> getCarts(Integer customer) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			List list = session.createQuery("from sem_cart").list();
+			List list = session.createQuery("from sem_cart where customer = :customer")
+					.setParameter("customer", customer).list();
 			session.getTransaction().commit();
 			session.close();
 			return list;
@@ -43,11 +44,11 @@ public class CartDAOImpl implements CartDAO {
 	}
 
 	@Override
-	public boolean insertCart(sem_cart c) {
+	public boolean insertCart(sem_cart cart) {
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			session.save(c);
+			session.save(cart);
 			session.getTransaction().commit();
 			session.close();
 			return true;
@@ -81,11 +82,11 @@ public class CartDAOImpl implements CartDAO {
 	}
 
 	@Override
-	public boolean updateCart(sem_cart c) {
+	public boolean updateCart(sem_cart cart) {
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			session.update(c);
+			session.update(cart);
 			session.getTransaction().commit();
 			session.close();
 			return true;

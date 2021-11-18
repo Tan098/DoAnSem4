@@ -5,8 +5,12 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -18,20 +22,22 @@ public class sem_cart_book  implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	@EmbeddedId
-	private sem_cart_book_pk sem_cart_book_pk;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private int id;
 
+	@JoinColumn(name = "cart", referencedColumnName = "id")
 	@ManyToOne
-	@JoinColumn(name = "cart", referencedColumnName = "id", insertable = false, updatable = false)
 	private sem_cart cart;
 
+	@JoinColumn(name = "book", referencedColumnName = "id")
 	@ManyToOne
-	@JoinColumn(name = "book", referencedColumnName = "id", insertable = false, updatable = false)
 	private sem_book book;
-	
+
+	@JoinColumn(name = "orderid", referencedColumnName = "id")
 	@ManyToOne
-	@JoinColumn(name = "order", referencedColumnName = "id", insertable = false, updatable = false)
-	private sem_order order;
+	private sem_order orderid;
 	
 	@Column(name = "quantity")
 	private int quantity;
@@ -39,8 +45,39 @@ public class sem_cart_book  implements Serializable{
 	@Column(name = "price")
 	private float price;
 
+	/**
+	 * @return the serialversionuid
+	 */
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	public sem_cart_book() {
 		super();
+	}
+
+	public sem_cart_book(sem_cart cart, sem_book book, sem_order orderid, int quantity, float price, int id) {
+		super();
+		this.cart = cart;
+		this.book = book;
+		this.orderid = orderid;
+		this.quantity = quantity;
+		this.price = price;
+		this.id = id;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	/**
@@ -72,29 +109,24 @@ public class sem_cart_book  implements Serializable{
 	}
 
 	/**
-	 * @return the order
+	 * @return the orderid
 	 */
-	
+	public sem_order getOrder() {
+		return orderid;
+	}
+
+	/**
+	 * @param orderid the order to set
+	 */
+	public void setOrder(sem_order orderid) {
+		this.orderid = orderid;
+	}
 
 	/**
 	 * @return the quantity
 	 */
 	public int getQuantity() {
 		return quantity;
-	}
-
-	/**
-	 * @return the order
-	 */
-	public sem_order getOrder() {
-		return order;
-	}
-
-	/**
-	 * @param order the order to set
-	 */
-	public void setOrder(sem_order order) {
-		this.order = order;
 	}
 
 	/**
@@ -116,26 +148,5 @@ public class sem_cart_book  implements Serializable{
 	 */
 	public void setPrice(float price) {
 		this.price = price;
-	}
-
-	/**
-	 * @return the sem_cart_book_pk
-	 */
-	public sem_cart_book_pk getSem_cart_book_pk() {
-		return sem_cart_book_pk;
-	}
-
-	/**
-	 * @param sem_cart_book_pk the sem_cart_book_pk to set
-	 */
-	public void setSem_cart_book_pk(sem_cart_book_pk sem_cart_book_pk) {
-		this.sem_cart_book_pk = sem_cart_book_pk;
-	}
-
-	/**
-	 * @return the serialversionuid
-	 */
-	public static long getSerialversionuid() {
-		return serialVersionUID;
 	}
 }

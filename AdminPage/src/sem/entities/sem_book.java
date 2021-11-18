@@ -19,7 +19,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "sem_book")
-public class sem_book  implements Serializable{
+public class sem_book implements Serializable {
 	/**
 	 * 
 	 */
@@ -29,48 +29,48 @@ public class sem_book  implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	public Integer id;
-	
+
 	@Column(name = "alias")
 	private String alias;
-	
+
 	@Column(name = "name")
 	private String name;
-	
+
 	@Column(name = "descriptions")
 	private String descriptions;
-	
+
 	@Column(name = "quantity")
 	private int quantity;
-	
+
 	@Column(name = "price")
 	private float price;
-	
+
 	@Column(name = "yearofpublic")
 	private Date yearofpublic;
-	
+
 	@Column(name = "status")
 	private Boolean status;
-	
+
 	@JoinColumn(name = "publicsher", referencedColumnName = "id")
 	@ManyToOne
 	private sem_publisher publicsher;
 
-	@OneToMany(mappedBy = "book",fetch = FetchType.EAGER)		
+	@OneToMany(mappedBy = "book", fetch = FetchType.EAGER)
 	private Set<sem_image> sem_images;
-	
-	@OneToMany(mappedBy = "book")
+
+	@OneToMany(mappedBy = "book", fetch = FetchType.LAZY)
 	private Set<sem_cart_book> sem_cart_books;
-	
-	@OneToMany(mappedBy = "book",fetch = FetchType.EAGER)
+
+	@OneToMany(mappedBy = "book", fetch = FetchType.EAGER)
 	private Set<sem_author_book> sem_author_books;
-	
-	@OneToMany(mappedBy = "book",fetch = FetchType.EAGER)
+
+	@OneToMany(mappedBy = "book", fetch = FetchType.EAGER)
 	private Set<sem_category_book> sem_category_books;
 
 	public sem_book() {
 		super();
 	}
-	
+
 	public sem_book(Integer id) {
 		super();
 		this.id = id;
@@ -213,7 +213,7 @@ public class sem_book  implements Serializable{
 	public void setStatus(Boolean status) {
 		this.status = status;
 	}
-	
+
 	/**
 	 * @param publicsher the publicsher to set
 	 */

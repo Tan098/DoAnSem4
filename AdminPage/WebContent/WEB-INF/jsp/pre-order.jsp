@@ -111,14 +111,14 @@
 							</tbody>
 						</table>
 						<form:form class="form-horizontal" action="pre-order"
-							modelAttribute="o" method="post">
+							modelAttribute="order" method="post">
 							<h4>Thông tin đơn hàng</h4>
 
 							<div class="control-group">
 								<label class="control-label">Mã khác hàng <sup>*</sup>
 								</label>
 								<div class="controls">
-									<form:input path="customer" readonly="true"
+									<form:input path="customer.id" readonly="true"
 										value="${sessionScope.cusid}" />
 									<span>* lưu ý không được để lộ mã khách hàng của bạn cho
 										người khác biết</span>
@@ -169,7 +169,7 @@
 
 							<div class="control-group">
 								<div class="controls">
-									<button type="submit" class="btn">Đặt hàng</button>
+									<form:button type="submit" class="btn">Đặt hàng</form:button>
 								</div>
 							</div>
 						</form:form>

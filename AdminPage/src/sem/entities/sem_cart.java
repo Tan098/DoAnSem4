@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,7 +15,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "sem_cart")
-public class sem_cart implements Serializable{
+public class sem_cart implements Serializable {
 	/**
 	 * 
 	 */
@@ -22,16 +23,16 @@ public class sem_cart implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name =  "id")
+	@Column(name = "id")
 	private int id;
-	
+
 	@Column(name = "customer")
 	private int customer;
-	
+
 	@Column(name = "datecreate")
 	private Date datecreate;
-	
-	@OneToMany(mappedBy = "cart")
+
+	@OneToMany(mappedBy = "cart", fetch = FetchType.LAZY)
 	private List<sem_cart_book> sem_cart_books;
 
 	public sem_cart() {

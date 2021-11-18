@@ -10,6 +10,7 @@ encoding//src/sem/dao/impl/AccountDAOImpl.java=UTF-8
 encoding//src/sem/dao/impl/AuthorAndBookDAOImpl.java=UTF-8
 encoding//src/sem/dao/impl/AuthorDAOImpl.java=UTF-8
 encoding//src/sem/dao/impl/BookDAOimpl.java=UTF-8
+encoding//src/sem/dao/impl/CartAndBookDAOImpl.java=UTF-8
 encoding//src/sem/dao/impl/CartDAOImpl.java=UTF-8
 encoding//src/sem/dao/impl/CategoryAndBookDAOImpl.java=UTF-8
 encoding//src/sem/dao/impl/CategoryDAOImpl.java=UTF-8

@@ -7,6 +7,9 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -17,41 +20,42 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "sem_order")
-public class sem_order implements Serializable{
+public class sem_order implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private int id;
-	
+
 	@Basic(optional = false)
 	@Column(name = "timeorder", insertable = false, updatable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date timeorder;
-	
+
 	@Column(name = "name")
 	private String name;
-	
+
 	@Column(name = "address")
 	private String address;
-	
+
 	@Column(name = "phonenumbers")
 	private String phonenumbers;
 
-	@ManyToOne
 	@JoinColumn(name = "customer", referencedColumnName = "id")
+	@ManyToOne
 	private sem_customer customer;
-	
+
 	@Column(name = "totalprice")
 	private float totalprice;
-	
+
 	@Column(name = "status")
 	private Boolean status;
-	
-	@OneToMany(mappedBy = "order")
+
+	@OneToMany(mappedBy = "orderid", fetch = FetchType.LAZY)
 	private List<sem_cart_book> sem_cart_books;
 
 	public sem_order() {
@@ -183,7 +187,7 @@ public class sem_order implements Serializable{
 	public void setStatus(Boolean status) {
 		this.status = status;
 	}
-	
+
 	/**
 	 * @return the sem_cart_books
 	 */
@@ -203,5 +207,5 @@ public class sem_order implements Serializable{
 	 */
 	public static long getSerialversionuid() {
 		return serialVersionUID;
-	}	
+	}
 }

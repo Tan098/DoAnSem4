@@ -44,12 +44,12 @@ public class OrderDAOImpl implements OrderDAO {
 	}
 
 	@Override
-	public boolean insertOrder(sem_order o) {
+	public boolean insertOrder(sem_order order) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			session.save(o);
+			session.save(order);
 			session.getTransaction().commit();
 			session.close();
 			return true;
@@ -63,12 +63,12 @@ public class OrderDAOImpl implements OrderDAO {
 	}
 
 	@Override
-	public boolean updateOrder(sem_order o) {
+	public boolean updateOrder(sem_order order) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			session.update(o);
+			session.update(order);
 			session.getTransaction().commit();
 			session.close();
 			return true;
