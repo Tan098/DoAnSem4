@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import sem.dao.AuthorAndBookDAO;
 import sem.dao.AuthorDAO;
+import sem.dao.CartAndBookDAO;
 import sem.dao.CategoryAndBookDAO;
 import sem.dao.CategoryDAO;
 import sem.dao.CustomerDAO;
@@ -34,11 +35,13 @@ import sem.entities.sem_author;
 import sem.entities.sem_author_book;
 import sem.entities.sem_author_book_pk;
 import sem.entities.sem_book;
+import sem.entities.sem_cart_book;
 import sem.entities.sem_category;
 import sem.entities.sem_category_book;
 import sem.entities.sem_category_book_pk;
 import sem.entities.sem_customer;
 import sem.entities.sem_image;
+import sem.entities.sem_order;
 import sem.entities.sem_publisher;
 
 @Controller
@@ -59,6 +62,8 @@ public class AdminController {
 	private CategoryAndBookDAO categoryAndBookDAO;
 	@Autowired
 	private AuthorAndBookDAO authorAndBookDAO;
+	@Autowired
+	private CartAndBookDAO cartAndBookDAO;
 
 	private Integer pageIndex, pageSize;
 
@@ -173,32 +178,6 @@ public class AdminController {
 		}
 	}
 
-	@RequestMapping(value = "/initUpdateCustomer")
-	public String initUpdateCustomer(@RequestParam("id") Integer id, Model model, HttpSession session) {
-		Object object = session.getAttribute("admin");
-		if (object != null) {
-			sem_customer customerById = customerDAO.getCustomerById(id);
-			model.addAttribute("c", customerById);
-			return "updateCustomer";
-		} else {
-			return "loginAdmin";
-		}
-	}
-
-	@RequestMapping(value = "/updateCustomer")
-	public String updateCustomer(@ModelAttribute("c") sem_customer c, Model model) {
-		boolean bl = customerDAO.updateCustomer(c);
-		if (bl) {
-			return "redirect:/listCustomers";
-
-		} else {
-			model.addAttribute("err", "Update Failed !");
-			model.addAttribute("c", c);
-
-			return "updateCustomer";
-		}
-	}
-
 	@RequestMapping(value = "/detailCustomer")
 	public String detailCustomer(@RequestParam("id") Integer id, Model model, HttpSession session) {
 		Object object = session.getAttribute("admin");
@@ -206,6 +185,18 @@ public class AdminController {
 			sem_customer customerById = customerDAO.getCustomerById(id);
 			model.addAttribute("c", customerById);
 			return "detailCustomer";
+		} else {
+			return "loginAdmin";
+		}
+	}
+	
+	@RequestMapping(value = "/listOrderbyCustomers")
+	public String listOrderbyCustomers(@RequestParam("customer") Integer customer, Model model, HttpSession session) {
+		Object object = session.getAttribute("admin");
+		if (object != null) {
+			List<sem_order> list = orderDAO.getByCustomer(customer);
+			model.addAttribute("list", list);
+			return "listOrderbyCustomers";
 		} else {
 			return "loginAdmin";
 		}
@@ -261,7 +252,7 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/deleteImage")
-	public String deleteImage(@RequestParam("id") Integer id, Integer book, Model model, HttpSession session) {
+	public String deleteImage(@RequestParam("id") Integer id, Model model, HttpSession session) {
 		Object object = session.getAttribute("admin");
 		if (object != null) {
 			boolean bl = imageDAO.deleteImage(id);
@@ -272,7 +263,7 @@ public class AdminController {
 			}
 			List<sem_image> list = imageDAO.getImages();
 			model.addAttribute("list", list);
-			return "deleteImage";
+			return "listImages";
 		} else {
 			return "loginAdmin";
 		}
@@ -586,4 +577,58 @@ public class AdminController {
 		}
 	}
 	// End
+	
+	// Order
+	@RequestMapping(value = "/listOrders")
+	public String listOrders(Model model, HttpSession session) {
+		Object object = session.getAttribute("admin");
+		if (object != null) {
+			List<sem_order> list = orderDAO.getOrders();
+			model.addAttribute("list", list);
+			return "listOrders";
+		} else {
+			return "loginAdmin";
+		}
+	}
+	
+	@RequestMapping(value = "/detailOrders")
+	public String detailOrders(@RequestParam("id") Integer id, Model model, HttpSession session) {
+		Object object = session.getAttribute("admin");
+		if (object != null) {
+			sem_order o = orderDAO.getOrderById(id);
+			model.addAttribute("o", o);
+			List<sem_cart_book> list = cartAndBookDAO.getCartByOrder(id);
+			model.addAttribute("list", list);
+			return "detailOrders";
+		} else {
+			return "loginAdmin";
+		}
+	}
+	
+	@RequestMapping("/duyetDon")
+	public String duyetDon(@RequestParam("id") Integer id, Model model, HttpSession session) {
+		Object object = session.getAttribute("admin");
+		if (object != null) {
+			sem_order o = orderDAO.getOrderById(id);
+			model.addAttribute("o", o);
+			return "duyetDon";
+		} else {
+			return "loginAdmin";
+		}
+	}
+
+	@RequestMapping("/updateOrder")
+	public String updateOrder(@ModelAttribute("o") sem_order o, Model model) {
+		boolean bl = orderDAO.updateOrder(o);
+		if (bl) {
+			return "redirect:/listOrder";
+
+		} else {
+			model.addAttribute("err", "Update Failed !");
+			model.addAttribute("o", o);
+			return "updateOrder";
+		}
+
+	}
+	//
 }

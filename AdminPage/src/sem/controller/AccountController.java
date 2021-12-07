@@ -2,11 +2,14 @@ package sem.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import sem.dao.AccountDAO;
@@ -46,46 +49,30 @@ public class AccountController {
 		}
 	}
 
-	@RequestMapping("/initUpdate")
-	public String initUpdate(@RequestParam("id") Integer id, Model model) {
-		sem_account accountById = accountDAO.getAccountById(id);
-		model.addAttribute("a", accountById);
+	@RequestMapping(value = "/changePassAdmin", method = RequestMethod.GET)
+	public String changePassAdmin(@RequestParam("username") String username, Model model, HttpSession session) {
+		Object object = session.getAttribute("admin");
+		if (object != null) {
+			sem_account accountById = accountDAO.getAccountById(username);
+			model.addAttribute("a", accountById);
 
-		return "updateAccount";
+			return "changePassAdmin";			
+		} else {
+			return "loginAdmin";
+		}
 	}
 
-	@RequestMapping("/updateAccount")
-	public String updateAccount(@ModelAttribute("a") sem_account a, Model model) {
+	@RequestMapping(value = "/changePassAdmin", method = RequestMethod.POST)
+	public String changePassAdmin(@ModelAttribute("a") sem_account a, Model model) {
 		boolean bl = accountDAO.updateAccount(a);
 		if (bl) {
-			return "redirect:/listAccounts";
+			return "redirect:/loginAdmin";
 
 		} else {
 			model.addAttribute("err", "Update Failed !");
 			model.addAttribute("a", a);
 
-			return "updateAccount";
+			return "changePassAdmin";
 		}
-	}
-
-	@RequestMapping("/detailAccount")
-	public String detailAccount(@RequestParam("id") Integer id, Model model) {
-		sem_account accountById = accountDAO.getAccountById(id);
-		model.addAttribute("a", accountById);
-
-		return "detailAccount";
-	}
-
-	@RequestMapping("/deleteAccount")
-	public String deleteAccount(@RequestParam("id") Integer id, Model model) {
-		boolean bl = accountDAO.deleteAccount(id);
-		if (bl) {
-			model.addAttribute("success", "Delete success !");
-		} else {
-			model.addAttribute("err", "Delete failed !");
-		}
-		List<sem_account> list = accountDAO.getAccounts();
-		model.addAttribute("list", list);
-		return "listAccounts";
 	}
 }

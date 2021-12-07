@@ -46,7 +46,7 @@ public class sem_order implements Serializable {
 	private String phonenumbers;
 
 	@JoinColumn(name = "customer", referencedColumnName = "id")
-	@ManyToOne
+	@ManyToOne()
 	private sem_customer customer;
 
 	@Column(name = "totalprice")
@@ -60,6 +60,31 @@ public class sem_order implements Serializable {
 
 	public sem_order() {
 		super();
+	}
+
+	public sem_order(int id, Date timeorder, String name, String address, String phonenumbers, float totalprice,
+			Boolean status) {
+		super();
+		this.id = id;
+		this.timeorder = timeorder;
+		this.name = name;
+		this.address = address;
+		this.phonenumbers = phonenumbers;
+		this.totalprice = totalprice;
+		this.status = status;
+	}
+
+	public sem_order(int id, Date timeorder, String name, String address, String phonenumbers, sem_customer customer,
+			float totalprice, Boolean status) {
+		super();
+		this.id = id;
+		this.timeorder = timeorder;
+		this.name = name;
+		this.address = address;
+		this.phonenumbers = phonenumbers;
+		this.customer = customer;
+		this.totalprice = totalprice;
+		this.status = status;
 	}
 
 	public sem_order(int id, Date timeorder, String name, String address, String phonenumbers, sem_customer customer,

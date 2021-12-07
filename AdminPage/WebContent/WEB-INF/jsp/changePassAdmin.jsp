@@ -49,13 +49,13 @@
 				<div class="container-fluid">
 					<div class="row mb-2">
 						<div class="col-sm-6">
-							<h1 class="m-0">Home</h1>
+							<h1 class="m-0">Password</h1>
 						</div>
 						<!-- /.col -->
 						<div class="col-sm-6">
 							<ol class="breadcrumb float-sm-right">
-								<li class="breadcrumb-item"><a href="home">Home</a></li>
-								<li class="breadcrumb-item active">Wellcome</li>
+								<li class="breadcrumb-item"><a href="changePassAdmin">Password</a></li>
+								<li class="breadcrumb-item active">Change Password</li>
 							</ol>
 						</div>
 						<!-- /.col -->
@@ -67,7 +67,7 @@
 			<!-- /.content-header -->
 
 			<!-- Main content -->
-
+			
 			<!-- /.content -->
 		</div>
 		<!-- /.content-wrapper -->

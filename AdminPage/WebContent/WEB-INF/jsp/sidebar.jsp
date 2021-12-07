@@ -89,6 +89,25 @@
 								<p>Ảnh</p>
 						</a></li>
 					</ul></li>
+				<li class="nav-item menu-open"><a class="nav-link"> <i
+						class="nav-icon fas fa-edit"></i>
+						<p>Khách hàng và đơn hàng</p> <i class="right fas fa-angle-left"></i>
+				</a>
+					<ul class="nav nav-treeview">
+						<li class="nav-item"><a href="listCustomers"
+							class="nav-link"> <i class="far fa-circle nav-icon"></i>
+								<p>Khách hàng</p>
+						</a></li>
+						<li class="nav-item"><a href="listOrders"
+							class="nav-link"> <i class="far fa-circle nav-icon"></i>
+								<p>Đơn hàng</p>
+						</a></li>
+					</ul></li>
+				<li class="nav-item"><a
+					href="changePassAdmin?username=${sessionScope.admin.name}"
+					class="nav-link"> <i class="nav-icon fas fa-key"></i>
+						<p>Đổi mật khẩu</p>
+				</a></li>
 				<li class="nav-item"><a href="logoutAdmin" class="nav-link">
 						<i class="nav-icon fas fa-sign-out-alt"></i>
 						<p>Đăng xuất</p>

@@ -81,33 +81,12 @@ public class AccountDAOImpl implements AccountDAO {
 	}
 
 	@Override
-	public boolean deleteAccount(Integer id) {
+	public sem_account getAccountById(String username) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			int i = session.createQuery("delete from sem_account where id = :id").setParameter("id", id)
-					.executeUpdate();
-			session.getTransaction().commit();
-			session.close();
-			if (i > 0)
-				return true;
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-			session.getTransaction().rollback();
-			session.close();
-		}
-		return false;
-	}
-
-	@Override
-	public sem_account getAccountById(Integer id) {
-		// TODO Auto-generated method stub
-		Session session = sessionFactory.openSession();
-		try {
-			session.beginTransaction();
-			sem_account a = (sem_account) session.createQuery("from sem_account where id = :id").setParameter("id", id)
+			sem_account a = (sem_account) session.createQuery("from sem_account where username = :username").setParameter("username", username)
 					.uniqueResult();
 			session.getTransaction().commit();
 			session.close();

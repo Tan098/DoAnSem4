@@ -25,12 +25,12 @@ public class OrderDAOImpl implements OrderDAO {
 	}
 
 	@Override
-	public List<sem_order> getOrders(Integer pageIndex, Integer pageSize) {
+	public List<sem_order> getOrders() {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			List list = session.createQuery("from sem_order").setFirstResult(pageIndex).setMaxResults(pageSize).list();
+			List list = session.createQuery("from sem_order").list();
 			session.getTransaction().commit();
 			session.close();
 			return list;
@@ -92,6 +92,26 @@ public class OrderDAOImpl implements OrderDAO {
 			session.getTransaction().commit();
 			session.close();
 			return o;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			session.getTransaction().rollback();
+			session.close();
+		}
+		return null;
+	}
+
+	@Override
+	public List<sem_order> getByCustomer(Integer customer) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.openSession();
+		try {
+			session.beginTransaction();
+			List list = session.createQuery("from sem_order where customer.id = :customer ")
+					.setParameter("customer", customer).list();
+			session.getTransaction().commit();
+			session.close();
+			return list;
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

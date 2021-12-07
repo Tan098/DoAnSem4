@@ -46,7 +46,7 @@
 			<div class="carousel-inner">
 				<div class="item active">
 					<div class="container">
-						<a href="register.html"><img style="width: 100%"
+						<a href="homeClient"><img style="width: 100%"
 							src="<c:url value="/resources/themes/images/carousel/1.png"/>"
 							alt="special offers" /></a>
 						<div class="carousel-caption">
@@ -59,62 +59,8 @@
 				</div>
 				<div class="item">
 					<div class="container">
-						<a href="register.html"><img style="width: 100%"
+						<a href="homeClient"><img style="width: 100%"
 							src="<c:url value="/resources/themes/images/carousel/2.png"/>"
-							alt="" /></a>
-						<div class="carousel-caption">
-							<h4>Second Thumbnail label</h4>
-							<p>Cras justo odio, dapibus ac facilisis in, egestas eget
-								quam. Donec id elit non mi porta gravida at eget metus. Nullam
-								id dolor id nibh ultricies vehicula ut id elit.</p>
-						</div>
-					</div>
-				</div>
-				<div class="item">
-					<div class="container">
-						<a href="register.html"><img
-							src="<c:url value="/resources/themes/images/carousel/3.png"/>"
-							alt="" /></a>
-						<div class="carousel-caption">
-							<h4>Second Thumbnail label</h4>
-							<p>Cras justo odio, dapibus ac facilisis in, egestas eget
-								quam. Donec id elit non mi porta gravida at eget metus. Nullam
-								id dolor id nibh ultricies vehicula ut id elit.</p>
-						</div>
-
-					</div>
-				</div>
-				<div class="item">
-					<div class="container">
-						<a href="register.html"><img
-							src="<c:url value="/resources/themes/images/carousel/4.png"/>"
-							alt="" /></a>
-						<div class="carousel-caption">
-							<h4>Second Thumbnail label</h4>
-							<p>Cras justo odio, dapibus ac facilisis in, egestas eget
-								quam. Donec id elit non mi porta gravida at eget metus. Nullam
-								id dolor id nibh ultricies vehicula ut id elit.</p>
-						</div>
-
-					</div>
-				</div>
-				<div class="item">
-					<div class="container">
-						<a href="register.html"><img
-							src="<c:url value="/resources/themes/images/carousel/5.png"/>"
-							alt="" /></a>
-						<div class="carousel-caption">
-							<h4>Second Thumbnail label</h4>
-							<p>Cras justo odio, dapibus ac facilisis in, egestas eget
-								quam. Donec id elit non mi porta gravida at eget metus. Nullam
-								id dolor id nibh ultricies vehicula ut id elit.</p>
-						</div>
-					</div>
-				</div>
-				<div class="item">
-					<div class="container">
-						<a href="register.html"><img
-							src="<c:url value="/resources/themes/images/carousel/6.png"/>"
 							alt="" /></a>
 						<div class="carousel-caption">
 							<h4>Second Thumbnail label</h4>
@@ -140,7 +86,7 @@
 						<ul id="sideManu" class="nav nav-tabs nav-stacked">
 
 							<li><a class="active" href="productByCate?id=${d.id}"><i
-										class="icon-chevron-right"></i>${d.name}</a></li>
+									class="icon-chevron-right"></i>${d.name}</a></li>
 
 						</ul>
 					</c:forEach>
@@ -173,7 +119,7 @@
 														<c:forEach var="i" items="${b.sem_images}">
 															<c:if test="${i.isdefault}">
 																<img src="<c:url value="resources"/>/images/${i.path}"
-																	width="100px" height="70px" />
+																	width="70%" height="40%" />
 															</c:if>
 														</c:forEach>
 														<div class="caption">
@@ -200,13 +146,12 @@
 									<c:forEach var="i" items="${b.sem_images}">
 										<c:if test="${i.isdefault}">
 											<img src="<c:url value="resources"/>/images/${i.path}"
-												width="100px" height="70px" />
+												width="100%" height="70%" />
 										</c:if>
 									</c:forEach>
 									<div class="caption">
 										<h5>${b.name}</h5>
 										<p>${b.descriptions}</p>
-
 										<h4 style="text-align: center">
 											<a class="btn" href="detailBook?id=${b.id}"> <i
 												class="icon-zoom-in"></i></a> <a class="btn"
@@ -216,7 +161,6 @@
 											<div class="btn btn-primary">${b.price}</div>
 										</h4>
 									</div>
-
 								</div>
 							</li>
 						</c:forEach>

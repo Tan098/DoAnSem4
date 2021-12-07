@@ -65,6 +65,14 @@ public class sem_cart_book  implements Serializable{
 		this.price = price;
 		this.id = id;
 	}
+	
+	public sem_cart_book(sem_book book, sem_order orderid, int quantity, float price, int id) {
+		super();
+		this.book = book;
+		this.orderid = orderid;
+		this.quantity = quantity;
+		this.price = price;
+	}
 
 	/**
 	 * @return the id
