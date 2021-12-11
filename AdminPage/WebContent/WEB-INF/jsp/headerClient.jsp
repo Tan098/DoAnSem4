@@ -31,12 +31,10 @@
 				<a class="brand" href="homeClient"><img
 					src="<c:url value="/resources/themes/images/logo.png"/>"
 					alt="Bootsshop" /></a>
-				<form:form class="form-inline navbar-search" role="search"
-					action="searchBook">
-					<input class="srchTxt" type="text" placeholder="Search ..."
-						name="name" />
-					<input type="submit" class="btn btn-primary" />
-				</form:form>
+				<form:form class="form-inline navbar-search" role="search" action="searchBook">
+						<input class="srchTxt" type="text" placeholder="Search ..." name = "name"/> 
+						<input type="submit" class="btn btn-primary" />
+					</form:form>
 				<ul id="topMenu" class="nav pull-right">
 					<li class=""><a href="product" class="nav-link">Sản phẩm</a></li>
 					<li class=""><a href="contact.html">Liên hệ</a></li>
